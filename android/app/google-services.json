@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "339132272891",
+    "project_id": "kybele-gen2",
+    "storage_bucket": "kybele-gen2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:339132272891:android:debda091166bc875da205e",
+        "android_client_info": {
+          "package_name": "com.example.kybele_gen2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "339132272891-v005h4scp10u97mm59vq3e5bgrhecbnj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-jCXOcGtAvxSDYMOVm1j4VYIwoaD0uGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "339132272891-v005h4scp10u97mm59vq3e5bgrhecbnj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.kybeleGen2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
