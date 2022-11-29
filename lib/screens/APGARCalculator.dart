@@ -60,37 +60,37 @@ class _APGARCalculatorState extends State<APGARCalculator> {
     return Material(
       child: SafeArea(
         child: Padding(
-            padding: EdgeInsets.all(40),
+            padding: const EdgeInsets.all(40),
             child: Column (
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Align(alignment: Alignment.centerLeft, child: GestureDetector(child: Icon(Icons.arrow_circle_left, size: 32, color: Color(0xFF7B212D)), onTap: Navigator.of(context).pop)),
-                    SizedBox(width: 20),
-                    Text("APGAR Calculator", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+                    Align(alignment: Alignment.centerLeft, child: GestureDetector(onTap: Navigator.of(context).pop, child: const Icon(Icons.arrow_circle_left, size: 32, color: Color(0xFF7B212D),),),),
+                    const SizedBox(width: 20),
+                    const Text("APGAR Calculator", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
                   ],
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Container(
                         child:
-                        normal ? Text("$_scoreAPGAR", style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.lightGreen))
-                            : Text("$_scoreAPGAR", style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.redAccent),),
+                        normal ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.lightGreen))
+                            : Text("$_scoreAPGAR", style: const TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.redAccent),),
                       ),
-                      SizedBox(width: 40),
+                      const SizedBox(width: 40),
                       Flexible(
-                        child: normal ? Text("Normal", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),) : Text("Immediate medical attention needed", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),),
+                        child: normal ? const Text("Normal", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),) : const Text("Immediate medical attention needed", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w600),),
                       ),
                     ],
                   ),
                 ),
-                Text("Appearance", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                SizedBox(height: 8,),
+                const Text("Appearance", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 8,),
                 ToggleButtons(
                   direction: Axis.horizontal,
                   onPressed: (int index) {
@@ -104,10 +104,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  selectedBorderColor: Color(0xFF7B212D),
+                  selectedBorderColor: const Color(0xFF7B212D),
                   selectedColor: Colors.white,
-                  fillColor: Color(0xFF7B212D),
-                  color: Color(0xFF7B212D),
+                  fillColor: const Color(0xFF7B212D),
+                  color: const Color(0xFF7B212D),
                   constraints: BoxConstraints(
                     minHeight: width/1.75,
                     minWidth: width,
@@ -117,9 +117,9 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                   isSelected: _selectedA1,
                   children: textA1,
                 ),
-                SizedBox(height: 20),
-                Text("Pulse", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
-                SizedBox(height: 8,),
+                const SizedBox(height: 20),
+                const Text("Pulse", style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 8,),
                 ToggleButtons(
                   direction: Axis.horizontal,
                   onPressed: (int index) {
@@ -133,10 +133,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  selectedBorderColor: Color(0xFF7B212D),
+                  selectedBorderColor: const Color(0xFF7B212D),
                   selectedColor: Colors.white,
-                  fillColor: Color(0xFF7B212D),
-                  color: Color(0xFF7B212D),
+                  fillColor: const Color(0xFF7B212D),
+                  color: const Color(0xFF7B212D),
                   constraints: BoxConstraints(
                     minHeight: width/1.75,
                     minWidth: width,
@@ -146,9 +146,9 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                   isSelected: _selectedP,
                   children: textP,
                 ),
-                SizedBox(height: 20),
-                Text("Grimace (when stimulated)", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                SizedBox(height: 8,),
+                const SizedBox(height: 20),
+                const Text("Grimace (when stimulated)", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 8,),
                 ToggleButtons(
                   direction: Axis.horizontal,
                   onPressed: (int index) {
@@ -162,10 +162,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  selectedBorderColor: Color(0xFF7B212D),
+                  selectedBorderColor: const Color(0xFF7B212D),
                   selectedColor: Colors.white,
-                  fillColor: Color(0xFF7B212D),
-                  color: Color(0xFF7B212D),
+                  fillColor: const Color(0xFF7B212D),
+                  color: const Color(0xFF7B212D),
                   constraints: BoxConstraints(
                     minHeight: width/1.75,
                     minWidth: width,
@@ -175,9 +175,9 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                   isSelected: _selectedG,
                   children: textG,
                 ),
-                SizedBox(height: 20),
-                Text("Activity", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                SizedBox(height: 8,),
+                const SizedBox(height: 20),
+                const Text("Activity", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 8,),
                 ToggleButtons(
                   direction: Axis.horizontal,
                   onPressed: (int index) {
@@ -191,10 +191,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  selectedBorderColor: Color(0xFF7B212D),
+                  selectedBorderColor: const Color(0xFF7B212D),
                   selectedColor: Colors.white,
-                  fillColor: Color(0xFF7B212D),
-                  color: Color(0xFF7B212D),
+                  fillColor: const Color(0xFF7B212D),
+                  color: const Color(0xFF7B212D),
                   constraints: BoxConstraints(
                     minHeight: width/1.75,
                     minWidth: width,
@@ -204,9 +204,9 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                   isSelected: _selectedA2,
                   children: textA2,
                 ),
-                SizedBox(height: 20),
-                Text("Respiration", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                SizedBox(height: 8,),
+                const SizedBox(height: 20),
+                const Text("Respiration", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 8,),
                 ToggleButtons(
                   direction: Axis.horizontal,
                   onPressed: (int index) {
@@ -220,10 +220,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                     });
                   },
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  selectedBorderColor: Color(0xFF7B212D),
+                  selectedBorderColor: const Color(0xFF7B212D),
                   selectedColor: Colors.white,
-                  fillColor: Color(0xFF7B212D),
-                  color: Color(0xFF7B212D),
+                  fillColor: const Color(0xFF7B212D),
+                  color: const Color(0xFF7B212D),
                   constraints: BoxConstraints(
                     minHeight: width/1.75,
                     minWidth: width,

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/screens/NRPVideos2.dart';
+import 'screens/videogen2.dart';
 import 'screens/APGARCalculator.dart';
 import 'screens/NRPVideos.dart';
+import 'screens/NRPVideos2.dart';
 import 'screens/TargetOxygenSaturation.dart';
 
 import 'screens/NRPCodedDiagram.dart';
@@ -47,13 +50,17 @@ List<Widget> homeIcons = <Widget>[
   Icon(Icons.calculate_rounded, color: Colors.grey[100], size: 70,),
   Icon(Icons.bubble_chart_rounded, color: Colors.grey[100], size: 70,),
   Icon(Icons.video_library_rounded, color: Colors.grey[100], size: 70,),
+  Icon(Icons.video_library_rounded, color: Colors.grey[100], size: 70,),
+  Icon(Icons.video_library_rounded, color: Colors.grey[100], size: 70,),
 ];
 
 List<Widget> homeLabels = <Widget>[
   const Text('NRP Flow Chart', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
   const Text('APGAR Calculator', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
   const Text('Target Oxygen Saturation', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF)), maxLines: 2),
-  const Text('Training Videos', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
+  const Text('Training Videos Original', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
+  const Text('Training Videos Test', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
+  const Text('Training Videos New', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: Color(0xFFFFFFFF))),
 ];
 
 List<dynamic> homeNav = <dynamic> [
@@ -61,6 +68,9 @@ List<dynamic> homeNav = <dynamic> [
   const APGARCalculator(),
   const TargetOxygenSaturation(),
   NRPVideos(),
+  NRPVideos2(),
+  NRPVideos3(),
+
 ];
 
 class MyHomePage extends StatefulWidget {
@@ -191,8 +201,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     end: Alignment.bottomLeft,
                                     colors: [
                                       // D4A0A7, CB858E
-                                      Color(0xFF7B212D),
-                                      Color(0xFF7B2E39),
+                                      // Color(0xFF7B212D),
+                                      // Color(0xFF7B2E39),
+                                      Color(0xFF00008B),
+                                      Color(0xFF00008B),
                                     ],
                                   ),
                                   boxShadow: [
@@ -217,7 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             );
                           },
-                          childCount: 4,
+                          childCount: 6,
                         ),
                       ),
             ],
