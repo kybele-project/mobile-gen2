@@ -1,138 +1,87 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'videogen2.dart';
 
 
-class ThumbnailButton extends StatelessWidget{
+String module1_title = "lol this is a module";
+int module1_num_videos = 2;
+int module1_num_cert_quiz = 1;
+int module1_length = 4;
+
+List<String> module1_video_ids = [
+  "w3ZHLbLAItw",
+  "vrwYUOg1bZQ",
+  "KkO-DttA9ew",
+  "_1Yj93-RKI8",
+];
+
+List<String> module1_video_titles = [
+  "House sizes are getting absurd",
+  "This Incredible Megastructure Just Failed [Nakagin Capsule Tower]",
+  "How Toronto Got Addicted to Cars",
+  "USC vs. Utah pregame",
+];
+
+List<String> module1_video_minutes = [
+  "12 min",
+  "13 min",
+  "17 min",
+  "10 min",
+];
+
+
+class TutorialPage extends StatefulWidget {
+
+  final String module_title;
+  final int module_num_videos;
+  final int module_num_cert_quiz;
+  final int module_length;
+
+  final List<String> module_video_ids;
+  final List<String> module_video_titles;
+  final List<String> module_video_minutes;
+
+  final int video_index;
+
+  TutorialPage(
+      this.module_title,
+      this.module_num_videos,
+      this.module_num_cert_quiz,
+      this.module_length,
+      this.module_video_ids,
+      this.module_video_titles,
+      this.module_video_minutes,
+      this.video_index,
+  );
 
   @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
+  _TutorialPageState createState() => _TutorialPageState();
 }
 
+class _TutorialPageState extends State<TutorialPage> {
 
-/// Creates list of video players
-class VideoList extends StatefulWidget {
-  @override
-  _VideoListState createState() => _VideoListState();
-}
-
-class _VideoListState extends State<VideoList> {
-  final List<YoutubePlayerController> _controllers = [
-    'gQDByCdjUXw',
-    'iLnmTe5Q2Qw',
-    '_WoCV4c6XOE',
-    'KmzdUe0RSJo',
-    '6jZDSSZZxjQ',
-    'p2lYr3vM_1w',
-    '7QUtEmBT_-w',
-    '34_PXCzGw1M',
-  ]
-      .map<YoutubePlayerController>(
-        (videoId) => YoutubePlayerController(
-      initialVideoId: videoId,
-      flags: const YoutubePlayerFlags(
-        autoPlay: false,
-      ),
-    ),
-  )
-      .toList();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Video List Demo'),
-      ),
-      body: ListView.separated(
-        itemBuilder: (context, index) {
-          return YoutubePlayer(
-            key: ObjectKey(_controllers[index]),
-            controller: _controllers[index],
-            actionsPadding: const EdgeInsets.only(left: 16.0),
-            bottomActions: [
-              CurrentPosition(),
-              const SizedBox(width: 10.0),
-              ProgressBar(isExpanded: true),
-              const SizedBox(width: 10.0),
-              RemainingDuration(),
-              FullScreenButton(),
-            ],
-          );
-        },
-        itemCount: _controllers.length,
-        separatorBuilder: (context, _) => const SizedBox(height: 10.0),
-      ),
-    );
-  }
-}
-
-/// Homepage
-class NRPVideos2 extends StatefulWidget {
-  @override
-  _NRPVideos2State createState() => _NRPVideos2State();
-}
-
-class _NRPVideos2State extends State<NRPVideos2> {
   late YoutubePlayerController _controller;
-  late TextEditingController _idController;
-  late TextEditingController _seekToController;
-
-  late PlayerState _playerState;
-  late YoutubeMetaData _videoMetaData;
-  double _volume = 100;
-  bool _muted = false;
-  bool _isPlayerReady = false;
-
-  final List<String> _ids = [
-    'nPt8bK2gbaU',
-    'gQDByCdjUXw',
-    'iLnmTe5Q2Qw',
-    '_WoCV4c6XOE',
-    'KmzdUe0RSJo',
-    '6jZDSSZZxjQ',
-    'p2lYr3vM_1w',
-    '7QUtEmBT_-w',
-    '34_PXCzGw1M',
-  ];
 
   @override
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: _ids.first,
+      initialVideoId: widget.module_video_ids[widget.video_index],
       flags: const YoutubePlayerFlags(
         mute: false,
-        autoPlay: true,
+        autoPlay: false,
         disableDragSeek: false,
         loop: false,
         isLive: false,
         forceHD: false,
         enableCaption: true,
       ),
-    )..addListener(listener);
-    _idController = TextEditingController();
-    _seekToController = TextEditingController();
-    _videoMetaData = const YoutubeMetaData();
-    _playerState = PlayerState.unknown;
-  }
-
-  void listener() {
-    if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
-      setState(() {
-        _playerState = _controller.value.playerState;
-        _videoMetaData = _controller.metadata;
-      });
-    }
+    );
   }
 
   @override
   void deactivate() {
-    // Pauses video while navigating to next page.
     _controller.pause();
     super.deactivate();
   }
@@ -140,13 +89,25 @@ class _NRPVideos2State extends State<NRPVideos2> {
   @override
   void dispose() {
     _controller.dispose();
-    _idController.dispose();
-    _seekToController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
+    bool existPrevious = true;
+    if (widget.video_index == 0) {
+      existPrevious = false;
+    }
+
+    bool existNext = true;
+    int lastIndex = widget.module_length - 1;
+    if (widget.video_index == lastIndex){
+      existNext = false;
+    }
+
+    String completion_percent = ((widget.video_index/widget.module_length)*100).toInt().toString() + "% complete";
+
     return YoutubePlayerBuilder(
       onExitFullScreen: () {
         // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
@@ -156,327 +117,190 @@ class _NRPVideos2State extends State<NRPVideos2> {
         controller: _controller,
         showVideoProgressIndicator: true,
         progressIndicatorColor: Colors.blueAccent,
-        topActions: <Widget>[
-          const SizedBox(width: 8.0),
-          Expanded(
-            child: Text(
-              _controller.metadata.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-            ),
-          ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            onPressed: () {
-              log('Settings Tapped!');
-            },
-          ),
-        ],
-        onReady: () {
-          _isPlayerReady = true;
-        },
-        onEnded: (data) {
-          _controller
-              .load(_ids[(_ids.indexOf(data.videoId) + 1) % _ids.length]);
-          _showSnackBar('Next Video Started!');
-        },
       ),
-      builder: (context, player) => Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              'assets/ypf.png',
-              fit: BoxFit.fitWidth,
-            ),
-          ),
-          title: const Text(
-            'Youtube Player Flutter',
-            style: TextStyle(color: Colors.white),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.video_library),
-              onPressed: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (context) => VideoList(),
+      builder: (context, player) => Material(
+        child: SingleChildScrollView(
+          child: SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Container(
+                    width: double.infinity,
+                    color: Colors.blue,
+                    padding: EdgeInsets.fromLTRB(30,15,30,15),
+                    child: Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                                Text(
+                                    widget.module_title,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold)),
+                                Text(
+                                    completion_percent,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                    ),
+                                ),
+                            ],
+                          ),
+                          IconButton(
+                            color: Colors.white,
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            icon: const Icon(Icons.close_rounded),
+                            onPressed: () => {
+                              deactivate(),
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => NRPVideos3(),
+                                ),
+                              ),
+                            }
+                          ),
+                        ],
+                      ),
+                    ),
                 ),
-              ),
-            ),
-          ],
-        ),
-        body: ListView(
-          children: [
-            player,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  _space,
-                  _text('Title', _videoMetaData.title),
-                  _space,
-                  _text('Channel', _videoMetaData.author),
-                  _space,
-                  _text('Video Id', _videoMetaData.videoId),
-                  _space,
-                  Row(
+                player,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(30,0,30,0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _text(
-                        'Playback Quality',
-                        _controller.value.playbackQuality ?? '',
+                      SizedBox(height: 15),
+                      Text(
+                          widget.module_video_titles[widget.video_index],
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(height: 7.5),
+                      Text(
+                          widget.module_video_minutes[widget.video_index],
+                          style: TextStyle(
+                              fontSize: 16,
+                          ),
                       ),
-                      const Spacer(),
-                      _text(
-                        'Playback Rate',
-                        '${_controller.value.playbackRate}x  ',
+                      SizedBox(height: 15),
+                      Row(
+                        children: [
+                          existPrevious
+                            ? Expanded(
+                                child: GestureDetector(
+                                  onTap: (){
+                                    _controller.pause();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TutorialPage(
+                                          widget.module_title,
+                                          widget.module_num_videos,
+                                          widget.module_num_cert_quiz,
+                                          widget.module_length,
+                                          widget.module_video_ids,
+                                          widget.module_video_titles,
+                                          widget.module_video_minutes,
+                                          widget.video_index - 1,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                                      color: Colors.grey[400],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text("PREVIOUS", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
+                                        SizedBox(height: 3),
+                                        Text(
+                                            widget.module_video_titles[widget.video_index - 1],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.left,
+                                        ),
+                                        SizedBox(height: 3),
+                                        Text(
+                                            widget.module_video_minutes[widget.video_index - 1],
+                                            style: TextStyle(color: Colors.black, fontSize: 14)),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ) : Expanded(child: Container()),
+                          SizedBox(width: 20),
+                          existNext ?
+                          Expanded(
+                            child: GestureDetector(
+                                onTap: (){
+                                  _controller.pause();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => TutorialPage(
+                                          widget.module_title,
+                                          widget.module_num_videos,
+                                          widget.module_num_cert_quiz,
+                                          widget.module_length,
+                                          widget.module_video_ids,
+                                          widget.module_video_titles,
+                                          widget.module_video_minutes,
+                                          widget.video_index + 1,
+                                        ),
+                                      ),
+                                  );
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                                    color: Colors.grey[400],
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text("NEXT", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
+                                      SizedBox(height: 3),
+                                      Text(
+                                          widget.module_video_titles[widget.video_index + 1],
+                                          style: TextStyle(color: Colors.black, fontSize: 18),
+                                          overflow: TextOverflow.ellipsis,
+                                          textAlign: TextAlign.right,
+                                      ),
+                                      SizedBox(height: 3),
+                                      Text(
+                                          widget.module_video_minutes[widget.video_index + 1],
+                                          style: TextStyle(color: Colors.black, fontSize: 14)
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ) : Expanded(child: Container()),
+
+                        ],
                       ),
                     ],
                   ),
-                  _space,
-                  TextField(
-                    enabled: _isPlayerReady,
-                    controller: _idController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Enter youtube \<video id\> or \<link\>',
-                      fillColor: Colors.blueAccent.withAlpha(20),
-                      filled: true,
-                      hintStyle: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.blueAccent,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => _idController.clear(),
-                      ),
-                    ),
-                  ),
-                  _space,
-                  Row(
-                    children: [
-                      _loadCueButton('LOAD'),
-                      const SizedBox(width: 10.0),
-                      _loadCueButton('CUE'),
-                    ],
-                  ),
-                  _space,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.skip_previous),
-                        onPressed: _isPlayerReady
-                            ? () => _controller.load(_ids[
-                        (_ids.indexOf(_controller.metadata.videoId) -
-                            1) %
-                            _ids.length])
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                        ),
-                        onPressed: _isPlayerReady
-                            ? () {
-                          _controller.value.isPlaying
-                              ? _controller.pause()
-                              : _controller.play();
-                          setState(() {});
-                        }
-                            : null,
-                      ),
-                      IconButton(
-                        icon: Icon(_muted ? Icons.volume_off : Icons.volume_up),
-                        onPressed: _isPlayerReady
-                            ? () {
-                          _muted
-                              ? _controller.unMute()
-                              : _controller.mute();
-                          setState(() {
-                            _muted = !_muted;
-                          });
-                        }
-                            : null,
-                      ),
-                      FullScreenButton(
-                        controller: _controller,
-                        color: Colors.blueAccent,
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.skip_next),
-                        onPressed: _isPlayerReady
-                            ? () => _controller.load(_ids[
-                        (_ids.indexOf(_controller.metadata.videoId) +
-                            1) %
-                            _ids.length])
-                            : null,
-                      ),
-                    ],
-                  ),
-                  _space,
-                  Row(
-                    children: <Widget>[
-                      const Text(
-                        "Volume",
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      Expanded(
-                        child: Slider(
-                          inactiveColor: Colors.transparent,
-                          value: _volume,
-                          min: 0.0,
-                          max: 100.0,
-                          divisions: 10,
-                          label: '${(_volume).round()}',
-                          onChanged: _isPlayerReady
-                              ? (value) {
-                            setState(() {
-                              _volume = value;
-                            });
-                            _controller.setVolume(_volume.round());
-                          }
-                              : null,
-                        ),
-                      ),
-                    ],
-                  ),
-                  _space,
-                  AnimatedContainer(
-                    duration: const Duration(milliseconds: 800),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: _getStateColor(_playerState),
-                    ),
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      _playerState.toString(),
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.white,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _text(String title, String value) {
-    return RichText(
-      text: TextSpan(
-        text: '$title : ',
-        style: const TextStyle(
-          color: Colors.blueAccent,
-          fontWeight: FontWeight.bold,
-        ),
-        children: [
-          TextSpan(
-            text: value,
-            style: const TextStyle(
-              color: Colors.blueAccent,
-              fontWeight: FontWeight.w300,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Color _getStateColor(PlayerState state) {
-    switch (state) {
-      case PlayerState.unknown:
-        return Colors.grey[700]!;
-      case PlayerState.unStarted:
-        return Colors.pink;
-      case PlayerState.ended:
-        return Colors.red;
-      case PlayerState.playing:
-        return Colors.blueAccent;
-      case PlayerState.paused:
-        return Colors.orange;
-      case PlayerState.buffering:
-        return Colors.yellow;
-      case PlayerState.cued:
-        return Colors.blue[900]!;
-      default:
-        return Colors.blue;
-    }
-  }
-
-  Widget get _space => const SizedBox(height: 10);
-
-  Widget _loadCueButton(String action) {
-    return Expanded(
-      child: MaterialButton(
-        color: Colors.blueAccent,
-        onPressed: _isPlayerReady
-            ? () {
-          if (_idController.text.isNotEmpty) {
-            var id = YoutubePlayer.convertUrlToId(
-              _idController.text,
-            ) ??
-                '';
-            if (action == 'LOAD') _controller.load(id);
-            if (action == 'CUE') _controller.cue(id);
-            FocusScope.of(context).requestFocus(FocusNode());
-          } else {
-            _showSnackBar('Source can\'t be empty!');
-          }
-        }
-            : null,
-        disabledColor: Colors.grey,
-        disabledTextColor: Colors.black,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 14.0),
-          child: Text(
-            action,
-            style: const TextStyle(
-              fontSize: 18.0,
-              color: Colors.white,
-              fontWeight: FontWeight.w300,
-            ),
-            textAlign: TextAlign.center,
           ),
         ),
       ),
-    );
-  }
-
-  void _showSnackBar(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontWeight: FontWeight.w300,
-            fontSize: 16.0,
-          ),
-        ),
-        backgroundColor: Colors.blueAccent,
-        behavior: SnackBarBehavior.floating,
-        elevation: 1.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(50.0),
-        ),
-      ),
-    );
+      );
   }
 }

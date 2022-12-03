@@ -3,7 +3,6 @@ import 'package:kybele_gen2/screens/NRPVideos2.dart';
 import 'screens/videogen2.dart';
 import 'screens/APGARCalculator.dart';
 import 'screens/NRPVideos.dart';
-import 'screens/NRPVideos2.dart';
 import 'screens/TargetOxygenSaturation.dart';
 
 import 'screens/NRPCodedDiagram.dart';
@@ -68,9 +67,17 @@ List<dynamic> homeNav = <dynamic> [
   const APGARCalculator(),
   const TargetOxygenSaturation(),
   NRPVideos(),
-  NRPVideos2(),
+  TutorialPage(
+    module1_title,
+    module1_num_videos,
+    module1_num_cert_quiz,
+    module1_length,
+    module1_video_ids,
+    module1_video_titles,
+    module1_video_minutes,
+    0,
+  ),
   NRPVideos3(),
-
 ];
 
 class MyHomePage extends StatefulWidget {
