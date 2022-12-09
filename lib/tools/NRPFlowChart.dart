@@ -22,7 +22,7 @@ class NRPFlowChart extends StatelessWidget {
               ),
               SizedBox(height: 8),
               Image(
-                height: 700,
+                height: 500,
                 image: AssetImage('assets/CroppedFlow.jpg'),
               ),
             ],

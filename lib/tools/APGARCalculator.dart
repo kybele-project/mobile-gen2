@@ -71,9 +71,9 @@ class _APGARCalculatorState extends State<APGARCalculator> {
 
 
   final List<Color>colors_list = [
-    const Color(0xffb71c1c),
-    const Color(0xfffdd835),
-    const Color(0xff2e7d32),
+    Color.fromARGB(255, 184, 89, 89),
+    Color.fromARGB(255, 227, 208, 122),
+    Color.fromARGB(255, 110, 205, 101),
   ];
 
 
@@ -221,41 +221,38 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                         SizedBox(height: 10),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
+                              
                               child:
-                              normal ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.green))
+                              normal ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Colors.green))
                                      : (
-                                          watch ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.amber))
-                                                : Text("$_scoreAPGAR", style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.redAccent))
+                                          watch ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Colors.amber))
+                                                : Text("$_scoreAPGAR", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Colors.redAccent))
                                        ),
                             ),
-                            const SizedBox(width: 40),
-                            Flexible(
-                              child: normal ? Text("Normal", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-                                            : (
-                                                watch ? Text("Further monitoring required", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-                                                    : Text("Immediate medical attention needed", style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))
-                                              ),
-                            ),
+                            
+                              Flexible(
+                                
+                                child: normal ? Text("Normal", style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold,), textAlign: TextAlign.center)
+                                              : (
+                                                  watch ? Text("Further monitoring required", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
+                                                      : Text("Immediate medical attention needed", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
+                                                ),
+                              ),
+                            
                           ],
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
                               "Appearance",
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _varA1String,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -289,22 +286,15 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             getTabWidget('No blue coloration', _selectedA1[2], 2),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
                               "Pulse",
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _varPString,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -338,22 +328,15 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             getTabWidget('>100 beats per minute', _selectedP[2], 2),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
                               "Grimace when stimulated",
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _varGString,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -387,22 +370,15 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             getTabWidget('Sneezing, coughing, or pulling away', _selectedG[2], 2),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
                               "Activity",
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _varA2String,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
@@ -436,22 +412,15 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             getTabWidget('Active movement', _selectedA2[2], 2),
                           ],
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 15),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Text(
-                              "Respiration",
+                              "Respirations",
                               style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text(
-                              _varRString,
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ],
