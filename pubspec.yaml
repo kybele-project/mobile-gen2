@@ -42,6 +42,12 @@ dependencies:
   wave: ^0.2.2
   url_launcher: ^6.1.6
   youtube_player_flutter: ^8.1.0
+  shared_preferences: ^2.0.15
+  path_provider: ^2.0.10
+  sqflite: ^2.0.2+1
+  badges: ^2.0.2
+  provider: ^6.0.3
+
 
 dev_dependencies:
   flutter_test:
