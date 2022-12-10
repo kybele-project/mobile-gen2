@@ -7,29 +7,81 @@ class NRPCodedDiagram extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(40),
-            child: Column (
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+          child: Column(
+          children: [
+            Container(
+                width: double.infinity,
+                color: Colors.white, //Color(0xfff6f6f6),
+                padding: EdgeInsets.fromLTRB(30,20,30,20),
+                child: Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Align(alignment: Alignment.centerLeft, child: GestureDetector(child: Icon(Icons.arrow_circle_left, size: 32, color: Color(0xFF7B212D)), onTap: Navigator.of(context).pop)),
-                      SizedBox(width: 20),
-                      Text("NRP Flow Chart", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 32)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              "NRP Flowchart",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold)),
+                          // Text(completion_percent, style: TextStyle(color: Colors.black, fontSize: 14,),),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          IconButton(
+                            color: Colors.black,
+                            padding: EdgeInsets.zero,
+                            constraints: BoxConstraints(),
+                            icon: const Icon(Icons.info_outline_rounded),
+                            onPressed: () => {
+                              Navigator.of(context).pop(),
+                            }
+                          ),
+                          const SizedBox(width: 30),
+                          IconButton(
+                              color: Colors.black,
+                              padding: EdgeInsets.zero,
+                              constraints: BoxConstraints(),
+                              icon: const Icon(Icons.close_rounded),
+                              onPressed: () => {
+                                Navigator.of(context).pop(),
+                              }
+                          ),
+                        ],
+                      ),
+
                     ],
                   ),
-                  InteractiveViewer(
-                    minScale: 0.1,
-                    maxScale: 1.6,
-                    child: Image(
-                                height: 700,
-                                image: AssetImage('assets/CroppedFlow.jpg'),
-                              ),
-                  ),
-                ],
+                ),
               ),
-          ),
+            SingleChildScrollView( child:
+            Container (
+                child:
+                    InteractiveViewer(
+                    minScale: 0.1,
+                    maxScale: 2.2,
+                    child:
+                    Container(
+                      width: MediaQuery.of(context).size.width*.95,
+                      height: MediaQuery.of(context).size.height*.8,
+                      decoration: 
+                      BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/NRPFlowChart.jpg'),
+                        ),
+                      ),
+                    )
+                    )
+                
+              ),
+            )
+          ] 
+          )
         ),
     );
   }

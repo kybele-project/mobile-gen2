@@ -75,6 +75,7 @@ flutter:
   assets:
     - assets/kybele_logo_no_bg.png
     - assets/CroppedFlow.jpg
+    - assets/NRPFlowChart.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
