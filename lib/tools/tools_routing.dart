@@ -1,12 +1,15 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'package:kybele_gen2/tools/APGARCalculator.dart';
 import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
 import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 
-import 'package:kybele_gen2/nav/header.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
+
+
+import 'package:animations/animations.dart';
 
 
 class ToolsRoutes {
@@ -22,20 +25,23 @@ class Tools extends StatelessWidget {
   static final GlobalKey<NavigatorState> toolsKey = GlobalKey();
 
   List<Widget> toolsIcons = <Widget>[
-    Icon(Icons.account_tree_rounded, color: Colors.red, size: 70,),
-    Icon(Icons.calculate_rounded, color: Colors.green, size: 70,),
-    Icon(Icons.bubble_chart_rounded, color: Colors.blue, size: 70,),
+    Icon(Icons.account_tree_rounded, color: Colors.redAccent, size: 80,),
+    Icon(Icons.calculate_rounded, color: Colors.lightGreen, size: 80,),
+    Icon(Icons.bubble_chart_rounded, color: Colors.lightBlueAccent, size: 80,),
+    Icon(Icons.air_rounded, color: Colors.deepPurpleAccent[100], size: 80,),
   ];
 
-  List<Widget> toolsLabels = <Widget>[
-    const Text('NRP Flow Chart', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-    const Text('APGAR Calculator', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-    const Text('Target Oxygen Saturation', textAlign: TextAlign.center, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold), maxLines: 2),
+  List<String> toolsLabels = [
+    'NRP Flow Chart',
+    'APGAR Calculator',
+    'Target Oxygen Saturation',
+    'MR. SOPA\n Corrective Steps',
   ];
 
   List<dynamic> toolsNav = <dynamic> [
     const NRPCodedDiagram(),
     const APGARCalculator(),
+    const TargetOxygenSaturation(),
     const TargetOxygenSaturation(),
   ];
 
@@ -46,7 +52,57 @@ class Tools extends StatelessWidget {
         builder: (context) => widget,
       ),
     );
+  }
 
+  Widget generate_card(BuildContext context, int index) {
+
+    double side = (MediaQuery.of(context).size.width - 60)/2;
+    double begin = MediaQuery.of(context).size.width/1.5 - side/2;
+
+    double topPos = begin + ((index - index % 2)/2) * (side + 20);
+    double leftPos = 20 + (index % 2) * (side + 20);
+
+    return Positioned(
+      top: topPos,
+      left: leftPos,
+      // child: GestureDetector(
+      // onTap: () {_local_push(context, toolsNav[index]);},
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          boxShadow: [
+            BoxShadow(color: Color(0xccbbbbbb), offset: Offset(0,1), blurRadius: 2),
+          ],
+        ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: OpenContainer(
+              transitionType: ContainerTransitionType.fadeThrough,
+              transitionDuration: const Duration(milliseconds: 500),
+              openBuilder: (context, action) => toolsNav[index],
+              closedBuilder: (context, action) => Container(
+                height: side,
+                width: side,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    toolsIcons[index],
+                    SizedBox(height: 10),
+                    Text(
+                      toolsLabels[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 18, color: Colors.black87),
+                      maxLines: 2,),
+                  ],
+                ),
+              ),
+
+            ),
+            //),
+          ),
+        ),
+      );
   }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
@@ -58,79 +114,76 @@ class Tools extends StatelessWidget {
     };
   }
 
+  Widget tealContainer(BuildContext context) {
+    return                         Container(
+      height: MediaQuery.of(context).size.width/1.5,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.centerRight,
+          // teal
+          colors: [
+            Color(0xff005660),
+            Color(0xff007475),
+            Color(0xff008081),
+            Color(0xff229389),
+            Color(0xff34A798),
+            Color(0xff57C3AD),
+          ],
+          // sunset colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
+        ),
+      ),
+    );
+  }
+
   Widget _home(BuildContext context) {
+
+    double side = (MediaQuery.of(context).size.width - 60)/2;
+    double begin = MediaQuery.of(context).size.width/1.5 - side/2;
+    double len_grey = 2 * (side + 20) + side/2 + 40;
+
     return Material(
       child: SafeArea(
         child: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
-              return Column(
-                children: [
-                  Header(),
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: [
-                        SliverList(
-                          delegate: SliverChildListDelegate(
-                            [
-                              Container(
-                                width: double.infinity,
-                                padding: EdgeInsets.fromLTRB(40, 40, 40, 40),
-                                color: Color(0xfff6f6f6),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Tools", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36)),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SliverPadding(
-                          padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
-                          sliver: SliverGrid(
-                            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 200.0,
-                              mainAxisSpacing: 20.0,
-                              crossAxisSpacing: 20.0,
-                              childAspectRatio: 1.0,
-                            ),
-                            delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    _local_push(context, toolsNav[index]);
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(20),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                      color: Colors.white,
-                                      border: Border.all(
-                                        color: Color(0xffeaeaea),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        toolsIcons[index],
-                                        toolsLabels[index],
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              childCount: 3,
-                            ),
-                          ),
-                        ),
+              return SingleChildScrollView(
+                child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        tealContainer(context),
+                        Container(color: Colors.grey[200], height: len_grey),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      width: double.infinity,
+                      height: begin,
+                      padding: EdgeInsets.all(40),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            'assets/kybele_white.png',
+                            height: 36,
+                          ),
+                          Text(
+                            "Tools",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 40,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    generate_card(context, 0),
+                    generate_card(context, 1),
+                    generate_card(context, 2),
+                    generate_card(context, 3),
+                  ],
+                ),
               );
             }
         ),
@@ -154,3 +207,5 @@ class Tools extends StatelessWidget {
     );
   }
 }
+
+

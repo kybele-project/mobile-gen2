@@ -48,6 +48,7 @@ dependencies:
   badges: ^2.0.2
   provider: ^6.0.3
   fl_chart: ^0.55.2
+  animations: ^2.0.7
 
 
 
@@ -76,6 +77,7 @@ flutter:
     - assets/kybele_logo_no_bg.png
     - assets/CroppedFlow.jpg
     - assets/NRPFlowChart.jpg
+    - assets/kybele_white.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

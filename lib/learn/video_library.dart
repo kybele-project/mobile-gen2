@@ -234,33 +234,42 @@ class _ModuleGroupState extends State<ModuleGroup> {
                   widget.module,
                 ) : Container()
             ),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
-              decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Practice quiz",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Icon(Icons.arrow_forward_rounded, color: Colors.white),
-                ],
-              ),
-            ),
+            // PracticeQuizButton(),
           ],
         ),
+      ),
+    );
+  }
+}
+
+
+class PracticeQuizButton extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      decoration: BoxDecoration(
+        color: Colors.blue,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Practice quiz",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          Icon(Icons.arrow_forward_rounded, color: Colors.white),
+        ],
       ),
     );
   }
@@ -279,10 +288,10 @@ class CertificationPane extends StatelessWidget {
                 Icon(Icons.emoji_events_rounded, color: Colors.amber[800], size: 24),
                 SizedBox(width: 10),
                 Text("Certified Midwife",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                    ),
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.black,
+                  ),
                 ),
               ],
             ),
@@ -330,7 +339,7 @@ class Learn extends StatelessWidget {
                               children: [
                                 Text("Learn", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36)),
                                 SizedBox(height: 10),
-                                CertificationPane(),
+                                // CertificationPane(),
                               ],
                             ),
                           ),

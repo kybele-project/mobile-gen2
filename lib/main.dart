@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.openSansTextTheme(
-        //textTheme: GoogleFonts.ibmPlexSansTextTheme(
+        textTheme: GoogleFonts.ptSansTextTheme(
           Theme.of(context).textTheme
         ),
       ),
@@ -103,12 +102,12 @@ class _FrameworkState extends State<Framework> {
   @override
   Widget build(BuildContext context) {
           return Scaffold(
-                backgroundColor: Color(0xfff6f6f6),
+                backgroundColor: Colors.grey[200],
                 bottomNavigationBar: BottomNavigationBar(
                   unselectedItemColor: Colors.white70,
                   selectedItemColor: Colors.white,
                   elevation: 20,
-                  backgroundColor: Colors.blueGrey[700],
+                  backgroundColor: Color(0xff005660),
                   items:[
                     BottomNavigationBarItem(icon: Icon(Icons.list_alt_rounded), label: "Record"),
                     BottomNavigationBarItem(icon: Icon(Icons.handyman_rounded), label: "Tools"),
@@ -116,9 +115,8 @@ class _FrameworkState extends State<Framework> {
                   ],
                   currentIndex: _selectedIndex,
                   onTap: _onItemTapped,
-                  selectedFontSize: 12,
-                  unselectedFontSize: 12,
-
+                  selectedFontSize: 14,
+                  unselectedFontSize: 14,
                 ),
                 body: IndexedStack(
                   index: _selectedIndex,

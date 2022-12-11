@@ -1,13 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import 'package:kybele_gen2/main.dart';
-
-
-
-
-
-
+import 'package:kybele_gen2/nav/header.dart';
 
 
 const List<Widget> textP = <Widget>[
@@ -161,57 +153,10 @@ class _APGARCalculatorState extends State<APGARCalculator> {
       child: SafeArea(
         child: Column(
           children: [
-              Container(
-                width: double.infinity,
-                color: Colors.white, //Color(0xfff6f6f6),
-                padding: EdgeInsets.fromLTRB(30,20,30,20),
-                child: Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              "APGAR Calculator",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold)),
-                          // Text(completion_percent, style: TextStyle(color: Colors.black, fontSize: 14,),),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          IconButton(
-                            color: Colors.black,
-                            padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
-                            icon: const Icon(Icons.info_outline_rounded),
-                            onPressed: () => {
-                              deactivate(),
-                              Navigator.of(context).pop(),
-                            }
-                          ),
-                          const SizedBox(width: 30),
-                          IconButton(
-                              color: Colors.black,
-                              padding: EdgeInsets.zero,
-                              constraints: BoxConstraints(),
-                              icon: const Icon(Icons.close_rounded),
-                              onPressed: () => {
-                                deactivate(),
-                                Navigator.of(context).pop(),
-                              }
-                          ),
-                        ],
-                      ),
-
-                    ],
-                  ),
-                ),
-              ),
+            PopUpHeader(
+              'APGAR Calculator',
+              Icon(Icons.calculate_rounded, color: Colors.lightGreen, size: 30),
+            ),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(

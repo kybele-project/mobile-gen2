@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:kybele_gen2/nav/header.dart';
 
 
 class TargetOxygenSaturation extends StatelessWidget {
@@ -11,61 +12,12 @@ class TargetOxygenSaturation extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.fromLTRB(30,20,30,20),
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xffeaeaea),
-                        width: 1,
-                      )
-                  )
-              ),
-              child: Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                            "Target Oxygen Saturation",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold)),
-                        // Text(completion_percent, style: TextStyle(color: Colors.black, fontSize: 14,),),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        IconButton(
-                            color: Colors.black,
-                            padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
-                            icon: const Icon(Icons.info_outline_rounded),
-                            onPressed: () => {
-                              Navigator.of(context).pop(),
-                            }
-                        ),
-                        const SizedBox(width: 30),
-                        IconButton(
-                            color: Colors.black,
-                            padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
-                            icon: const Icon(Icons.close_rounded),
-                            onPressed: () => {
-                              Navigator.of(context).pop(),
-                            }
-                        ),
-                      ],
-                    ),
-
-                  ],
-                ),
+            PopUpHeader(
+              'Target Oxygen Saturation',
+              Icon(
+                Icons.bubble_chart_rounded,
+                color: Colors.lightBlueAccent,
+                size: 30,
               ),
             ),
             Padding(
