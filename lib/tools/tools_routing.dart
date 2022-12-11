@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/tools/APGARCalculator.dart';
 import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
 import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
+import 'package:kybele_gen2/tools/MRSOPA.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -42,7 +43,7 @@ class Tools extends StatelessWidget {
     const NRPCodedDiagram(),
     const APGARCalculator(),
     const TargetOxygenSaturation(),
-    const TargetOxygenSaturation(),
+    MRSOPA(),
   ];
 
 
@@ -54,7 +55,7 @@ class Tools extends StatelessWidget {
     );
   }
 
-  Widget generate_card(BuildContext context, int index) {
+  Widget generate_card(BuildContext context, int index, Color color) {
 
     double side = (MediaQuery.of(context).size.width - 60)/2;
     double begin = MediaQuery.of(context).size.width/1.5 - side/2;
@@ -71,7 +72,7 @@ class Tools extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           boxShadow: [
-            BoxShadow(color: Color(0xccbbbbbb), offset: Offset(0,1), blurRadius: 2),
+            BoxShadow(color: Color(0xccbbbbbb), offset: Offset(0,3), blurRadius: 5),
           ],
         ),
           child: ClipRRect(
@@ -162,26 +163,26 @@ class Tools extends StatelessWidget {
                       padding: EdgeInsets.all(40),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/kybele_white.png',
-                            height: 36,
+                            height: 40,
                           ),
                           Text(
                             "Tools",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 40,
+                              fontSize: 32,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    generate_card(context, 0),
-                    generate_card(context, 1),
-                    generate_card(context, 2),
-                    generate_card(context, 3),
+                    generate_card(context, 0, Colors.redAccent),
+                    generate_card(context, 1, Colors.redAccent),
+                    generate_card(context, 2, Colors.redAccent),
+                    generate_card(context, 3, Colors.redAccent),
                   ],
                 ),
               );

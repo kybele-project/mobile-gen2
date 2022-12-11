@@ -169,7 +169,7 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Container(
-                              
+
                               child:
                               normal ? Text("$_scoreAPGAR", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Colors.green))
                                      : (
@@ -177,16 +177,16 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                                                 : Text("$_scoreAPGAR", style: const TextStyle(fontSize: 60, fontWeight: FontWeight.w900, color: Colors.redAccent))
                                        ),
                             ),
-                            
+
                               Flexible(
-                                
-                                child: normal ? Text("Normal", style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold,), textAlign: TextAlign.center)
+
+                                child: normal ? Text("Normal", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold,), textAlign: TextAlign.center)
                                               : (
-                                                  watch ? Text("Further monitoring required", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
-                                                      : Text("Immediate medical attention needed", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
+                                                  watch ? Text("Further monitoring\nrequired", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
+                                                      : Text("Immediate medical\nattention needed", style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold), textAlign: TextAlign.right)
                                                 ),
                               ),
-                            
+
                           ],
                         ),
                         SizedBox(height: 10),
@@ -196,8 +196,8 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             const Text(
                               "Appearance",
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -238,8 +238,8 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             const Text(
                               "Pulse",
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -280,8 +280,8 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             const Text(
                               "Grimace when stimulated",
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -322,8 +322,8 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             const Text(
                               "Activity",
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -364,8 +364,8 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                             const Text(
                               "Respirations",
                               style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
                           ],
@@ -420,13 +420,6 @@ class _APGARCalculatorState extends State<APGARCalculator> {
                                     color: Colors.white,
                                     fontSize: 16
                                   )
-                                ),
-                                Text(
-                                    "No recent APGAR calculations",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12
-                                    )
                                 ),
                               ],
                             ),
