@@ -183,14 +183,11 @@ class _TutorialPageState extends State<TutorialPage> {
                             icon: const Icon(Icons.close_rounded),
                             onPressed: () => {
                               deactivate(),
-                              Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) => Framework(customIndex: 1),
-                                ),
-                                (route) => false,
-                              ),
-                            }
+                              Navigator.of(context).pushAndRemoveUntil(
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) => Learn()),
+                                  (route) => false),
+                            },
                           ),
                         ],
                       ),

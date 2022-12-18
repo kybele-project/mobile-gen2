@@ -3,6 +3,7 @@ import 'package:kybele_gen2/learn/video_page.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+
 class YouTubeVideoButton3 extends StatelessWidget {
 
   final Module module;
@@ -314,14 +315,18 @@ class CertificationPane extends StatelessWidget {
   }
 }
 
+class LearnRoutes {
+  static const String learn_root = "/learn/";
+  static const String module_root = "/learn/module/";
+}
+
 class Learn extends StatelessWidget {
-  const Learn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: SafeArea(
-          child: StreamBuilder(
+      child: SafeArea(
+        child: StreamBuilder(
             stream: FirebaseAuth.instance.authStateChanges(),
             builder: (context, snapshot) {
               return Column(
@@ -329,7 +334,7 @@ class Learn extends StatelessWidget {
                   Header(),
                   Expanded(
                     child: SingleChildScrollView(
-                      child: Column (
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
@@ -337,14 +342,15 @@ class Learn extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Learn", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36)),
+                                Text("Learn", style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 36)),
                                 SizedBox(height: 10),
                                 // CertificationPane(),
                               ],
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.fromLTRB(20,0,20,40),
+                            padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -401,6 +407,41 @@ class Learn extends StatelessWidget {
     );
   }
 }
+
+class LearnRouter extends StatelessWidget {
+
+
+  static final GlobalKey<NavigatorState> learnKey = GlobalKey();
+
+  Map<String, WidgetBuilder> _learnRouteBuilders(BuildContext context) {
+    return {
+      LearnRoutes.learn_root: (context) => Learn(),
+    };
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var routeBuilders = _learnRouteBuilders(context);
+
+    return Navigator(
+      key: learnKey,
+      initialRoute: LearnRoutes.learn_root,
+
+      onGenerateRoute: (routeSettings) {
+        return MaterialPageRoute(
+            builder: (context) => routeBuilders[routeSettings.name]!(context)
+        );
+      },
+    );
+  }
+}
+
+
+
+
+
+
+
 
 
 

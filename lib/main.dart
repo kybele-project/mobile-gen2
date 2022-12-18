@@ -29,6 +29,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        //textTheme: GoogleFonts.workSansTextTheme(
         textTheme: GoogleFonts.ptSansTextTheme(
           Theme.of(context).textTheme
         ),
@@ -67,8 +68,7 @@ class _FrameworkState extends State<Framework> {
       ),
     ),
     Tools(),
-    Learn(),
-
+    LearnRouter(),
   ];
 
 
@@ -78,13 +78,11 @@ class _FrameworkState extends State<Framework> {
     _selectedIndex = widget.customIndex;
   }
 
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
-
 
   GlobalKey<NavigatorState> _navigatorKey() {
     switch(_selectedIndex) {
@@ -97,8 +95,6 @@ class _FrameworkState extends State<Framework> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
           return Scaffold(
@@ -107,7 +103,7 @@ class _FrameworkState extends State<Framework> {
                   unselectedItemColor: Colors.white70,
                   selectedItemColor: Colors.white,
                   elevation: 20,
-                  backgroundColor: Color(0xff005660),
+                  backgroundColor: Color(0xff005660), // Colors.black54,
                   items:[
                     BottomNavigationBarItem(icon: Icon(Icons.list_alt_rounded), label: "Record"),
                     BottomNavigationBarItem(icon: Icon(Icons.handyman_rounded), label: "Tools"),

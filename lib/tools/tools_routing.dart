@@ -2,10 +2,11 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:kybele_gen2/tools/APGARCalculator.dart';
+// import 'package:kybele_gen2/tools/APGARCalculator.dart';
 import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
 import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 import 'package:kybele_gen2/tools/MRSOPA.dart';
+import 'package:kybele_gen2/tools/APGAR2.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -41,19 +42,14 @@ class Tools extends StatelessWidget {
 
   List<dynamic> toolsNav = <dynamic> [
     const NRPCodedDiagram(),
-    const APGARCalculator(),
+    const APGARCalculator2(),
     const TargetOxygenSaturation(),
     MRSOPA(),
+    // APGARCalculator2(),
   ];
 
 
-  void _local_push(BuildContext context, Widget widget) {
-    Navigator.of(toolsKey.currentContext!).push(
-      MaterialPageRoute(
-        builder: (context) => widget,
-      ),
-    );
-  }
+
 
   Widget generate_card(BuildContext context, int index, Color color) {
 
@@ -79,7 +75,7 @@ class Tools extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: OpenContainer(
               transitionType: ContainerTransitionType.fadeThrough,
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 200),
               openBuilder: (context, action) => toolsNav[index],
               closedBuilder: (context, action) => Container(
                 height: side,
@@ -110,7 +106,7 @@ class Tools extends StatelessWidget {
     return {
       ToolsRoutes.root: (context) => _home(context),
       ToolsRoutes.nrpFlow: (context) => NRPCodedDiagram(),
-      ToolsRoutes.apgarCalc: (context) => APGARCalculator(),
+      ToolsRoutes.apgarCalc: (context) => APGARCalculator2(),
       ToolsRoutes.targetO2: (context) => TargetOxygenSaturation(),
     };
   }
@@ -123,15 +119,9 @@ class Tools extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.centerRight,
           // teal
-          colors: [
-            Color(0xff005660),
-            Color(0xff007475),
-            Color(0xff008081),
-            Color(0xff229389),
-            Color(0xff34A798),
-            Color(0xff57C3AD),
-          ],
-          // sunset colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
+          colors: [Color(0xff005660), Color(0xff007475), Color(0xff008081), Color(0xff229389), Color(0xff34A798), Color(0xff57C3AD),],
+          // sunset
+          // colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
         ),
       ),
     );
