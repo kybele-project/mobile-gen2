@@ -33,7 +33,7 @@ class MRSOPA extends StatelessWidget {
                       ),
                       defaultVerticalAlignment: TableCellVerticalAlignment.middle,
                       columnWidths: const <int, TableColumnWidth>{
-                        0: FixedColumnWidth(150),
+                        0: FixedColumnWidth(70),
                         1: FlexColumnWidth(),
                       },
                       children: [
@@ -47,7 +47,7 @@ class MRSOPA extends StatelessWidget {
                                   padding: EdgeInsets.all(10),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "ELAPSED TIME",
+                                    "",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
@@ -63,7 +63,7 @@ class MRSOPA extends StatelessWidget {
                                   padding: EdgeInsets.all(10),
                                   alignment: Alignment.center,
                                   child: Text(
-                                    "TARGET OXYGEN SATURATION",
+                                    "ACTIONS",
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontWeight: FontWeight.bold,
@@ -81,7 +81,7 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("1 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                  child: Text("M", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                                 ),
                               ),
                               TableCell(
@@ -89,7 +89,16 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("60% - 65%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Adjust ', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                          TextSpan(text: 'Mask ', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: 'to assure good seal on the face', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                                 ),
                               ),
                             ]
@@ -101,7 +110,7 @@ class MRSOPA extends StatelessWidget {
                                 color: Colors.grey[50],
                                 padding: EdgeInsets.all(8),
                                 alignment: Alignment.center,
-                                child: Text("2 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                child: Text("R.", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                               ),
                             ),
                             TableCell(
@@ -109,7 +118,15 @@ class MRSOPA extends StatelessWidget {
                                 color: Colors.grey[50],
                                 padding: EdgeInsets.all(8),
                                 alignment: Alignment.center,
-                                child: Text("65% - 70%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Reposition ', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: 'airway by adjusting head to "sniffing" position', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                               ),
                             ),
                           ],
@@ -121,7 +138,7 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("3 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                  child: Text("S", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                                 ),
                               ),
                               TableCell(
@@ -129,7 +146,15 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("70% - 75%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Suction ', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: 'mouth and nose of secretions, if present', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                                 ),
                               ),
                             ]
@@ -141,7 +166,7 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.grey[50],
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("4 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                  child: Text("O", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                                 ),
                               ),
                               TableCell(
@@ -149,7 +174,15 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.grey[50],
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("75% - 80%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Open ', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: 'mouth slightly and move jaw forward', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                                 ),
                               ),
                             ]
@@ -161,15 +194,25 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("5 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                  child: Text("P", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                                 ),
                               ),
                               TableCell(
                                 child: Container(
+                                  
                                   color: Colors.white,
                                   padding: EdgeInsets.all(8),
-                                  alignment: Alignment.center,
-                                  child: Text("80% - 85%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                  alignment: Alignment.centerLeft,
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Increase', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                          TextSpan(text: ' Pressure', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: ' to achieve chest rise', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                                 ),
                               ),
                             ]
@@ -181,7 +224,7 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.grey[50],
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("10 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                  child: Text("A", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800)),
                                 ),
                               ),
                               TableCell(
@@ -189,7 +232,16 @@ class MRSOPA extends StatelessWidget {
                                   color: Colors.grey[50],
                                   padding: EdgeInsets.all(8),
                                   alignment: Alignment.center,
-                                  child: Text("85% - 95%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                  child: Text.rich(
+                                    TextSpan(
+                                        style: TextStyle(color: Colors.black), //apply style to all
+                                        children: [
+                                          TextSpan(text: 'Consider', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                          TextSpan(text: ' Airway', style: TextStyle(fontSize:14, fontWeight: FontWeight.w800)),
+                                          TextSpan(text: ' alternative (endotracheal intubation or laryngeal mask airway)', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300))
+                                        ]
+                                      )
+                                  ),
                                 ),
                               ),
                             ]

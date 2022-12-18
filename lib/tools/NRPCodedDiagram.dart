@@ -19,7 +19,7 @@ class NRPCodedDiagram extends StatelessWidget {
               child: Container (
                 child: InteractiveViewer(
                     minScale: 0.1,
-                    maxScale: 2.2,
+                    maxScale: 2.8,
                     child:
                     Container(
                       width: MediaQuery.of(context).size.width*.95,
@@ -28,7 +28,7 @@ class NRPCodedDiagram extends StatelessWidget {
                       BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.fill,
-                          image: AssetImage('assets/CroppedFlow.jpg'),
+                          image: AssetImage('assets/NRPFlowChart.jpg'),
                         ),
                       ),
                     )
