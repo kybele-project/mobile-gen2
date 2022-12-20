@@ -398,6 +398,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                                       );
                                   print('TIME LOL' + apgarEvent.toMap()['time']);
                                   saveData(apgarEvent);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text('APGAR Score Added!'),
+                                          action: SnackBarAction(label: "Undo", onPressed: () {},)
+                                      )
+                                  );
                                   print(recordProvider.events);
                                 },
                                 child: Container(
