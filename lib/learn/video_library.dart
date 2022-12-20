@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/learn/video_page.dart';
+import 'package:kybele_gen2/learn/modules.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -7,9 +8,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 class YouTubeVideoButton3 extends StatelessWidget {
 
   final Module module;
-  final int video_index;
+  final int videoIndex;
 
-  YouTubeVideoButton3(this.module, this.video_index);
+  const YouTubeVideoButton3(this.module, this.videoIndex, {super.key});
 
 
   String fetchThumbnailUrl(String videoId) {
@@ -19,7 +20,7 @@ class YouTubeVideoButton3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    String url = fetchThumbnailUrl(module.video_ids[video_index]);
+    String url = fetchThumbnailUrl(module.videoIds[videoIndex]);
 
     return InkWell(
         onTap: (){
@@ -28,7 +29,7 @@ class YouTubeVideoButton3 extends StatelessWidget {
             MaterialPageRoute(
                 builder: (context) => TutorialPage(
                   module,
-                  video_index,
+                  videoIndex,
                 )
             ),
           );
@@ -76,14 +77,14 @@ class YouTubeVideoButton3 extends StatelessWidget {
                       children: [
 
                         Text(
-                            module.video_titles[video_index],
+                            module.videoTitles[videoIndex],
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14,
                             ),
                         ),
                         Text(
-                            module.video_minutes[video_index],
+                            module.videoMinutes[videoIndex],
                             style: TextStyle(
                               fontSize: 10,
                             ),
@@ -103,13 +104,13 @@ class ModuleVideoList extends StatelessWidget {
 
   final Module module;
 
-  const ModuleVideoList(this.module);
+  const ModuleVideoList(this.module, {super.key});
 
   @override
   Widget build(BuildContext context) {
     return Column(
         children: [
-          for (int i = 0; i < module.length; ++i)
+          for (int i = 0; i < module.numVideos; ++i)
             Column(
               children: [
                 Padding(
@@ -127,24 +128,19 @@ class ModuleVideoList extends StatelessWidget {
 
 class ModuleHeader extends StatelessWidget {
 
-  final String title;
-  final int num_videos;
-  final int num_quiz;
-  final int length;
+  final Module module;
   final Icon icon;
 
   const ModuleHeader(
-      this.title,
-      this.num_videos,
-      this.num_quiz,
-      this.length,
-      this.icon
+      this.module,
+      this.icon,
+      {super.key}
   );
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(30,30,30,30),
+      padding: const EdgeInsets.fromLTRB(30,30,30,30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -152,19 +148,28 @@ class ModuleHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                  title,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 20
-                  ),
-                  maxLines: 3,
+                module.title,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 20
+                ),
+                softWrap: true,
+                maxLines: 3,
               ),
               Text(
-                  "$num_videos videos - $length min",
-                  style: TextStyle(color: Colors.black, fontSize: 14)
+                module.subtitle,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                    fontSize: 16,
+                ),
               ),
-            ],
+              Text(
+                  "${module.numVideos} videos - ${module.length} min",
+                  style: const TextStyle(color: Colors.black, fontSize: 14)
+              ),
+      ],
           ),
           icon,
         ],
@@ -177,12 +182,10 @@ class ModuleHeader extends StatelessWidget {
 
 class ModuleGroup extends StatefulWidget {
   bool isExpanded = true;
-  Module module;
-  int color_hex;
+  final Module module;
 
   ModuleGroup(
       this.module,
-      this.color_hex,
   );
 
   @override
@@ -195,9 +198,10 @@ class _ModuleGroupState extends State<ModuleGroup> {
   @override
   Widget build(BuildContext context) {
     return Container(
+        width: double.maxFinite,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
-            color: Color(widget.color_hex),
+            color: Colors.white,
             // border: Border.all(color: Color(0xffeaeaea), width: 1,),
             boxShadow: [
               BoxShadow(color: Color(0xccbbbbbb), offset: Offset(0,3), blurRadius: 5),
@@ -217,18 +221,12 @@ class _ModuleGroupState extends State<ModuleGroup> {
                   children: [
                     widget.isExpanded ?
                     ModuleHeader(
-                      widget.module.title,
-                      widget.module.num_videos,
-                      widget.module.num_cert_quiz,
-                      69,
-                      Icon(Icons.expand_less_rounded, color: Colors.black),
+                      widget.module,
+                      const Icon(Icons.expand_less_rounded, color: Colors.black),
                     ) :
                     ModuleHeader(
-                      widget.module.title,
-                      widget.module.num_videos,
-                      widget.module.num_cert_quiz,
-                      69,
-                      Icon(Icons.expand_more_rounded, color: Colors.black),
+                      widget.module,
+                      const Icon(Icons.expand_more_rounded, color: Colors.black),
                     )
                   ],
                 ),
@@ -262,9 +260,9 @@ class PracticeQuizButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-      decoration: BoxDecoration(
-        color: Colors.blue,
+      padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+      decoration: const BoxDecoration(
+        color: Colors.teal,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -272,16 +270,16 @@ class PracticeQuizButton extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Practice quiz",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),
               ),
             ],
           ),
-          Icon(Icons.arrow_forward_rounded, color: Colors.white),
+          const Icon(Icons.arrow_forward_rounded, color: Colors.white),
         ],
       ),
     );
@@ -391,44 +389,9 @@ class Learn2 extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ModuleGroup(
-                          Module(
-                            module1_title,
-                            module1_num_videos,
-                            module1_num_cert_quiz,
-                            module1_length,
-                            module1_video_ids,
-                            module1_video_titles,
-                            module1_video_minutes,
-                          ),
-                          0xffffffff,
-                        ),
+                        ModuleGroup(garhModule),
                         SizedBox(height: 30),
-                        ModuleGroup(
-                          Module(
-                            module1_title,
-                            module1_num_videos,
-                            module1_num_cert_quiz,
-                            module1_length,
-                            module1_video_ids,
-                            module1_video_titles,
-                            module1_video_minutes,
-                          ),
-                          0xffffffff,
-                        ),
-                        SizedBox(height: 30),
-                        ModuleGroup(
-                          Module(
-                            module1_title,
-                            module1_num_videos,
-                            module1_num_cert_quiz,
-                            module1_length,
-                            module1_video_ids,
-                            module1_video_titles,
-                            module1_video_minutes,
-                          ),
-                          0xffffffff,
-                        ),
+                        ModuleGroup(ghmpModule),
                       ],
                     ),
                   ),

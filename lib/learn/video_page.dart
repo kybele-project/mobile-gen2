@@ -2,54 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'video_library.dart';
+import 'package:kybele_gen2/learn/modules.dart';
 
 
-String module1_title = "Understanding the Neonata";
-int module1_num_videos = 4;
-int module1_num_cert_quiz = 1;
-int module1_length = 4;
-
-List<String> module1_video_ids = [
-  "w3ZHLbLAItw",
-  "vrwYUOg1bZQ",
-  "KkO-DttA9ew",
-  "_1Yj93-RKI8",
-];
-
-List<String> module1_video_titles = [
-  "House sizes are getting absurd",
-  "This Incredible Megastructure Just Failed [Nakagin Capsule Tower]",
-  "How Toronto Got Addicted to Cars",
-  "USC vs. Utah pregame",
-];
-
-List<String> module1_video_minutes = [
-  "12 min",
-  "13 min",
-  "17 min",
-  "10 min",
-];
-
-class Module {
-  final String title;
-  final int num_videos;
-  final int num_cert_quiz;
-  final int length;
-
-  final List<String> video_ids;
-  final List<String> video_titles;
-  final List<String> video_minutes;
-
-  Module(
-      this.title,
-      this.num_videos,
-      this.num_cert_quiz,
-      this.length,
-      this.video_ids,
-      this.video_titles,
-      this.video_minutes,
-  );
-}
 
 class VideoList extends StatelessWidget {
 
@@ -62,7 +17,7 @@ class VideoList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (int i = 0; i < module.length; ++i)
+        for (int i = 0; i < module.numVideos; ++i)
           Column(
             children: [
               YouTubeVideoButton3(module, i),
@@ -78,11 +33,11 @@ class VideoList extends StatelessWidget {
 class TutorialPage extends StatefulWidget {
 
   final Module module;
-  final int video_index;
+  final int videoIndex;
 
   TutorialPage(
       this.module,
-      this.video_index,
+      this.videoIndex,
   );
 
   @override
@@ -97,7 +52,7 @@ class _TutorialPageState extends State<TutorialPage> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: widget.module.video_ids[widget.video_index],
+      initialVideoId: widget.module.videoIds[widget.videoIndex],
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: false,
@@ -126,13 +81,13 @@ class _TutorialPageState extends State<TutorialPage> {
   Widget build(BuildContext context) {
 
     bool existPrevious = true;
-    if (widget.video_index == 0) {
+    if (widget.videoIndex == 0) {
       existPrevious = false;
     }
 
     bool existNext = true;
     int lastIndex = widget.module.length - 1;
-    if (widget.video_index == lastIndex){
+    if (widget.videoIndex == lastIndex){
       existNext = false;
     }
 
@@ -200,12 +155,12 @@ class _TutorialPageState extends State<TutorialPage> {
                     children: [
                       SizedBox(height: 15),
                       Text(
-                          widget.module.video_titles[widget.video_index],
+                          widget.module.videoTitles[widget.videoIndex],
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
                       Text(
-                          widget.module.video_minutes[widget.video_index],
+                          widget.module.videoMinutes[widget.videoIndex],
                           style: TextStyle(
                               fontSize: 16,
                           ),
@@ -223,7 +178,7 @@ class _TutorialPageState extends State<TutorialPage> {
                                       MaterialPageRoute(
                                         builder: (context) => TutorialPage(
                                           widget.module,
-                                          widget.video_index - 1,
+                                          widget.videoIndex - 1,
                                         ),
                                       ),
                                     );
@@ -240,7 +195,7 @@ class _TutorialPageState extends State<TutorialPage> {
                                         Text("Previous", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
                                         SizedBox(height: 3),
                                         Text(
-                                            widget.module.video_titles[widget.video_index - 1],
+                                            widget.module.videoTitles[widget.videoIndex - 1],
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 14,
@@ -250,7 +205,7 @@ class _TutorialPageState extends State<TutorialPage> {
                                         ),
                                         SizedBox(height: 3),
                                         Text(
-                                            widget.module.video_minutes[widget.video_index - 1],
+                                            widget.module.videoMinutes[widget.videoIndex - 1],
                                             style: TextStyle(color: Colors.black, fontSize: 10)),
                                       ],
                                     ),
@@ -268,7 +223,7 @@ class _TutorialPageState extends State<TutorialPage> {
                                       MaterialPageRoute(
                                         builder: (context) => TutorialPage(
                                           widget.module,
-                                          widget.video_index + 1,
+                                          widget.videoIndex + 1,
                                         ),
                                       ),
                                   );
@@ -285,14 +240,14 @@ class _TutorialPageState extends State<TutorialPage> {
                                       Text("Next", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
                                       SizedBox(height: 3),
                                       Text(
-                                          widget.module.video_titles[widget.video_index + 1],
+                                          widget.module.videoTitles[widget.videoIndex + 1],
                                           style: TextStyle(color: Colors.black, fontSize: 14),
                                           overflow: TextOverflow.ellipsis,
                                           textAlign: TextAlign.right,
                                       ),
                                       SizedBox(height: 3),
                                       Text(
-                                          widget.module.video_minutes[widget.video_index + 1],
+                                          widget.module.videoMinutes[widget.videoIndex + 1],
                                           style: TextStyle(color: Colors.black, fontSize: 10)
                                       ),
                                     ],
@@ -330,7 +285,7 @@ class _TutorialPageState extends State<TutorialPage> {
                       SizedBox(height: 5),
                       VideoList(
                         widget.module,
-                        widget.video_index,
+                        widget.videoIndex,
                       ),
                     ],
                   ),
@@ -339,7 +294,7 @@ class _TutorialPageState extends State<TutorialPage> {
                   width: double.infinity,
                   padding: EdgeInsets.fromLTRB(30, 30, 30, 30),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.teal,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
