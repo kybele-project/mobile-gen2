@@ -1,41 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/record/record_screen.dart';
 
 import 'package:kybele_gen2/tools/tools_routing.dart';
 import 'package:kybele_gen2/learn/video_library.dart';
-import 'package:kybele_gen2/nav/navigator_keys.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kybele_gen2/firebase_options.dart';
 import 'dart:async';
 
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
+
+import 'package:kybele_gen2/provider/dbprovider.dart';
 
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
   runApp(const MyApp());
 }
 
-// Test Git
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        //textTheme: GoogleFonts.workSansTextTheme(
-        textTheme: GoogleFonts.ptSansTextTheme(
-          Theme.of(context).textTheme
-        ),
-      ),
-      home: const Framework(),
+    return ChangeNotifierProvider(
+      create: (_) => DBProvider(),
+      child: Builder(builder: (context) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            textTheme: GoogleFonts.ptSansTextTheme(
+                Theme.of(context).textTheme
+            ),
+          ),
+          home: const Framework(),
+        );
+      }),
     );
+
   }
 }
 
@@ -58,15 +63,7 @@ class _FrameworkState extends State<Framework> {
 
 
   List<Widget> _widgetOptions = <Widget>[
-    Container(
-      height: double.infinity,
-      width: double.infinity,
-      child: Center(
-        child: Text(
-          'History!!!',
-        ),
-      ),
-    ),
+    RecordRouter(),
     Tools(),
     LearnRouter(),
   ];
@@ -82,17 +79,6 @@ class _FrameworkState extends State<Framework> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  GlobalKey<NavigatorState> _navigatorKey() {
-    switch(_selectedIndex) {
-      case 0:
-        return NavigatorKeys.record;
-      case 1:
-        return NavigatorKeys.tools;
-      default:
-        return NavigatorKeys.learn;
-    }
   }
 
   @override

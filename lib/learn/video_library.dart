@@ -113,7 +113,7 @@ class ModuleVideoList extends StatelessWidget {
             Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                   child :YouTubeVideoButton3(module, i),
                 ),
                 // if (i != (module1_length - 1)) Divider(height: 2, thickness: 2),
@@ -133,12 +133,18 @@ class ModuleHeader extends StatelessWidget {
   final int length;
   final Icon icon;
 
-  const ModuleHeader(this.title, this.num_videos, this.num_quiz, this.length, this.icon);
+  const ModuleHeader(
+      this.title,
+      this.num_videos,
+      this.num_quiz,
+      this.length,
+      this.icon
+  );
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(20,15,20,15),
+      padding: EdgeInsets.fromLTRB(30,30,30,30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -152,6 +158,7 @@ class ModuleHeader extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 20
                   ),
+                  maxLines: 3,
               ),
               Text(
                   "$num_videos videos - $length min",
@@ -187,58 +194,63 @@ class _ModuleGroupState extends State<ModuleGroup> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20.0),
-      child: Container(
+    return Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0),
             color: Color(widget.color_hex),
-            border: Border.all(
-                color: Color(0xffeaeaea),
-                width: 1,
-            ),
+            // border: Border.all(color: Color(0xffeaeaea), width: 1,),
+            boxShadow: [
+              BoxShadow(color: Color(0xccbbbbbb), offset: Offset(0,3), blurRadius: 5),
+            ],
         ),
-
-        child: Column(
-          children: [
-            GestureDetector(
-              onTap:() {
-                setState(() {
-                  widget.isExpanded = !widget.isExpanded;
-                });
-              },
-              child: Column(
-                children: [
-                  widget.isExpanded ?
-                  ModuleHeader(
-                    widget.module.title,
-                    widget.module.num_videos,
-                    widget.module.num_cert_quiz,
-                    69,
-                    Icon(Icons.expand_less_rounded, color: Colors.black),
-                  ) :
-                  ModuleHeader(
-                    widget.module.title,
-                    widget.module.num_videos,
-                    widget.module.num_cert_quiz,
-                    69,
-                    Icon(Icons.expand_more_rounded, color: Colors.black),
-                  )
-                ],
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Column(
+            children: [
+              GestureDetector(
+                onTap:() {
+                  setState(() {
+                    widget.isExpanded = !widget.isExpanded;
+                  });
+                },
+                child: Column(
+                  children: [
+                    widget.isExpanded ?
+                    ModuleHeader(
+                      widget.module.title,
+                      widget.module.num_videos,
+                      widget.module.num_cert_quiz,
+                      69,
+                      Icon(Icons.expand_less_rounded, color: Colors.black),
+                    ) :
+                    ModuleHeader(
+                      widget.module.title,
+                      widget.module.num_videos,
+                      widget.module.num_cert_quiz,
+                      69,
+                      Icon(Icons.expand_more_rounded, color: Colors.black),
+                    )
+                  ],
+                ),
               ),
-            ),
-            AnimatedContainer(
-                duration: Duration(milliseconds: 200),
-                curve: Curves.easeInOut,
-                child: widget.isExpanded ?
-                ModuleVideoList(
-                  widget.module,
-                ) : Container()
-            ),
-            // PracticeQuizButton(),
-          ],
+              AnimatedContainer(
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.easeInOut,
+                  child: widget.isExpanded ?
+                      Container(
+                        padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
+                        color: Colors.grey[50],
+                        child: ModuleVideoList(
+                          widget.module,
+                        )
+                      )
+
+                       : Container()
+              ),
+              PracticeQuizButton(),
+            ],
+          ),
         ),
-      ),
     );
   }
 }
@@ -250,7 +262,7 @@ class PracticeQuizButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+      padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
       decoration: BoxDecoration(
         color: Colors.blue,
       ),
@@ -315,97 +327,125 @@ class CertificationPane extends StatelessWidget {
   }
 }
 
-class LearnRoutes {
-  static const String learn_root = "/learn/";
-  static const String module_root = "/learn/module/";
-}
+class Learn2 extends StatelessWidget {
 
-class Learn extends StatelessWidget {
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: SafeArea(
-        child: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              return Column(
-                children: [
-                  Header(),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.fromLTRB(40, 40, 40, 40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Learn", style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 36)),
-                                SizedBox(height: 10),
-                                // CertificationPane(),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                ModuleGroup(
-                                  Module(
-                                    module1_title,
-                                    module1_num_videos,
-                                    module1_num_cert_quiz,
-                                    module1_length,
-                                    module1_video_ids,
-                                    module1_video_titles,
-                                    module1_video_minutes,
-                                  ),
-                                  0xffffffff,
-                                ),
-                                SizedBox(height: 30),
-                                ModuleGroup(
-                                  Module(
-                                    module1_title,
-                                    module1_num_videos,
-                                    module1_num_cert_quiz,
-                                    module1_length,
-                                    module1_video_ids,
-                                    module1_video_titles,
-                                    module1_video_minutes,
-                                  ),
-                                  0xffffffff,
-                                ),
-                                SizedBox(height: 30),
-                                ModuleGroup(
-                                  Module(
-                                    module1_title,
-                                    module1_num_videos,
-                                    module1_num_cert_quiz,
-                                    module1_length,
-                                    module1_video_ids,
-                                    module1_video_titles,
-                                    module1_video_minutes,
-                                  ),
-                                  0xffffffff,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              );
-            }
+  Widget tealContainer(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.width/1.5,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.centerRight,
+          // teal
+          colors: [Color(0xff005660), Color(0xff007475), Color(0xff008081), Color(0xff229389), Color(0xff34A798), Color(0xff57C3AD),],
+          // sunset
+          // colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
         ),
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+
+    double side = (MediaQuery.of(context).size.width - 60)/2;
+    double begin = MediaQuery.of(context).size.width/1.5 - side/2;
+
+    return Material(
+      child: SafeArea(
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  tealContainer(context),
+                  Container(color: Colors.grey[200], height: 1500),
+                ],
+              ),
+              Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: begin,
+                    padding: EdgeInsets.all(40),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/kybele_white.png',
+                          height: 40,
+                        ),
+                        Text(
+                          "Learn",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 32,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ModuleGroup(
+                          Module(
+                            module1_title,
+                            module1_num_videos,
+                            module1_num_cert_quiz,
+                            module1_length,
+                            module1_video_ids,
+                            module1_video_titles,
+                            module1_video_minutes,
+                          ),
+                          0xffffffff,
+                        ),
+                        SizedBox(height: 30),
+                        ModuleGroup(
+                          Module(
+                            module1_title,
+                            module1_num_videos,
+                            module1_num_cert_quiz,
+                            module1_length,
+                            module1_video_ids,
+                            module1_video_titles,
+                            module1_video_minutes,
+                          ),
+                          0xffffffff,
+                        ),
+                        SizedBox(height: 30),
+                        ModuleGroup(
+                          Module(
+                            module1_title,
+                            module1_num_videos,
+                            module1_num_cert_quiz,
+                            module1_length,
+                            module1_video_ids,
+                            module1_video_titles,
+                            module1_video_minutes,
+                          ),
+                          0xffffffff,
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LearnRoutes {
+  static const String learn_root = "/learn/";
+  static const String module_root = "/learn/module/";
 }
 
 class LearnRouter extends StatelessWidget {
@@ -415,7 +455,7 @@ class LearnRouter extends StatelessWidget {
 
   Map<String, WidgetBuilder> _learnRouteBuilders(BuildContext context) {
     return {
-      LearnRoutes.learn_root: (context) => Learn(),
+      LearnRoutes.learn_root: (context) => Learn2(),
     };
   }
 

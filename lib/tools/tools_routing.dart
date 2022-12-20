@@ -48,9 +48,6 @@ class Tools extends StatelessWidget {
     // APGARCalculator2(),
   ];
 
-
-
-
   Widget generate_card(BuildContext context, int index, Color color) {
 
     double side = (MediaQuery.of(context).size.width - 60)/2;
@@ -112,7 +109,7 @@ class Tools extends StatelessWidget {
   }
 
   Widget tealContainer(BuildContext context) {
-    return                         Container(
+    return Container(
       height: MediaQuery.of(context).size.width/1.5,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -135,10 +132,7 @@ class Tools extends StatelessWidget {
 
     return Material(
       child: SafeArea(
-        child: StreamBuilder(
-            stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, snapshot) {
-              return SingleChildScrollView(
+        child: SingleChildScrollView(
                 child: Stack(
                   children: [
                     Column(
@@ -175,10 +169,8 @@ class Tools extends StatelessWidget {
                     generate_card(context, 3, Colors.redAccent),
                   ],
                 ),
-              );
-            }
+              ),
         ),
-      ),
     );
   }
 
