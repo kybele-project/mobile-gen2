@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kybele_gen2/main.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'video_library.dart';
 
@@ -185,7 +184,7 @@ class _TutorialPageState extends State<TutorialPage> {
                               deactivate(),
                               Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute<void>(
-                                  builder: (BuildContext context) => Learn()),
+                                  builder: (BuildContext context) => Learn2()),
                                   (route) => false),
                             },
                           ),

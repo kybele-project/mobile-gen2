@@ -1,34 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:kybele_gen2/designs/customtoggleswitch.dart';
+import 'package:kybele_gen2/provider/dbprovider.dart';
+import 'package:kybele_gen2/database/db.dart';
+import 'package:kybele_gen2/models/event.dart';
 
-
-const List<Widget> textP = <Widget>[
-  Text('No pulse', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('<100 beats/minute', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('>100 beats/minute', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-];
-
-
-const List<Widget> textG = <Widget>[
-  Text('No response', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Grimace or feeble cry', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Sneezing, coughing, or pulling away', textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500), maxLines: 3),
-];
-
-
-const List<Widget> textA2 = <Widget>[
-  Text('No movement', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Some movement', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Active movement', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-];
-
-
-const List<Widget> textR = <Widget>[
-  Text('No breathing', textAlign: TextAlign.center,style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Weak, slow, or irregular breathing', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-  Text('Strong cry', textAlign: TextAlign.center, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500), maxLines: 3),
-];
+import 'package:provider/provider.dart';
 
 
 class APGARCalculator2 extends StatefulWidget {
@@ -39,7 +16,7 @@ class APGARCalculator2 extends StatefulWidget {
 }
 
 class _APGARCalculatorState2 extends State<APGARCalculator2> {
-
+  DB db = DB();
 
   int _scoreAPGAR = 10;
   int _varA1 = 2;
@@ -48,35 +25,26 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   int _varA2 = 2;
   int _varR = 2;
 
-
-  final List<bool> _selectedA1 = <bool>[false, false, true];
-  final List<bool> _selectedP = <bool>[false, false, true];
-  final List<bool> _selectedG = <bool>[false, false, true];
-  final List<bool> _selectedA2 = <bool>[false, false, true];
-  final List<bool> _selectedR = <bool>[false, false, true];
-
-
-  final List<String> promptsA1 = [
-    'Blue all over',
-    'Blue only at extremities',
-    'No blue coloration',
-  ];
-
-
   final List<Color>colors_list = [
     Color.fromARGB(255, 184, 89, 89),
     Color.fromARGB(255, 227, 208, 122),
     Color.fromARGB(255, 110, 205, 101),
   ];
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
+    final recordProvider = Provider.of<DBProvider>(context);
+
     final normal = (_scoreAPGAR >= 7);
-    final watch = (_scoreAPGAR  >= 5);
+    final watch = (_scoreAPGAR >= 5);
+
+    void saveData(Event event) {
+      recordProvider.addEvent(event);
+      recordProvider.incrementBadgeCount();
+      print(recordProvider.events);
+      print(recordProvider.badgeCount);
+      print("SUCCESSSSS!!!");
+    }
 
     return Material(
       child: SafeArea(
@@ -417,28 +385,44 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 ),
                               ),
                               const SizedBox(height: 15),
-                              Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color: Color(0xffeaeaea),
-                                    )
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.all(10),
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                          "Add to record",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              fontSize: 16
-                                          )
-                                      ),
-                                    ],
+                              GestureDetector(
+                                onTap: () {
+                                  Event apgarEvent = Event(
+                                                        type: 'APGAR2',
+                                                        description: 'Overall score: $_scoreAPGAR',
+                                                        info1: 'A: $_varA1',
+                                                        info2: 'P: $_varP',
+                                                        info3: 'G: $_varG',
+                                                        info4: 'A: $_varA2',
+                                                        info5: 'R: $_varR',
+                                                      );
+                                  print('TIME LOL' + apgarEvent.toMap()['time']);
+                                  saveData(apgarEvent);
+                                  print(recordProvider.events);
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(10),
+                                      border: Border.all(
+                                        color: Color(0xffeaeaea),
+                                      )
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                            "Add to record",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white,
+                                                fontSize: 16
+                                            )
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
