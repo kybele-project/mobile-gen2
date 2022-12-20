@@ -508,29 +508,23 @@ class _OxygenRecordState extends State<OxygenRecord> {
           },
         ),
         SizedBox(height: 10),
-        Container(
+        SizedBox(
           width: double.infinity,
-          decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                color: Color(0xffeaeaea),
-              )
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(10),
-            child: Column(
-              children: [
-                Text(
-                    "Add to record",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 16
-                    )
-                ),
-              ],
+          child: TextButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+              shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
             ),
+            onPressed:() {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Oxygen Saturation Record Added!'),
+                  action: SnackBarAction(label: "Undo", onPressed: () {},)
+                )
+              );
+            },
+            child: Text("Add to record",
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white, fontSize: 16))
           ),
         ),
       ],
