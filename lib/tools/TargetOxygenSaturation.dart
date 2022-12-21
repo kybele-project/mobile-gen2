@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:kybele_gen2/provider/dbprovider.dart';
-import 'package:kybele_gen2/database/db.dart';
 import 'package:kybele_gen2/models/event.dart';
-
 import 'package:provider/provider.dart';
 
 
