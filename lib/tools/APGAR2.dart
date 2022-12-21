@@ -41,9 +41,6 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
     void saveData(Event event) {
       recordProvider.addEvent(event);
       recordProvider.incrementBadgeCount();
-      print(recordProvider.events);
-      print(recordProvider.badgeCount);
-      print("SUCCESSSSS!!!");
     }
 
     return Material(
@@ -51,7 +48,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
         child: Column(
           children: [
             PopUpHeader(
-              'APGAR Calculator 2',
+              'APGAR Calculator',
               Icon(Icons.calculate_rounded, color: Colors.lightGreen, size: 30),
             ),
             Expanded(
@@ -388,19 +385,18 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                               GestureDetector(
                                 onTap: () {
                                   Event apgarEvent = Event(
-                                                        type: 'APGAR2',
+                                                        type: 'APGAR',
                                                         description: 'Overall score: $_scoreAPGAR',
-                                                        info1: 'A: $_varA1',
-                                                        info2: 'P: $_varP',
-                                                        info3: 'G: $_varG',
-                                                        info4: 'A: $_varA2',
-                                                        info5: 'R: $_varR',
+                                                        info1: 'Appearance: $_varA1',
+                                                        info2: 'Pulse: $_varP',
+                                                        info3: 'Grimace when stimulated: $_varG',
+                                                        info4: 'Activity: $_varA2',
+                                                        info5: 'Respirations: $_varR',
                                                       );
-                                  print('TIME LOL' + apgarEvent.toMap()['time']);
                                   saveData(apgarEvent);
                                   ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                          content: Text('APGAR Score Added!'),
+                                          content: Text('APGAR score added'),
                                           action: SnackBarAction(label: "Undo", onPressed: () {},)
                                       )
                                   );

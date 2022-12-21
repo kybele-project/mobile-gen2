@@ -21,7 +21,7 @@ class Event {
     required this.info5,
   }) {
     DateTime timeNoFormat = DateTime.now();
-    time = DateFormat('MM-dd - kk:mm:ss').format(timeNoFormat);
+    time = DateFormat('kk:mm:ss, MM-dd-yy').format(timeNoFormat);
   }
 
   Event.fromMap(Map<String, dynamic> data) :

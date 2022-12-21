@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kybele_gen2/nav/header.dart';
+import 'package:kybele_gen2/provider/dbprovider.dart';
+import 'package:kybele_gen2/database/db.dart';
+import 'package:kybele_gen2/models/event.dart';
+
+import 'package:provider/provider.dart';
 
 
 class TargetOxygenSaturation extends StatelessWidget {
   const TargetOxygenSaturation({Key? key}) : super(key: key);
 
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return Material(
       child: SafeArea(
         child: Column(
@@ -492,6 +502,14 @@ class _OxygenRecordState extends State<OxygenRecord> {
 
   @override
   Widget build(BuildContext context) {
+
+    final recordProvider = Provider.of<DBProvider>(context);
+
+    void saveData(Event event) {
+      recordProvider.addEvent(event);
+      recordProvider.incrementBadgeCount();
+    }
+
     return Column(
       children: [
         Text("Current Oxygen Saturation: " + _currentSliderValue.round().toString() + "%", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
@@ -516,6 +534,16 @@ class _OxygenRecordState extends State<OxygenRecord> {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
             ),
             onPressed:() {
+              Event apgarEvent = Event(
+                type: 'Target Oxygen Saturation',
+                description: 'Current saturation at $_currentSliderValue%',
+                info1: '',
+                info2: '',
+                info3: '',
+                info4: '',
+                info5: '',
+              );
+              saveData(apgarEvent);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Oxygen Saturation Record Added!'),
