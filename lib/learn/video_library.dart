@@ -236,8 +236,7 @@ class _ModuleGroupState extends State<ModuleGroup> {
                   curve: Curves.easeInOut,
                   child: widget.isExpanded ?
                       Container(
-                        padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
-                        color: Colors.grey[50],
+                        padding: EdgeInsets.fromLTRB(30, 0, 30, 15),
                         child: ModuleVideoList(
                           widget.module,
                         )
