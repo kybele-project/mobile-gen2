@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 
 import 'package:kybele_gen2/provider/dbprovider.dart';
 
+import 'package:animations/animations.dart';
+
 
 Future<void> main() async {
   runApp(const MyApp());
@@ -61,7 +63,6 @@ class _FrameworkState extends State<Framework> {
 
   int _selectedIndex = 1;
 
-
   List<Widget> _widgetOptions = <Widget>[
     RecordRouter(),
     Tools(),
@@ -100,10 +101,14 @@ class _FrameworkState extends State<Framework> {
                   selectedFontSize: 14,
                   unselectedFontSize: 14,
                 ),
-                body: IndexedStack(
-                  index: _selectedIndex,
-                  children: _widgetOptions,
+                body: PageTransitionSwitcher(
+                  duration: Duration(milliseconds: 500),
+                  transitionBuilder: (child,primaryAnimation,secondaryAnimation) =>
+                  FadeThroughTransition(animation: primaryAnimation, secondaryAnimation: secondaryAnimation, child: child),
+                child: _widgetOptions[_selectedIndex]  
+                  
                 ),
+                
           );
   }
 }
