@@ -34,7 +34,7 @@ Module ghmpModule = Module(
 );
 
 Module garhModule = Module(
-  "Neonatal Resuscitation Program",
+  "Neonatal Resuscitation",
   "GARH",
   2,
   16,
