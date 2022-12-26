@@ -71,8 +71,6 @@ class NRPCodedDiagram extends StatelessWidget {
                       minScale: 0.1,
                       maxScale: 2.8,
                       child: Container(
-                        width: MediaQuery.of(context).size.width * .95,
-                        height: MediaQuery.of(context).size.height * .8,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             fit: BoxFit.fill,

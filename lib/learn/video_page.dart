@@ -4,14 +4,10 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'video_library.dart';
 import 'package:kybele_gen2/learn/modules.dart';
 
-
-
 class VideoList extends StatelessWidget {
-
   final Module module;
-  final int ignore_index;
 
-  const VideoList(this.module, this.ignore_index);
+  const VideoList(this.module);
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +25,13 @@ class VideoList extends StatelessWidget {
   }
 }
 
-
 class TutorialPage extends StatefulWidget {
-
   final Module module;
   final int videoIndex;
 
   TutorialPage(
-      this.module,
-      this.videoIndex,
+    this.module,
+    this.videoIndex,
   );
 
   @override
@@ -45,7 +39,6 @@ class TutorialPage extends StatefulWidget {
 }
 
 class _TutorialPageState extends State<TutorialPage> {
-
   late YoutubePlayerController _controller;
 
   @override
@@ -79,15 +72,14 @@ class _TutorialPageState extends State<TutorialPage> {
 
   @override
   Widget build(BuildContext context) {
-
     bool existPrevious = true;
     if (widget.videoIndex == 0) {
       existPrevious = false;
     }
 
     bool existNext = true;
-    int lastIndex = widget.module.length - 1;
-    if (widget.videoIndex == lastIndex){
+    int lastIndex = widget.module.numVideos - 1;
+    if (widget.videoIndex == lastIndex) {
       existNext = false;
     }
 
@@ -110,151 +102,172 @@ class _TutorialPageState extends State<TutorialPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Container(
-                    width: double.infinity,
-                    color: Colors.white, //Color(0xfff6f6f6),
-                    padding: EdgeInsets.fromLTRB(30,20,30,20),
-                    child: Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                                Text(
-                                    widget.module.title,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold)),
-                                // Text(completion_percent, style: TextStyle(color: Colors.black, fontSize: 14,),),
-                            ],
-                          ),
-                          IconButton(
-                            color: Colors.black,
-                            padding: EdgeInsets.zero,
-                            constraints: BoxConstraints(),
-                            icon: const Icon(Icons.close_rounded),
-                            onPressed: () => {
-                              deactivate(),
-                              Navigator.of(context).pushAndRemoveUntil(
+                  width: double.infinity,
+                  color: Colors.white, //Color(0xfff6f6f6),
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  child: Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(widget.module.title,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold)),
+                            // Text(completion_percent, style: TextStyle(color: Colors.black, fontSize: 14,),),
+                          ],
+                        ),
+                        IconButton(
+                          color: Colors.black,
+                          padding: EdgeInsets.zero,
+                          constraints: BoxConstraints(),
+                          icon: const Icon(Icons.close_rounded),
+                          onPressed: () => {
+                            deactivate(),
+                            Navigator.of(context).pushAndRemoveUntil(
                                 MaterialPageRoute<void>(
-                                  builder: (BuildContext context) => Learn2()),
-                                  (route) => false),
-                            },
-                          ),
-                        ],
-                      ),
+                                    builder: (BuildContext context) =>
+                                        Learn2()),
+                                (route) => false),
+                          },
+                        ),
+                      ],
                     ),
+                  ),
                 ),
                 player,
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(30,0,30,0),
+                  padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 15),
-                      Text(
-                          widget.module.videoTitles[widget.videoIndex],
+                      Text(widget.module.videoTitles[widget.videoIndex],
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
+                              fontSize: 20, fontWeight: FontWeight.bold)),
                       Text(
-                          widget.module.videoMinutes[widget.videoIndex],
-                          style: TextStyle(
-                              fontSize: 16,
-                          ),
+                        widget.module.videoMinutes[widget.videoIndex],
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                       SizedBox(height: 15),
                       Row(
                         children: [
                           existPrevious
-                            ? Expanded(
-                                child: GestureDetector(
-                                  onTap: (){
-                                    _controller.pause();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => TutorialPage(
-                                          widget.module,
-                                          widget.videoIndex - 1,
+                              ? Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _controller.pause();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TutorialPage(
+                                            widget.module,
+                                            widget.videoIndex - 1,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.blueGrey[100],
                                       ),
-                                    );
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      color: Colors.blueGrey[100],
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Previous", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
-                                        SizedBox(height: 3),
-                                        Text(
-                                            widget.module.videoTitles[widget.videoIndex - 1],
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text("Previous",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                  fontSize: 12)),
+                                          SizedBox(height: 3),
+                                          Text(
+                                            widget.module.videoTitles[
+                                                widget.videoIndex - 1],
                                             style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 14,
+                                              color: Colors.black,
+                                              fontSize: 14,
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                             textAlign: TextAlign.left,
-                                        ),
-                                        SizedBox(height: 3),
-                                        Text(
-                                            widget.module.videoMinutes[widget.videoIndex - 1],
-                                            style: TextStyle(color: Colors.black, fontSize: 10)),
-                                      ],
+                                          ),
+                                          SizedBox(height: 3),
+                                          Text(
+                                              widget.module.videoMinutes[
+                                                  widget.videoIndex - 1],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 10)),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ) : Expanded(child: Container()),
+                                )
+                              : Expanded(child: Container()),
                           SizedBox(width: 10),
-                          existNext ?
-                          Expanded(
-                            child: GestureDetector(
-                                onTap: (){
-                                  _controller.pause();
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => TutorialPage(
-                                          widget.module,
-                                          widget.videoIndex + 1,
+                          existNext
+                              ? Expanded(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      _controller.pause();
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => TutorialPage(
+                                            widget.module,
+                                            widget.videoIndex + 1,
+                                          ),
                                         ),
+                                      );
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.blueGrey[100],
                                       ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                                    color: Colors.blueGrey[100],
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text("Next",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.black,
+                                                  fontSize: 12)),
+                                          SizedBox(height: 3),
+                                          Text(
+                                            widget.module.videoTitles[
+                                                widget.videoIndex + 1],
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 14),
+                                            overflow: TextOverflow.ellipsis,
+                                            textAlign: TextAlign.right,
+                                          ),
+                                          SizedBox(height: 3),
+                                          Text(
+                                              widget.module.videoMinutes[
+                                                  widget.videoIndex + 1],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 10)),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text("Next", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12)),
-                                      SizedBox(height: 3),
-                                      Text(
-                                          widget.module.videoTitles[widget.videoIndex + 1],
-                                          style: TextStyle(color: Colors.black, fontSize: 14),
-                                          overflow: TextOverflow.ellipsis,
-                                          textAlign: TextAlign.right,
-                                      ),
-                                      SizedBox(height: 3),
-                                      Text(
-                                          widget.module.videoMinutes[widget.videoIndex + 1],
-                                          style: TextStyle(color: Colors.black, fontSize: 10)
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ) : Expanded(child: Container()),
+                                )
+                              : Expanded(child: Container()),
                         ],
                       ),
                       SizedBox(height: 30),
@@ -276,7 +289,7 @@ class _TutorialPageState extends State<TutorialPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                      "All Module Videos",
+                        "All Module Videos",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -285,7 +298,6 @@ class _TutorialPageState extends State<TutorialPage> {
                       SizedBox(height: 5),
                       VideoList(
                         widget.module,
-                        widget.videoIndex,
                       ),
                     ],
                   ),
@@ -328,6 +340,6 @@ class _TutorialPageState extends State<TutorialPage> {
           ),
         ),
       ),
-      );
+    );
   }
 }
