@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Header extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,11 +9,9 @@ class Header extends StatelessWidget {
           color: Colors.white,
           border: Border(
               bottom: BorderSide(
-                color: Color(0xffeaeaea),
-                width: 1,
-              )
-          )
-      ),
+            color: Color(0xffeaeaea),
+            width: 1,
+          ))),
       padding: EdgeInsets.fromLTRB(40, 0, 40, 0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,9 +31,7 @@ class Header extends StatelessWidget {
   }
 }
 
-
 class PopUpHeader extends StatelessWidget {
-
   final String title;
   final Icon icon;
 
@@ -45,17 +40,15 @@ class PopUpHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(30,15,30,15),
+      padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
       width: double.maxFinite,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
               bottom: BorderSide(
-                color: Color(0xffeaeaea),
-                width: 1,
-              )
-          )
-      ),
+            color: Color(0xffeaeaea),
+            width: 1,
+          ))),
       child: Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,8 +58,7 @@ class PopUpHeader extends StatelessWidget {
               children: [
                 icon,
                 SizedBox(width: 20),
-                Text(
-                    title,
+                Text(title,
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 18,
@@ -79,9 +71,8 @@ class PopUpHeader extends StatelessWidget {
                 constraints: BoxConstraints(),
                 icon: const Icon(Icons.close_rounded),
                 onPressed: () => {
-                  Navigator.of(context).pop(),
-                }
-            ),
+                      Navigator.of(context).pop(),
+                    }),
           ],
         ),
       ),
