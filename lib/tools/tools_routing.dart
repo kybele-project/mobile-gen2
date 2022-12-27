@@ -11,12 +11,14 @@ import 'package:kybele_gen2/tools/APGAR2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:animations/animations.dart';
+import 'package:kybele_gen2/tools/pdfviewer.dart';
 
 class ToolsRoutes {
   static const String root = "/tools/";
   static const String apgarCalc = "/tools/apgar/";
   static const String nrpFlow = "/tools/nrpflow/";
   static const String targetO2 = "/tools/targeto2/";
+  static const String pdfViewer = "/tools/pdfViewer";
 }
 
 class Tools extends StatelessWidget {
@@ -43,6 +45,11 @@ class Tools extends StatelessWidget {
       color: Colors.deepPurpleAccent[100],
       size: 80,
     ),
+    Icon(
+      Icons.picture_as_pdf_rounded,
+      color: Colors.deepOrangeAccent,
+      size: 80,
+    ),
   ];
 
   List<String> toolsLabels = [
@@ -50,6 +57,7 @@ class Tools extends StatelessWidget {
     'APGAR Calculator',
     'Target Oxygen Saturation',
     'MR. SOPA\n Corrective Steps',
+    'PDF Viewer'
   ];
 
   List<dynamic> toolsNav = <dynamic>[
@@ -57,6 +65,7 @@ class Tools extends StatelessWidget {
     const APGARCalculator2(),
     const TargetOxygenSaturation(),
     MRSOPA(),
+    const PDFViewer(),
     // APGARCalculator2(),
   ];
 
@@ -188,6 +197,8 @@ class Tools extends StatelessWidget {
               generate_card(context, 1, Colors.redAccent),
               generate_card(context, 2, Colors.redAccent),
               generate_card(context, 3, Colors.redAccent),
+              generate_card(context, 4, Colors.redAccent),
+
             ],
           ),
         ),
