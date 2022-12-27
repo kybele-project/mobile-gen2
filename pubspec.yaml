@@ -51,6 +51,7 @@ dependencies:
   animations: ^2.0.7
   toggle_switch: ^2.0.1
   path: ^1.8.2
+  syncfusion_flutter_pdfviewer: ^20.4.38
 
 
 
@@ -80,6 +81,7 @@ flutter:
     - assets/CroppedFlow.jpg
     - assets/NRPFlowChart.jpg
     - assets/kybele_white.png
+    - assets/NRPQuickEquipmentChecklist.pdf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
