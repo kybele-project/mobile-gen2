@@ -45,6 +45,7 @@ class Tools extends StatelessWidget {
       color: Colors.deepPurpleAccent[100],
       size: 80,
     ),
+    // PDF VIEWER LOGO
     Icon(
       Icons.picture_as_pdf_rounded,
       color: Colors.deepOrangeAccent,
@@ -57,6 +58,7 @@ class Tools extends StatelessWidget {
     'APGAR Calculator',
     'Target Oxygen Saturation',
     'MR. SOPA\n Corrective Steps',
+    // PDF VIEWER NAME
     'PDF Viewer'
   ];
 
@@ -65,6 +67,7 @@ class Tools extends StatelessWidget {
     const APGARCalculator2(),
     const TargetOxygenSaturation(),
     MRSOPA(),
+    // PDF VIEWER CLASS
     const PDFViewer(),
     // APGARCalculator2(),
   ];

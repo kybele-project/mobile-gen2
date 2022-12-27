@@ -19,6 +19,7 @@ class PDFViewer extends StatelessWidget {
               ),
             ),
             Expanded(
+              // child: SingleChildScrollView()
               child: Center(child: Text("PDF Viewer code here"))
             )
           ],
