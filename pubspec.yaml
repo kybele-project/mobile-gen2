@@ -51,6 +51,11 @@ dependencies:
   animations: ^2.0.7
   toggle_switch: ^2.0.1
   path: ^1.8.2
+  vibration: ^1.7.6
+  stop_watch_timer: ^2.0.0
+  rxdart: ^0.27.7
+  circular_countdown_timer: ^0.2.3
+  flutter_ringtone_player: ^3.2.0
   syncfusion_flutter_pdfviewer: ^20.4.38
   printing: ^5.9.3
 
@@ -82,6 +87,14 @@ flutter:
     - assets/CroppedFlow.jpg
     - assets/NRPFlowChart.jpg
     - assets/kybele_white.png
+    - assets/timer_audio/timer0.wav
+    - assets/timer_audio/timer1.wav
+    - assets/timer_audio/timer2.wav
+    - assets/timer_audio/timer3.wav
+    - assets/timer_audio/timer4.wav
+    - assets/timer_audio/timer5.wav
+    - assets/timer_audio/timer10.wav
+    - assets/timer_audio/timer15.wav
     - assets/NRPQuickEquipmentChecklist.pdf
     - assets/T-Piece resuscitator for lamination.pdf
     - assets/Warmilu_thermal gel autoclave instructions.pdf

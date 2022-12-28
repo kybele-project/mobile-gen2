@@ -32,7 +32,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+            useMaterial3: true,
+            // textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
           ),
           home: const Framework(),
         );
