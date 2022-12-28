@@ -10,21 +10,21 @@ class Document{
   Document(this.doc_title,this.doc_path,this.page_num);
   static List<Document> doc_List = [
     Document(
-      "Hello", 
+      "NRP Checklist", 
       "assets/NRPQuickEquipmentChecklist.pdf",
-      69),
+      1),
     Document(
-      "Hello", 
-      "assets/NRPQuickEquipmentChecklist.pdf",
-      69),
+      "A4 NRP Checklist", 
+      "assets/A4 - NRP Checklist 27Oct2022.pdf",
+      2),
     Document(
-      "Hello", 
-      "assets/NRPQuickEquipmentChecklist.pdf",
-      69),
+      "T-Piece Resuscitator for Lamination", 
+      "assets/T-Piece resuscitator for lamination.pdf",
+      4),
     Document(
-      "Hello", 
-      "assets/NRPQuickEquipmentChecklist.pdf",
-      69),
+      "Warmilu Thermal Gel Autoclave Instructions", 
+      "assets/Warmilu_thermal gel autoclave instructions.pdf",
+      1),
   ];
 }
 
@@ -39,7 +39,7 @@ class _RenderScreenState extends State<RenderScreen> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.white,
         title: Text(widget.doc.doc_title!)
       ),
       body: Container(child: SfPdfViewer.asset(
@@ -73,7 +73,10 @@ class PDFViewer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
-                  Text("Additional Resources", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
+                  Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text("Additional Resources", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
+                  ),
                   Column(children: Document.doc_List.map((doc) => ListTile(
                     onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => RenderScreen(doc))); },
                     title: Text(doc.doc_title!, overflow: TextOverflow.ellipsis),
