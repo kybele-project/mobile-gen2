@@ -56,6 +56,8 @@ dependencies:
   rxdart: ^0.27.7
   circular_countdown_timer: ^0.2.3
   flutter_ringtone_player: ^3.2.0
+  syncfusion_flutter_pdfviewer: ^20.4.38
+  printing: ^5.9.3
 
 
 
@@ -93,6 +95,10 @@ flutter:
     - assets/timer_audio/timer5.wav
     - assets/timer_audio/timer10.wav
     - assets/timer_audio/timer15.wav
+    - assets/NRPQuickEquipmentChecklist.pdf
+    - assets/T-Piece resuscitator for lamination.pdf
+    - assets/Warmilu_thermal gel autoclave instructions.pdf
+    - assets/A4 - NRP Checklist 27Oct2022.pdf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
