@@ -1,12 +1,14 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/record/alarm.dart';
 
 // import 'package:kybele_gen2/tools/APGARCalculator.dart';
 import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
 import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 import 'package:kybele_gen2/tools/MRSOPA.dart';
 import 'package:kybele_gen2/tools/APGAR2.dart';
+import 'package:kybele_gen2/record/alarm.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,6 +21,7 @@ class ToolsRoutes {
   static const String nrpFlow = "/tools/nrpflow/";
   static const String targetO2 = "/tools/targeto2/";
   static const String pdfViewer = "/tools/pdfViewer";
+  static const String alarm = "/tools/alarm";
 }
 
 class Tools extends StatelessWidget {
@@ -51,6 +54,11 @@ class Tools extends StatelessWidget {
       color: Colors.deepOrangeAccent,
       size: 80,
     ),
+    Icon(
+      Icons.watch_later_rounded,
+      color: Colors.amberAccent,
+      size: 80,
+    ),
   ];
 
   List<String> toolsLabels = [
@@ -59,7 +67,8 @@ class Tools extends StatelessWidget {
     'Target Oxygen Saturation',
     'MR. SOPA\n Corrective Steps',
     // PDF VIEWER NAME
-    'PDF Viewer'
+    'PDF Viewer',
+    'Alarm'
   ];
 
   List<dynamic> toolsNav = <dynamic>[
@@ -69,6 +78,7 @@ class Tools extends StatelessWidget {
     MRSOPA(),
     // PDF VIEWER CLASS
     const PDFViewer(),
+    CountUpTimerPage(),
     // APGARCalculator2(),
   ];
 
@@ -201,6 +211,7 @@ class Tools extends StatelessWidget {
               generate_card(context, 2, Colors.redAccent),
               generate_card(context, 3, Colors.redAccent),
               generate_card(context, 4, Colors.redAccent),
+              generate_card(context, 5, Colors.redAccent),
 
             ],
           ),

@@ -1,0 +1,6 @@
+https://voicemaker.in/
+
+Joanna, Female (Neural TTS)
+Audio Settings: WAV, 16,000Hz
+Voice Settings: Volume - 0dB, Speed - 0%
+Voice Effects: Newscaster
