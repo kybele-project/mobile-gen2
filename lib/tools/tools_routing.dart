@@ -11,7 +11,7 @@ import 'package:kybele_gen2/tools/APGAR2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:animations/animations.dart';
-import 'package:kybele_gen2/tools/pdfviewer.dart';
+import 'package:kybele_gen2/tools/AdditionalResources.dart';
 
 class ToolsRoutes {
   static const String root = "/tools/";
@@ -47,8 +47,8 @@ class Tools extends StatelessWidget {
     ),
     // PDF VIEWER LOGO
     Icon(
-      Icons.picture_as_pdf_rounded,
-      color: Colors.deepOrangeAccent,
+      Icons.drive_file_move_outline,
+      color: Colors.deepPurpleAccent,
       size: 80,
     ),
   ];
@@ -59,7 +59,7 @@ class Tools extends StatelessWidget {
     'Target Oxygen Saturation',
     'MR. SOPA\n Corrective Steps',
     // PDF VIEWER NAME
-    'PDF Viewer'
+    'Additional Resources'
   ];
 
   List<dynamic> toolsNav = <dynamic>[

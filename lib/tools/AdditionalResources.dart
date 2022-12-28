@@ -8,24 +8,29 @@ class Document{
   String? doc_title;
   String? doc_path;
   int? page_num;
-  Document(this.doc_title,this.doc_path,this.page_num);
+  String? doc_date;
+  Document(this.doc_title,this.doc_path,this.page_num, this.doc_date);
   static List<Document> doc_List = [
     Document(
       "NRP Checklist", 
       "assets/NRPQuickEquipmentChecklist.pdf",
-      1),
+      1,
+      "13-07-2022"),
     Document(
       "A4 NRP Checklist", 
       "assets/A4 - NRP Checklist 27Oct2022.pdf",
-      2),
+      2,
+      "27-10-2022"),
     Document(
       "T-Piece Resuscitator for Lamination", 
       "assets/T-Piece resuscitator for lamination.pdf",
-      4),
+      4,
+      ""),
     Document(
       "Warmilu Thermal Gel Autoclave Instructions", 
       "assets/Warmilu_thermal gel autoclave instructions.pdf",
-      1),
+      1,
+      ""),
   ];
 }
 
@@ -36,27 +41,38 @@ class RenderScreen extends StatefulWidget {
   State<RenderScreen> createState() => _RenderScreenState();
 }
 class _RenderScreenState extends State<RenderScreen> {
+  void _printExistingPdf() async {
+    // import 'package:flutter/services.dart';
+    final pdf = await rootBundle.load(widget.doc.doc_path!);
+    await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
+  }
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.black),
+        actions: [
+          GestureDetector(
+            onTap: () {_printExistingPdf();},
+            child: Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: Icon(
+              Icons.print,
+              size: 26.0,
+            ),)
+          )
+        ],
         title: Text(widget.doc.doc_title!)
       ),
       body: Container(child: SfPdfViewer.asset(
-      widget.doc.doc_path!
+        widget.doc.doc_path!
        )
        ),
        
     );
   }
 }
-
-void _printExistingPdf() async {
-    // import 'package:flutter/services.dart';
-    final pdf = await rootBundle.load('assets/NRPQuickEquipmentChecklist.pdf');
-    await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
-  }
 
 class PDFViewer extends StatelessWidget {
   const PDFViewer({super.key});
@@ -68,30 +84,26 @@ class PDFViewer extends StatelessWidget {
         child: Column(
           children: [
             PopUpHeader(
-              'PDF Viewer',
+              'Additional Resources',
               Icon(
-                Icons.picture_as_pdf_rounded,
-                color: Colors.deepOrangeAccent,
+                Icons.drive_file_move_outline,
+                color: Colors.deepPurpleAccent,
                 size: 30,
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 26),
+              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child:
             Expanded(
               child: SingleChildScrollView(child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
-                   ElevatedButton(onPressed: () => _printExistingPdf(),child:Text("")),
-                  Padding(
-                  padding: EdgeInsets.only(bottom: 10),
-                  child: Text("Additional Resources", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
-                  ),
                   Column(children: Document.doc_List.map((doc) => ListTile(
                     onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => RenderScreen(doc))); },
                     title: Text(doc.doc_title!, overflow: TextOverflow.ellipsis),
                     subtitle: Text("${doc.page_num!} Pages"),
+                    trailing: Text(doc.doc_date!, style: TextStyle(color: Colors.grey)),
                     leading: Icon(
                       Icons.picture_as_pdf,
                       color: Colors.red,
