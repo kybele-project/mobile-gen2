@@ -52,6 +52,7 @@ dependencies:
   toggle_switch: ^2.0.1
   path: ^1.8.2
   syncfusion_flutter_pdfviewer: ^20.4.38
+  printing: ^5.9.3
 
 
 

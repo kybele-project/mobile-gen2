@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/nav/header.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:printing/printing.dart';
+import 'package:flutter/services.dart';
 
 class Document{
   String? doc_title;
@@ -43,10 +44,19 @@ class _RenderScreenState extends State<RenderScreen> {
         title: Text(widget.doc.doc_title!)
       ),
       body: Container(child: SfPdfViewer.asset(
-      widget.doc.doc_path!))
+      widget.doc.doc_path!
+       )
+       ),
+       
     );
   }
 }
+
+void _printExistingPdf() async {
+    // import 'package:flutter/services.dart';
+    final pdf = await rootBundle.load('assets/NRPQuickEquipmentChecklist.pdf');
+    await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
+  }
 
 class PDFViewer extends StatelessWidget {
   const PDFViewer({super.key});
@@ -73,6 +83,7 @@ class PDFViewer extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
+                   ElevatedButton(onPressed: () => _printExistingPdf(),child:Text("")),
                   Padding(
                   padding: EdgeInsets.only(bottom: 10),
                   child: Text("Additional Resources", style: TextStyle(fontSize: 28, fontWeight: FontWeight.w700)),
