@@ -30,33 +30,33 @@ class Tools extends StatelessWidget {
   List<Widget> toolsIcons = <Widget>[
     Icon(
       Icons.account_tree_rounded,
-      color: Colors.redAccent,
+      color: Colors.white,
       size: 80,
     ),
     Icon(
       Icons.calculate_rounded,
-      color: Colors.lightGreen,
+      color: Colors.white,
       size: 80,
     ),
     Icon(
       Icons.bubble_chart_rounded,
-      color: Colors.lightBlueAccent,
+      color: Colors.white,
       size: 80,
     ),
     Icon(
       Icons.air_rounded,
-      color: Colors.deepPurpleAccent[100],
+      color: Colors.white,
       size: 80,
     ),
     // PDF VIEWER LOGO
     Icon(
       Icons.drive_file_move_outline,
-      color: Colors.deepPurpleAccent,
+      color: Colors.white,
       size: 80,
     ),
     Icon(
       Icons.watch_later_rounded,
-      color: Colors.amberAccent,
+      color: Colors.white,
       size: 80,
     ),
   ];
@@ -89,28 +89,17 @@ class Tools extends StatelessWidget {
     double topPos = begin + ((index - index % 2) / 2) * (side + 20);
     double leftPos = 20 + (index % 2) * (side + 20);
 
-    return Positioned(
-      top: topPos,
-      left: leftPos,
+    return
       // child: GestureDetector(
       // onTap: () {_local_push(context, toolsNav[index]);},
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          boxShadow: [
-            BoxShadow(
-                color: Color(0xccbbbbbb), offset: Offset(0, 3), blurRadius: 5),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: OpenContainer(
+Container(margin: const EdgeInsets.all(5.0), child:
+OpenContainer(
+            closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+            closedColor: color,
             transitionType: ContainerTransitionType.fadeThrough,
             transitionDuration: const Duration(milliseconds: 200),
             openBuilder: (context, action) => toolsNav[index],
             closedBuilder: (context, action) => Container(
-              height: side,
-              width: side,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,18 +111,13 @@ class Tools extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: 18,
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold),
+                        color: Colors.white,
+                        ),
                     maxLines: 2,
                   ),
                 ],
               ),
-            ),
-          ),
-          //),
-        ),
-      ),
-    );
+            )));
   }
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
@@ -145,29 +129,6 @@ class Tools extends StatelessWidget {
     };
   }
 
-  Widget tealContainer(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.width / 1.5,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.centerRight,
-          // teal
-          colors: [
-            Color(0xff005660),
-            Color(0xff007475),
-            Color(0xff008081),
-            Color(0xff229389),
-            Color(0xff34A798),
-            Color(0xff57C3AD),
-          ],
-          // sunset
-          // colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
-        ),
-      ),
-    );
-  }
-
   Widget _home(BuildContext context) {
     double side = (MediaQuery.of(context).size.width - 60) / 2;
     double begin = MediaQuery.of(context).size.width / 1.5 - side / 2;
@@ -176,48 +137,36 @@ class Tools extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Column(
-                children: [
-                  tealContainer(context),
-                  Container(color: Colors.grey[200], height: len_grey),
-                ],
-              ),
+          child:
+              Column( children: [
               Container(
                 width: double.infinity,
-                height: begin,
                 padding: EdgeInsets.all(40),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/kybele_white.png',
+                      'assets/kybele_logo_no_bg.png',
                       height: 40,
-                    ),
-                    Text(
-                      "Tools",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
                     ),
                   ],
                 ),
               ),
-              generate_card(context, 0, Colors.redAccent),
-              generate_card(context, 1, Colors.redAccent),
-              generate_card(context, 2, Colors.redAccent),
-              generate_card(context, 3, Colors.redAccent),
-              generate_card(context, 4, Colors.redAccent),
-              generate_card(context, 5, Colors.redAccent),
-
-            ],
-          ),
+              Padding(padding: const EdgeInsets.symmetric(horizontal:5, vertical: 5),
+              child: GridView.count(
+                shrinkWrap: true,
+                crossAxisCount: 2,
+                children:[
+                generate_card(context, 0, Color.fromARGB(255, 184, 61, 55)),
+                generate_card(context, 1, Color.fromARGB(255, 103, 189, 72)),
+                generate_card(context, 2, Color.fromARGB(255, 83, 187, 213)),
+                generate_card(context, 4, Color.fromARGB(255, 111, 29, 149)),
+              ]))
+              ]
         ),
-      ),
-    );
+      )
+    ));
   }
 
   @override
