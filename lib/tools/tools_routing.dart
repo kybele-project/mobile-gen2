@@ -31,28 +31,28 @@ class Tools extends StatelessWidget {
     Icon(
       Icons.account_tree_rounded,
       color: Colors.white,
-      size: 80,
+      size: 60,
     ),
     Icon(
       Icons.calculate_rounded,
       color: Colors.white,
-      size: 80,
+      size: 60,
     ),
     Icon(
       Icons.bubble_chart_rounded,
       color: Colors.white,
-      size: 80,
+      size: 60,
     ),
     Icon(
       Icons.air_rounded,
       color: Colors.white,
-      size: 80,
+      size: 60,
     ),
     // PDF VIEWER LOGO
     Icon(
       Icons.drive_file_move_outline,
       color: Colors.white,
-      size: 80,
+      size: 60,
     ),
     Icon(
       Icons.watch_later_rounded,
@@ -92,8 +92,9 @@ class Tools extends StatelessWidget {
     return
       // child: GestureDetector(
       // onTap: () {_local_push(context, toolsNav[index]);},
-Container(margin: const EdgeInsets.all(5.0), child:
+Container(margin: const EdgeInsets.all(7.0), child:
 OpenContainer(
+            
             closedShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
             closedColor: color,
             transitionType: ContainerTransitionType.fadeThrough,
@@ -110,7 +111,7 @@ OpenContainer(
                     toolsLabels[index],
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: 18,
+                        fontSize: 15,
                         color: Colors.white,
                         ),
                     maxLines: 2,
@@ -141,28 +142,30 @@ OpenContainer(
               Column( children: [
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.all(40),
+                padding: EdgeInsets.all(20),
                 child: Column(
 
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/kybele_logo_no_bg.png',
-                      height: 40,
-                    ),
                   ],
                 ),
+                
               ),
+              
+              Container(padding: const EdgeInsets.only(left: 15), width: double.infinity, child: Text("Tools", textAlign: TextAlign.left, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500))),
               Padding(padding: const EdgeInsets.symmetric(horizontal:5, vertical: 5),
               child: GridView.count(
                 shrinkWrap: true,
                 crossAxisCount: 2,
                 children:[
-                generate_card(context, 0, Color.fromARGB(255, 184, 61, 55)),
-                generate_card(context, 1, Color.fromARGB(255, 103, 189, 72)),
-                generate_card(context, 2, Color.fromARGB(255, 83, 187, 213)),
-                generate_card(context, 4, Color.fromARGB(255, 111, 29, 149)),
-              ]))
+                generate_card(context, 0, Color(0xffd26d6f)),
+                generate_card(context, 1, Color(0xff003d22)),
+                generate_card(context, 2, Color(0xff83bab7)),
+                generate_card(context, 4, Color(0xffa47c91)),
+              
+              ])),
+              Container( padding: const EdgeInsets.only(left: 15, top: 10), width: double.infinity, child: Text("Resources", textAlign: TextAlign.left, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500))),
+              PDFViewer()
               ]
         ),
       )

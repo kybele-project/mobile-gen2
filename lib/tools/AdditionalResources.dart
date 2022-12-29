@@ -83,14 +83,6 @@ class PDFViewer extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            PopUpHeader(
-              'Additional Resources',
-              Icon(
-                Icons.drive_file_move_outline,
-                color: Colors.deepPurpleAccent,
-                size: 30,
-              ),
-            ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child:
