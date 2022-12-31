@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kybele_gen2/nav/header.dart';
-import 'package:kybele_gen2/log/dbprovider.dart';
+import 'package:kybele_gen2/log/recordProvider.dart';
 import 'package:provider/provider.dart';
 
 
 class TargetOxygenSaturation extends StatelessWidget {
   const TargetOxygenSaturation({Key? key}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -503,11 +501,10 @@ class _OxygenRecordState extends State<OxygenRecord> {
   @override
   Widget build(BuildContext context) {
 
-    final recordProvider = Provider.of<DBProvider>(context);
+    final recordProvider = Provider.of<RecordProvider>(context);
 
     void saveData(Event event) {
       recordProvider.addEvent(event);
-      recordProvider.incrementBadgeCount();
     }
 
     return Column(

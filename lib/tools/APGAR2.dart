@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:kybele_gen2/designs/customtoggleswitch.dart';
-import 'package:kybele_gen2/log/dbprovider.dart';
+import 'package:kybele_gen2/log/recordProvider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -13,7 +13,7 @@ class APGARCalculator2 extends StatefulWidget {
 }
 
 class _APGARCalculatorState2 extends State<APGARCalculator2> {
-  DB db = DB();
+  RecordDatabase db = RecordDatabase();
 
   int _scoreAPGAR = 10;
   int _varA1 = 2;
@@ -36,14 +36,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
 
   @override
   Widget build(BuildContext context) {
-    final recordProvider = Provider.of<DBProvider>(context);
+    final recordProvider = Provider.of<RecordProvider>(context);
 
     final normal = (_scoreAPGAR >= 7);
     final watch = (_scoreAPGAR >= 5);
 
     void saveData(Event event) {
       recordProvider.addEvent(event);
-      recordProvider.incrementBadgeCount();
     }
 
     return Material(

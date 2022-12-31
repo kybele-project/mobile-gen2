@@ -11,7 +11,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kybele_gen2/log/dbprovider.dart';
+import 'package:kybele_gen2/log/recordProvider.dart';
 import 'package:kybele_gen2/log/alarm.dart';
 
 import 'package:animations/animations.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => DBProvider(),
+      create: (_) => RecordProvider(),
       child: Builder(builder: (context) {
         return MaterialApp(
           title: 'Flutter Demo',
@@ -79,7 +79,7 @@ class _FrameworkState extends State<Framework> {
         unselectedItemColor: Colors.grey[600],
         selectedItemColor: Color(0xff564BAF),
         elevation: 0,
-        backgroundColor: Color(0xff005660), // Colors.black54,
+        backgroundColor: Color(0xffffffff), // Colors.black54,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.list_alt_rounded), label: "Record"),

@@ -1,380 +1,15 @@
-import 'dart:math';
-
-import 'package:flutter/material.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
 import 'dart:core';
-import 'package:vibration/vibration.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
-import 'package:kybele_gen2/log/dbprovider.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
+import 'package:vibration/vibration.dart';
+import 'package:kybele_gen2/log/recordProvider.dart';
+import 'package:kybele_gen2/log/timeline.dart';
+
 
 NumberFormat timeFormat = NumberFormat("00");
-
-class StandardEntry extends StatelessWidget {
-
-  final Color boxBkgColor;
-  final Color boxInfoColor;
-  final IconData boxIcon;
-  final String header;
-  final String subHeader;
-  final String interval;
-  final String time;
-
-  const StandardEntry(
-      this.boxBkgColor,
-      this.boxInfoColor,
-      this.boxIcon,
-      this.header,
-      this.subHeader,
-      this.interval,
-      this.time,
-      {super.key}
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.maxFinite,
-      color: Colors.transparent,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: boxBkgColor,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Icon(boxIcon, size: 30, color: boxInfoColor),
-                    Text(interval, style: TextStyle(fontWeight: FontWeight.bold, color: boxInfoColor)),
-                  ],
-                ),
-              ),
-              SizedBox(width: 15),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(header, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                  Text(subHeader, style: TextStyle(fontSize: 14)),
-                ],
-              ),
-            ],
-          ),
-          Text(time, style: TextStyle(fontSize: 14)),
-        ],
-      ),
-    );
-  }
-}
-
-class TimerEntry extends StatelessWidget {
-
-  final Color boxBkgColor;
-  final Color boxInfoColor;
-  final IconData boxIcon;
-  final String header;
-  final String time;
-  final bool isMenuEntry;
-
-  const TimerEntry(
-      this.boxBkgColor,
-      this.boxInfoColor,
-      this.boxIcon,
-      this.header,
-      this.time,
-      this.isMenuEntry,
-      {super.key}
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: double.maxFinite,
-        height: 50,
-        padding: isMenuEntry ? EdgeInsets.fromLTRB(0,0,20,0) : EdgeInsets.fromLTRB(20, 0, 20, 0),
-        decoration: BoxDecoration(
-          color: boxBkgColor,
-          borderRadius: isMenuEntry ? BorderRadius.all(Radius.circular(10)) : BorderRadius.all(Radius.circular(0)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-               children: [
-                 Container(width: 80, child: Icon(boxIcon, size: 30, color: boxInfoColor)),
-                 SizedBox(width: 15),
-                 Text(header, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: boxInfoColor)),
-               ],
-            ),
-            Text(time, style: TextStyle(fontSize: 14, color: boxInfoColor)),
-          ],
-        ),
-    );
-  }
-}
-
-class TimelineEntryWrapper extends StatelessWidget {
-
-  final int index;
-  final String prevDate;
-  final String category;
-  final String header;
-  final String subHeader;
-  final String interval;
-  final String date;
-  final String time;
-  final String primaryKey;
-
-  const TimelineEntryWrapper(
-      this.index,
-      this.prevDate,
-      this.category,
-      this.header,
-      this.subHeader,
-      this.interval,
-      this.date,
-      this.time,
-      this.primaryKey,
-      {super.key}
-  );
-
-  Widget entryWrapper(BuildContext context, Widget entry, Widget menuEntry, String primaryKey, bool newDate, bool padTimeline) {
-
-    final recordProvider = Provider.of<DBProvider>(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        newDate ? Padding(
-          padding: EdgeInsets.fromLTRB(20, 0, 20, 10),
-          child: Text(date, textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
-        ) : Container(),
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        menuEntry,
-                        SizedBox(height: 40),
-                        GestureDetector(
-                          onTap: () {
-                            recordProvider.removeEvent(primaryKey);
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Text(
-                              'Delete event',
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 40),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(10)),
-                                border: Border.all(width: 2, color: Color(0xff9F97E3))
-                            ),
-                            width: MediaQuery.of(context).size.width - 40,
-                            height: 60,
-                            child: Center(
-                              child:
-                              Text(
-                                'Back',
-                                style: TextStyle(
-                                  color: Color(0xff9F97E3),
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-            );
-          },
-          child: Padding(
-            padding: padTimeline ? EdgeInsets.fromLTRB(20, 0, 20, 10) : EdgeInsets.fromLTRB(0, 0, 0, 10),
-            child: entry,
-          ),
-        ),
-      ],
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    bool newDate = false;
-
-    if ((date != prevDate) || (index == 0)) {
-      newDate = true;
-    }
-
-    switch(category) {
-      case "APGAR": {
-        Widget apgarEntry = StandardEntry(
-            Color(0xffFFCDCF),
-            Color(0xff8B3E42),
-            Icons.calculate_rounded,
-            header,
-            subHeader,
-            interval,
-            time
-        );
-        return entryWrapper(context, apgarEntry, apgarEntry, primaryKey, newDate, true);
-      }
-
-      case "OxygenSaturation": {
-        Widget oxygenEntry = StandardEntry(
-            Color(0xffE2EEF9),
-            Color(0xff436B8F),
-            Icons.bubble_chart_rounded,
-            header,
-            subHeader,
-            interval,
-            time
-        );
-        return entryWrapper(context, oxygenEntry, oxygenEntry, primaryKey, newDate, true);
-      }
-
-      case "Timer": {
-        Widget timerEntry = TimerEntry(
-            Color(0xff9F97E3),
-            Color(0xffffffff),
-            Icons.timer_rounded,
-            header,
-            time,
-            false,
-        );
-
-        Widget timerMenuEntry = TimerEntry(
-            Color(0xff9F97E3),
-            Color(0xffffffff),
-            Icons.timer_rounded,
-            header,
-            time,
-            true,
-        );
-
-        return entryWrapper(context, timerEntry, timerMenuEntry, primaryKey, newDate, false);
-      }
-
-      default: {
-        return Container(child: Text('Error'));
-      }
-    }
-  }
-}
-
-class Timeline extends StatefulWidget {
-  const Timeline({super.key});
-
-  @override
-  State<Timeline> createState() => _TimelineState();
-}
-
-class _TimelineState extends State<Timeline> {
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<DBProvider>().getEvents();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final recordProvider = Provider.of<DBProvider>(context);
-
-    DateTime timeNoFormat = DateTime.now();
-
-    return Consumer<DBProvider>(
-          builder: (BuildContext context, provider, widget) {
-            if (provider.events.isEmpty) {
-              return Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
-                child: Text("No events logged", textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
-              );
-            } else {
-              return Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-                child: Column(
-                  children: [
-                    for (int i = 0; i < provider.events.length; i++)
-                      Column(
-                        children: [
-                          TimelineEntryWrapper(
-                              i,
-                              provider.events[min(provider.events.length - i, provider.events.length - 1 - i)].toMap()['date'],
-                              provider.events[provider.events.length - 1 - i].toMap()['category'],
-                              provider.events[provider.events.length - 1 - i].toMap()['header'],
-                              provider.events[provider.events.length - 1 - i].toMap()['subHeader'],
-                              provider.events[provider.events.length - 1 - i].toMap()['interval'],
-                              provider.events[provider.events.length - 1 - i].toMap()['date'],
-                              provider.events[provider.events.length - 1 - i].toMap()['time'],
-                              provider.events[provider.events.length - 1 - i].toMap()['primaryKey'],
-                          ),
-                        ],
-                      ),
-                    GestureDetector(
-                      onTap: () {
-                        recordProvider.removeAllEvents();
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          border: Border.all(width: 2, color: Colors.red),
-                        ),
-                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        height: 60,
-                        child: Center(
-                          child:
-                          Text(
-                            'Delete all events',
-                            style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }
-          },
-        );
-  }
-}
 
 class CountUpTimerPage extends StatefulWidget {
   const CountUpTimerPage({super.key});
@@ -458,7 +93,7 @@ class _CUState extends State<CountUpTimerPage>
   @override
   Widget build(BuildContext context) {
 
-    final recordProvider = Provider.of<DBProvider>(context);
+    final recordProvider = Provider.of<RecordProvider>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -486,27 +121,27 @@ class _CUState extends State<CountUpTimerPage>
                         LinearProgressIndicator(
                           value: ((snap.data ?? 0) - timerLocations[timerAudioIndex] * 1000)/(timerGaps[timerAudioIndex] * 1000),
                           minHeight: MediaQuery.of(context).size.width,
-                          backgroundColor: Color(0xff7266D7),
-                          color: Color(0xff564BAF),
+                          backgroundColor: const Color(0xff7266D7),
+                          color: const Color(0xff564BAF),
                         ),
                         _historyCollapsed ? Container(
                             width: double.maxFinite,
                             height: MediaQuery.of(context).size.width * .7,
-                            padding: EdgeInsets.fromLTRB(30,20,30,20),
+                            padding: const EdgeInsets.fromLTRB(30,20,30,20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(timeFormat.format(minutes) + ":" + timeFormat.format(secondDisplay),
-                                    style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white)),
+                                Text(
+                                    "${timeFormat.format(minutes)}:${timeFormat.format(secondDisplay)}",
+                                    style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),
+                                ),
                                 _stopWatchStarted ? Text(
                                   timerAudioStrings[timerAudioIndex],
-                                  style: TextStyle(
-                                    fontSize: 22,
-                                    color: Color(0xfff5f5f5),
-                                  ),
+                                  style: const TextStyle(fontSize: 22, color: Color(0xfff5f5f5)),
                                   textAlign: TextAlign.center,
-                                ) : Text(
+                                ) :
+                                const Text(
                                   'Press play\nto start',
                                   style: TextStyle(
                                     fontSize: 22,
@@ -514,7 +149,7 @@ class _CUState extends State<CountUpTimerPage>
                                   ),
                                   textAlign: TextAlign.center,
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -548,14 +183,12 @@ class _CUState extends State<CountUpTimerPage>
 
                                       },
                                       elevation: 0,
-                                      fillColor: Color(0xff9F97E3),
-                                      child: !_stopWatchStarted ? Icon(
-                                        Icons.play_arrow_rounded,
-                                        size: 30.0,
-                                        color: Colors.white,
-                                      ) : Icon(Icons.stop_rounded, size: 30.0, color: Colors.white),
-                                      padding: EdgeInsets.all(15.0),
-                                      shape: CircleBorder(),
+                                      fillColor: const Color(0xff9F97E3),
+                                      padding: const EdgeInsets.all(15.0),
+                                      shape: const CircleBorder(),
+                                      child: !_stopWatchStarted
+                                          ? const Icon(Icons.play_arrow_rounded, size: 30.0, color: Colors.white)
+                                          : const Icon(Icons.stop_rounded, size: 30.0, color: Colors.white),
                                     )
                                   ],
                                 )
@@ -572,11 +205,11 @@ class _CUState extends State<CountUpTimerPage>
                                   color: Colors.transparent,
                                   width: MediaQuery.of(context).size.width,
                                   height: MediaQuery.of(context).size.width * .2,
-                                  padding: EdgeInsets.fromLTRB(20,0,0,0),
+                                  padding: const EdgeInsets.fromLTRB(20,0,0,0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(timeFormat.format(minutes) + ":" + timeFormat.format(secondDisplay),
+                                      Text("${timeFormat.format(minutes)}:${timeFormat.format(secondDisplay)}",
                                           style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
                                       RawMaterialButton(
                                         onPressed: () {
@@ -606,14 +239,12 @@ class _CUState extends State<CountUpTimerPage>
 
                                         },
                                         elevation: 0,
-                                        fillColor: Color(0xff9F97E3),
-                                        child: !_stopWatchStarted ? Icon(
-                                          Icons.play_arrow_rounded,
-                                          size: 30.0,
-                                          color: Colors.white,
-                                        ) : Icon(Icons.stop_rounded, size: 30.0, color: Colors.white),
-                                        padding: EdgeInsets.all(10),
-                                        shape: CircleBorder(),
+                                        fillColor: const Color(0xff9F97E3),
+                                        padding: const EdgeInsets.all(10),
+                                        shape: const CircleBorder(),
+                                        child: !_stopWatchStarted
+                                            ? const Icon(Icons.play_arrow_rounded, size: 30.0, color: Colors.white)
+                                            : const Icon(Icons.stop_rounded, size: 30.0, color: Colors.white),
                                       ),
                                     ],
                                   )
@@ -627,11 +258,13 @@ class _CUState extends State<CountUpTimerPage>
             ),
             Column(
               children: [
-                SizedBox(height: _historyCollapsed ? MediaQuery.of(context).size.width * .7 : MediaQuery.of(context).size.width * .2),
+                SizedBox(height: _historyCollapsed
+                    ? MediaQuery.of(context).size.width * .7
+                    : MediaQuery.of(context).size.width * .2),
                 Expanded(
                     child: Container(
                       width: double.maxFinite,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(10),
@@ -642,12 +275,12 @@ class _CUState extends State<CountUpTimerPage>
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            padding: EdgeInsets.fromLTRB(20,0,20,0),
+                            padding: const EdgeInsets.fromLTRB(20,0,20,0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Padding(
+                                const Padding(
                                     padding: EdgeInsets.symmetric(vertical: 20),
                                     child: Text('Record', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24)),
                                 ),
@@ -659,31 +292,24 @@ class _CUState extends State<CountUpTimerPage>
                                   },
                                   child: Container(
                                     color: Colors.transparent,
-                                    padding: EdgeInsets.symmetric(vertical: 10),
+                                    padding: const EdgeInsets.symmetric(vertical: 10),
                                     width: 100,
                                     child: Align(
                                       alignment: Alignment.centerRight,
-                                      child: _historyCollapsed ?
-                                      Icon(
-                                        Icons.unfold_more_rounded,
-                                        size: 28,
-                                      ) :
-                                      Icon(
-                                        Icons.unfold_less_rounded,
-                                        size: 28,
-                                      ),
+                                      child: _historyCollapsed
+                                          ? const Icon(Icons.unfold_more_rounded, size: 28)
+                                          : const Icon(Icons.unfold_less_rounded, size: 28),
                                     ),
                                   ),
                                 ),
                               ],
                             ),
-
                           ),
                           Expanded(
                             child: SingleChildScrollView(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: const [
                                   Timeline(),
                                   SizedBox(height: 60),
                                 ],
@@ -704,7 +330,7 @@ class _CUState extends State<CountUpTimerPage>
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     height: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
@@ -724,56 +350,44 @@ class _CUState extends State<CountUpTimerPage>
                             context: context,
                             builder: (context) {
                               return Padding(
-                                padding: EdgeInsets.fromLTRB(20, 20, 20, 10),
+                                padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    Text(
+                                    const Text(
                                       'Log event',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                      style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
                                     ),
-                                    SizedBox(height: 20),
+                                    const SizedBox(height: 20),
                                     Container(
                                       width: double.maxFinite,
-                                      padding: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: const BoxDecoration(
                                         color: Color(0xffFFCDCF),
                                         borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                       child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.calculate_rounded,
-                                            size: 40,
-                                            color: Color(0xff8B3E42),
-                                          ),
+                                        children: const [
+                                          Icon(Icons.calculate_rounded, size: 40, color: Color(0xff8B3E42)),
                                           SizedBox(width: 15),
                                           Text(
                                             "APGAR Score",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 24,
-                                                color: Color(0xff8B3E42)
-                                            ),
+                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Color(0xff8B3E42)),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 20),
+                                    const SizedBox(height: 20),
                                     Container(
                                       width: double.maxFinite,
-                                      padding: EdgeInsets.all(20),
-                                      decoration: BoxDecoration(
+                                      padding: const EdgeInsets.all(20),
+                                      decoration: const BoxDecoration(
                                         color: Color(0xffE2EEF9),
                                         borderRadius: BorderRadius.all(Radius.circular(10)),
                                       ),
                                       child: Row(
-                                        children: [
+                                        children: const [
                                           Icon(
                                             Icons.bubble_chart_rounded,
                                             size: 40,
@@ -791,27 +405,21 @@ class _CUState extends State<CountUpTimerPage>
                                         ],
                                       ),
                                     ),
-                                    SizedBox(height: 20),
+                                    const SizedBox(height: 20),
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                                            border: Border.all(width: 2, color: Color(0xff9F97E3))
+                                            borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                            border: Border.all(width: 2, color: const Color(0xff9F97E3))
                                         ),
                                         width: MediaQuery.of(context).size.width - 40,
                                         height: 60,
-                                        child: Center(
-                                          child:
-                                          Text(
-                                            'Cancel',
-                                            style: TextStyle(
-                                              color: Color(0xff9F97E3),
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        child: const Center(
+                                          child: Text('Cancel',
+                                            style: TextStyle(color: Color(0xff9F97E3), fontSize: 20, fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                       ),
@@ -823,22 +431,17 @@ class _CUState extends State<CountUpTimerPage>
                         );
                       },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Color(0xff564BAF),
                         borderRadius: BorderRadius.all(Radius.circular(10))
                       ),
                       width: MediaQuery.of(context).size.width - 40,
                       height: 60,
-                      child: Center(
-                        child:
-                            Text(
-                              'Log event',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                              ),
-                          ),
+                      child: const Center(
+                        child: Text(
+                          'Log event',
+                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
