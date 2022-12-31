@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart' show Consumer, Provider, ReadContext;
 
-import 'package:kybele_gen2/log/recordProvider.dart' show RecordProvider;
+import 'package:kybele_gen2/log/backend.dart' show RecordProvider;
 
 NumberFormat timeFormat = NumberFormat("00");
 

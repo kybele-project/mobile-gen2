@@ -2,30 +2,46 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:intl/intl.dart';
+import 'package:kybele_gen2/log/button.dart';
 import 'package:provider/provider.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:vibration/vibration.dart';
-import 'package:kybele_gen2/log/recordProvider.dart';
+import 'package:kybele_gen2/log/backend.dart';
 import 'package:kybele_gen2/log/timeline.dart';
 
 
 NumberFormat timeFormat = NumberFormat("00");
 
-class CountUpTimerPage extends StatefulWidget {
-  const CountUpTimerPage({super.key});
+class Record extends StatefulWidget {
+  const Record({super.key});
 
   @override
-  State<CountUpTimerPage> createState() =>
-      _CUState();
+  State<Record> createState() =>
+      _RecordState();
 }
 
-class _CUState extends State<CountUpTimerPage>
-    with TickerProviderStateMixin {
+class _RecordState extends State<Record> with TickerProviderStateMixin {
+
   late AnimationController controller;
-  bool determinate = false;
   late int timerAudioIndex;
 
-  List<String> timerAudioFiles = [
+  bool _stopWatchStarted = false;
+  bool _historyCollapsed = true;
+
+  List<int> timerGaps = [60, 60, 60, 60, 60, 300, 300, 0, 0];
+  List<int> timerLocations = [0, 60, 120, 180, 240, 300, 600, 900, 9000];
+
+  final StopWatchTimer _stopWatchTimer = StopWatchTimer(
+    mode: StopWatchMode.countUp,
+  );
+
+  String timerAudioPausedAsset = 'assets/timer_audio/timerPaused.wav';
+  String timerAudioPausedMessage = 'Timer assistant paused';
+
+  String timerAudioStoppedAsset = 'assets/timer_audio/timerStopped.wav';
+  String timerAudioStoppedMessage = 'Timer assistant stopped';
+
+  List<String> timerAudioAssets = [
     'assets/timer_audio/timer0.wav',
     'assets/timer_audio/timer1.wav',
     'assets/timer_audio/timer2.wav',
@@ -36,12 +52,7 @@ class _CUState extends State<CountUpTimerPage>
     'assets/timer_audio/timer15.wav',
   ];
 
-  String timerPaused = 'Timer assistant paused';
-  String timerPausedAudio = 'assets/timer_audio/timerPaused.wav';
-  String timerStopped = 'Timer assistant stopped';
-  String timerStoppedAudio = 'assets/timer_audio/timerStopped.wav';
-
-  List<String> timerAudioStrings = [
+  List<String> timerAudioMessages = [
     'Timer assistant\nstarted',
     '1 minute elapsed. Log APGAR score and oxygen saturation',
     '2 minutes elapsed. Log oxygen saturation',
@@ -52,27 +63,9 @@ class _CUState extends State<CountUpTimerPage>
     '15 minutes elapsed. Log APGAR score and oxygen saturation',
   ];
 
-  List<int> timerGaps = [
-    60, 60, 60, 60, 60, 300, 300, 0, 0
-  ];
-
-  List<int> timerLocations = [
-    0, 60, 120, 180, 240, 300, 600, 900, 9000
-  ];
-
-  final StopWatchTimer _stopWatchTimer = StopWatchTimer(
-    mode: StopWatchMode.countUp,
-  );
-
-  bool _stopWatchStarted = false;
-  bool _historyCollapsed = true;
-
   @override
   void initState() {
-
     controller = AnimationController(
-      /// [AnimationController]s can be created with `vsync: this` because of
-      /// [TickerProviderStateMixin].
       vsync: this,
       duration: const Duration(seconds: 5),
       value: 10,
@@ -111,7 +104,7 @@ class _CUState extends State<CountUpTimerPage>
                       timerAudioIndex = timerAudioIndex + 1;
                       Vibration.vibrate(pattern: [0, 200, 200, 200, 200, 200]);
                       FlutterRingtonePlayer.play(
-                          fromAsset: timerAudioFiles[timerAudioIndex]);
+                          fromAsset: timerAudioAssets[timerAudioIndex]);
                     }
                     num minutes = (seconds / 60).floor();
                     num secondDisplay = (seconds % 60);
@@ -137,7 +130,7 @@ class _CUState extends State<CountUpTimerPage>
                                     style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),
                                 ),
                                 _stopWatchStarted ? Text(
-                                  timerAudioStrings[timerAudioIndex],
+                                  timerAudioMessages[timerAudioIndex],
                                   style: const TextStyle(fontSize: 22, color: Color(0xfff5f5f5)),
                                   textAlign: TextAlign.center,
                                 ) :
@@ -166,7 +159,7 @@ class _CUState extends State<CountUpTimerPage>
                                               interval: 'None'
                                           );
                                           recordProvider.addEvent(timerEvent);
-                                          FlutterRingtonePlayer.play(fromAsset: timerPausedAudio);
+                                          FlutterRingtonePlayer.play(fromAsset: timerAudioPausedAsset);
                                         }
                                         else {
                                           _stopWatchTimer.onStartTimer();
@@ -177,7 +170,7 @@ class _CUState extends State<CountUpTimerPage>
                                               interval: 'None'
                                           );
                                           recordProvider.addEvent(timerEvent);
-                                          FlutterRingtonePlayer.play(fromAsset: timerAudioFiles[0]);
+                                          FlutterRingtonePlayer.play(fromAsset: timerAudioAssets[0]);
                                         }
                                         setState(() => {_stopWatchStarted = !_stopWatchStarted});
 
@@ -222,7 +215,7 @@ class _CUState extends State<CountUpTimerPage>
                                                 interval: 'None'
                                             );
                                             recordProvider.addEvent(timerEvent);
-                                            FlutterRingtonePlayer.play(fromAsset: timerPausedAudio);
+                                            FlutterRingtonePlayer.play(fromAsset: timerAudioPausedAsset);
                                           }
                                           else {
                                             _stopWatchTimer.onStartTimer();
@@ -233,7 +226,7 @@ class _CUState extends State<CountUpTimerPage>
                                               interval: 'None'
                                             );
                                             recordProvider.addEvent(timerEvent);
-                                            FlutterRingtonePlayer.play(fromAsset: timerAudioFiles[0]);
+                                            FlutterRingtonePlayer.play(fromAsset: timerAudioAssets[0]);
                                           }
                                           setState(() => {_stopWatchStarted = !_stopWatchStarted});
 
@@ -325,23 +318,7 @@ class _CUState extends State<CountUpTimerPage>
             Stack(
               alignment: Alignment.center,
               children: [
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 80,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0x00ffffff),
-                          Color(0x88f5f5f5),
-                        ],
-                      ),
-                    ),
-                  )
-                ),
+                KybeleButtonGradientLayer(),
                 Positioned(
                   bottom: 10,
                   child: GestureDetector(
@@ -355,74 +332,17 @@ class _CUState extends State<CountUpTimerPage>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    const Text(
-                                      'Log event',
-                                      style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
-                                    ),
+                                    const Text('Log event', style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
                                     const SizedBox(height: 20),
-                                    Container(
-                                      width: double.maxFinite,
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffFFCDCF),
-                                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      ),
-                                      child: Row(
-                                        children: const [
-                                          Icon(Icons.calculate_rounded, size: 40, color: Color(0xff8B3E42)),
-                                          SizedBox(width: 15),
-                                          Text(
-                                            "APGAR Score",
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24, color: Color(0xff8B3E42)),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score'),
                                     const SizedBox(height: 20),
-                                    Container(
-                                      width: double.maxFinite,
-                                      padding: const EdgeInsets.all(20),
-                                      decoration: const BoxDecoration(
-                                        color: Color(0xffE2EEF9),
-                                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                                      ),
-                                      child: Row(
-                                        children: const [
-                                          Icon(
-                                            Icons.bubble_chart_rounded,
-                                            size: 40,
-                                            color: Color(0xff436B8F),
-                                          ),
-                                          SizedBox(width: 15),
-                                          Text(
-                                            "Oxygen Saturation",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 24,
-                                                color: Color(0xff436B8F)
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                    const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation'),
                                     const SizedBox(height: 20),
                                     GestureDetector(
                                       onTap: () {
                                         Navigator.pop(context);
                                       },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                            border: Border.all(width: 2, color: const Color(0xff9F97E3))
-                                        ),
-                                        width: MediaQuery.of(context).size.width - 40,
-                                        height: 60,
-                                        child: const Center(
-                                          child: Text('Cancel',
-                                            style: TextStyle(color: Color(0xff9F97E3), fontSize: 20, fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                      ),
+                                      child: const KybeleOutlineButton('Cancel'),
                                     ),
                                   ],
                                 ),
@@ -430,20 +350,7 @@ class _CUState extends State<CountUpTimerPage>
                             }
                         );
                       },
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xff564BAF),
-                        borderRadius: BorderRadius.all(Radius.circular(10))
-                      ),
-                      width: MediaQuery.of(context).size.width - 40,
-                      height: 60,
-                      child: const Center(
-                        child: Text(
-                          'Log event',
-                          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
+                    child: const KybeleSolidButton('Log event'),
                   ),
                 ),
               ],

@@ -11,8 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kybele_gen2/log/recordProvider.dart';
-import 'package:kybele_gen2/log/alarm.dart';
+import 'package:kybele_gen2/log/backend.dart';
+import 'package:kybele_gen2/log/record.dart';
 
 import 'package:animations/animations.dart';
 
@@ -55,7 +55,7 @@ class _FrameworkState extends State<Framework> {
   int _selectedIndex = 1;
 
   List<Widget> _widgetOptions = <Widget>[
-    CountUpTimerPage(),
+    Record(),
     Tools(),
   ];
 

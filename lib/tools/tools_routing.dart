@@ -7,7 +7,7 @@ import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
 import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 import 'package:kybele_gen2/tools/MRSOPA.dart';
 import 'package:kybele_gen2/tools/APGAR2.dart';
-import 'package:kybele_gen2/log/alarm.dart';
+import 'package:kybele_gen2/log/record.dart';
 import 'package:kybele_gen2/learn/video_library.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -78,7 +78,7 @@ class Tools extends StatelessWidget {
     MRSOPA(),
     // PDF VIEWER CLASS
     LearnRouter(),
-    CountUpTimerPage(),
+    Record(),
     // APGARCalculator2(),
   ];
 
