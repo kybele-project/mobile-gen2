@@ -23,10 +23,7 @@ class YouTubeVideoButton3 extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => TutorialPage(
-                    module,
-                    videoIndex,
-                  )),
+              builder: (context) => VideoDemo()),
         );
       },
       child: Container(
@@ -332,38 +329,18 @@ class Learn2 extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: SingleChildScrollView(
-          child: Stack(
+          child: Column(
             children: [
-              Column(
-                children: [
-                  tealContainer(context),
-                  Container(color: Colors.grey[200], height: 1500),
-                ],
+              PopUpHeader(
+              'Videos',
+              Icon(
+                Icons.video_collection_sharp,
+                color: Colors.deepPurpleAccent[100],
+                size: 30,
               ),
+            ),
               Column(
                 children: [
-                  Container(
-                    width: double.infinity,
-                    height: begin,
-                    padding: EdgeInsets.all(40),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/kybele_white.png',
-                          height: 40,
-                        ),
-                        Text(
-                          "Learn",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Container(
                     padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
                     child: Column(

@@ -1,3 +1,4 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 
@@ -78,7 +79,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
     Expanded(
       child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+          padding: EdgeInsets.fromLTRB(0, 0, 00, 0),
           child: Column(
             children: [
               ABCDTable(),
@@ -174,7 +175,12 @@ class ABCDTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('ABCD Table');
+    return Column(children: [
+      Text("A: Airway"),
+      Text("-Place hand in sniffing position\nSuction mouth, then nose"),
+      Text("B: Breathing"),
+      Text("If apneic")
+    ],);
   }
 }
 
@@ -199,7 +205,83 @@ class EndotrachealIntubation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Endotracheal Intubation');
+    return
+    Container( 
+      width: double.infinity,
+      child:
+    Align(alignment: Alignment.centerLeft, child:
+    Column(children: [
+      Text("Medications Used During or Following Resuscitation", textAlign: TextAlign.left,),
+      Text("Epinephrine 1:10000 (0.1 mg/mL)"),
+      Table(
+      border: TableBorder(
+        top: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        right: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        left: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        bottom: const BorderSide(color: Color(0xffeaeaea), width: 1),
+      ),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(150),
+        1: FixedColumnWidth(50),
+        2: FlexColumnWidth(),
+      },
+      children: [
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Colors.red,
+                  alignment: Alignment.center,
+                  child: Text("Dosage/Route*"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[200],
+                  alignment: Alignment.center,
+                  child: Text("Wt (kg)", textAlign: TextAlign.left),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[200],
+                  alignment: Alignment.center,
+                  child: Text("Total Volume (mL)", textAlign: TextAlign.left),
+                ),
+              ),
+            ]
+        ),
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.1 to 0.4 mL/kg\nInterveneous (preferred route)"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("1\n2\n3\n4"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.1-0.3\n0.2-0.6\n0.3-0.9\n0.4-1.2"),
+                ),
+              ),
+            ]
+        ),
+        
+      ],
+    )
+    ]))
+    );
   }
 }
 
@@ -438,6 +520,196 @@ class MedicationTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Medication Table');
+    return 
+    Expanded(child:
+    SingleChildScrollView(child:
+    InteractiveViewer(child:
+    Container(
+      padding: const EdgeInsets.all(10),
+      child:
+    Column(children: [
+      Container(
+        width: double.infinity,
+        child: Text("Epinephrine", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700))),
+      Container(
+        width: double.infinity,
+        child: Text("1:10000 (0.1 mg/mL)", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400))),
+      SizedBox(height: 10),
+      Table(
+      border: TableBorder(
+        top: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        right: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        left: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        bottom: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        horizontalInside: const BorderSide(color: Colors.black),
+      ),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(170),
+        1: FixedColumnWidth(50),
+        2: FlexColumnWidth(),
+      },
+      children: [
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Dosage/Route*", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Wt (kg)", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Total Volume (mL)", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+            ]
+        ),
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.1 to 0.4 mL/kg\nInterveneous (preferred route)"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("1\n2\n3\n4"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.1 - 0.3\n0.2 - 0.6\n0.3 - 0.9\n0.4 - 1.2"),
+                ),
+              ),
+            ]
+        ),
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.5 to 1 mL/kg\nEndotracheal (acceptable until IV established)"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("1\n2\n3\n4"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("0.5 - 1.0\n1.0 - 2.0\n1.5 - 3.0\n2.0 - 4.0"),
+                ),
+              ),
+            ]
+        ),
+        
+        
+      ],
+    ),
+    Text("*Give rapidly; follow IV dose with 0.5 - 1 mL of normal saline flush\n*Repeat every 3-5 minutes if HR < 60 with chest compressions\nAfter ET dose, may give IV epinephrine as soon as IV route is established", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300)),
+      SizedBox(height: 40),
+      Container(
+        width: double.infinity,
+        child: Text("Volume Expanders", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700))),
+      Container(
+        width: double.infinity,
+        child: Text("(Normal Saline,O-negative PRBC)", textAlign: TextAlign.left, style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400))),
+      SizedBox(height: 10),
+      Table(
+      border: TableBorder(
+        top: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        right: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        left: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        bottom: const BorderSide(color: Color(0xffeaeaea), width: 1),
+        horizontalInside: const BorderSide(color: Colors.black),
+      ),
+      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+      columnWidths: const <int, TableColumnWidth>{
+        0: FixedColumnWidth(170),
+        1: FixedColumnWidth(50),
+        2: FlexColumnWidth(),
+      },
+      children: [
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Dosage/Route*", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Wt (kg)", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Color(0xff7266d7),
+                  alignment: Alignment.center,
+                  child: Text("Total Volume (mL)", textAlign: TextAlign.left, style:(TextStyle(color: Colors.white, fontWeight: FontWeight.w500))),
+                ),
+              ),
+            ]
+        ),
+        TableRow(
+            children: [
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.topLeft,
+                  child: Text("10 mL/kg IV"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("1\n2\n3\n4"),
+                ),
+              ),
+              TableCell(
+                child: Container(
+                  color: Colors.grey[50],
+                  alignment: Alignment.center,
+                  child: Text("10\n20\n20\n40"),
+                ),
+              ),
+            ]
+        ),
+        
+        
+      ],
+    ),
+    Container(color: Colors.grey[100], child:
+    Text("*Not responding to steps of resuscitation and has signs of shock or history of acute blood loss.\n*Give over 5-10 minutes", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w300)),
+    )]
+    )))));
   }
 }

@@ -56,7 +56,6 @@ class _FrameworkState extends State<Framework> {
   List<Widget> _widgetOptions = <Widget>[
     RecordRouter(),
     Tools(),
-    LearnRouter(),
   ];
 
   @override
@@ -85,8 +84,6 @@ class _FrameworkState extends State<Framework> {
               icon: Icon(Icons.list_alt_rounded), label: "Record"),
           BottomNavigationBarItem(
               icon: Icon(Icons.handyman_rounded), label: "Tools"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.school_rounded), label: "Learn"),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,

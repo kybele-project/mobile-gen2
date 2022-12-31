@@ -9,6 +9,7 @@ import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 import 'package:kybele_gen2/tools/MRSOPA.dart';
 import 'package:kybele_gen2/tools/APGAR2.dart';
 import 'package:kybele_gen2/record/alarm.dart';
+import 'package:kybele_gen2/learn/video_library.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -50,7 +51,7 @@ class Tools extends StatelessWidget {
     ),
     // PDF VIEWER LOGO
     Icon(
-      Icons.drive_file_move_outline,
+      Icons.video_collection_sharp,
       color: Colors.white,
       size: 60,
     ),
@@ -67,7 +68,7 @@ class Tools extends StatelessWidget {
     'Target Oxygen Saturation',
     'MR. SOPA\n Corrective Steps',
     // PDF VIEWER NAME
-    'Additional Resources',
+    'Videos',
     'Alarm',
   ];
 
@@ -77,7 +78,7 @@ class Tools extends StatelessWidget {
     const TargetOxygenSaturation(),
     MRSOPA(),
     // PDF VIEWER CLASS
-    const PDFViewer(),
+    LearnRouter(),
     CountUpTimerPage(),
     // APGARCalculator2(),
   ];
@@ -159,7 +160,7 @@ OpenContainer(
                 crossAxisCount: 2,
                 children:[
                 generate_card(context, 0, Color(0xffd26d6f)),
-                generate_card(context, 1, Color(0xff003d22)),
+                generate_card(context, 1, Color(0xffffcdcf)),
                 generate_card(context, 2, Color(0xff83bab7)),
                 generate_card(context, 4, Color(0xffa47c91)),
               
