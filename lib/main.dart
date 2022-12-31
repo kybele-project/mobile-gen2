@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/record/record_screen.dart';
 
 import 'package:kybele_gen2/tools/tools_routing.dart';
 import 'package:kybele_gen2/learn/video_library.dart';
@@ -12,7 +11,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
-import 'package:kybele_gen2/provider/dbprovider.dart';
+import 'package:kybele_gen2/log/dbprovider.dart';
+import 'package:kybele_gen2/log/alarm.dart';
 
 import 'package:animations/animations.dart';
 
@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: ThemeData(
             useMaterial3: true,
+            textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
             // textTheme: GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
           ),
           home: const Framework(),
@@ -54,7 +55,7 @@ class _FrameworkState extends State<Framework> {
   int _selectedIndex = 1;
 
   List<Widget> _widgetOptions = <Widget>[
-    RecordRouter(),
+    CountUpTimerPage(),
     Tools(),
   ];
 
@@ -75,9 +76,9 @@ class _FrameworkState extends State<Framework> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.white70,
-        selectedItemColor: Colors.white,
-        elevation: 20,
+        unselectedItemColor: Colors.grey[600],
+        selectedItemColor: Color(0xff564BAF),
+        elevation: 0,
         backgroundColor: Color(0xff005660), // Colors.black54,
         items: [
           BottomNavigationBarItem(
@@ -87,8 +88,8 @@ class _FrameworkState extends State<Framework> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedFontSize: 14,
-        unselectedFontSize: 14,
+        selectedFontSize: 16,
+        unselectedFontSize: 16,
       ),
       body: PageTransitionSwitcher(
           duration: Duration(milliseconds: 500),

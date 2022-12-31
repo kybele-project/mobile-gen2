@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kybele_gen2/nav/header.dart';
-import 'package:kybele_gen2/provider/dbprovider.dart';
-import 'package:kybele_gen2/models/event.dart';
+import 'package:kybele_gen2/log/dbprovider.dart';
 import 'package:provider/provider.dart';
 
 
@@ -535,16 +534,13 @@ class _OxygenRecordState extends State<OxygenRecord> {
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)))
             ),
             onPressed:() {
-              Event apgarEvent = Event(
-                type: 'Target Oxygen Saturation',
-                description: 'Current saturation at $_currentSliderValue%',
-                info1: '',
-                info2: '',
-                info3: '',
-                info4: '',
-                info5: '',
+              Event o2Event = Event(
+                category: 'OxygenSaturation',
+                header: 'Oxygen Saturation: ${_currentSliderValue.toInt()}%',
+                subHeader: 'Insert status here',
+                interval: 'Test'
               );
-              saveData(apgarEvent);
+              saveData(o2Event);
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Oxygen Saturation Record Added!'),

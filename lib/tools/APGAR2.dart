@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/nav/header.dart';
 import 'package:kybele_gen2/designs/customtoggleswitch.dart';
-import 'package:kybele_gen2/provider/dbprovider.dart';
-import 'package:kybele_gen2/database/db.dart';
-import 'package:kybele_gen2/models/event.dart';
+import 'package:kybele_gen2/log/dbprovider.dart';
 
 import 'package:provider/provider.dart';
 
@@ -520,13 +518,10 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                               GestureDetector(
                                 onTap: () {
                                   Event apgarEvent = Event(
-                                    type: 'APGAR',
-                                    description: 'Overall score: $_scoreAPGAR',
-                                    info1: 'Appearance: $_varA1',
-                                    info2: 'Pulse: $_varP',
-                                    info3: 'Grimace when stimulated: $_varG',
-                                    info4: 'Activity: $_varA2',
-                                    info5: 'Respirations: $_varR',
+                                    category: 'APGAR',
+                                    header: 'APGAR Score: $_scoreAPGAR',
+                                    subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
+                                    interval: 'Test',
                                   );
                                   saveData(apgarEvent);
                                   ScaffoldMessenger.of(context)
