@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:kybele_gen2/tools/tools_routing.dart';
-import 'package:kybele_gen2/learn/video_library.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kybele_gen2/firebase_options.dart';

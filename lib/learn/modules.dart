@@ -24,7 +24,7 @@ Module ghmpModule = Module(
   "Global Health Media Project",
   3,
   27,
-  ["0clo9Lvpv7Y ", "ne06nPIKTmE", "Wg-k-BlG0r0"],
+  ["assets/20210216_164508.mp4", "assets/React App - Google Chrome 2021-02-16 14-36-45.mp4", "assets/React App - Google Chrome 2021-02-16 14-36-45.mp4"],
   [
     "Helping Babies Breathe at Birth",
     "Danger Signs in Newborns, for Health Workers",
@@ -39,8 +39,8 @@ Module garhModule = Module(
   2,
   16,
   [
-    "uuP-TmIBIfk",
-    "jwnkRmzsiEg",
+    "assets/React App - Google Chrome 2021-02-16 14-36-45.mp4",
+    "assets/React App - Google Chrome 2021-02-16 14-36-45.mp4",
   ],
   [
     "Full Term Newborn",

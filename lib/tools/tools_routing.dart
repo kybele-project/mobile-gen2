@@ -8,7 +8,7 @@ import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
 import 'package:kybele_gen2/tools/MRSOPA.dart';
 import 'package:kybele_gen2/tools/APGAR2.dart';
 import 'package:kybele_gen2/log/record.dart';
-import 'package:kybele_gen2/learn/video_library.dart';
+import 'package:kybele_gen2/tools/video_library.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -75,10 +75,9 @@ class Tools extends StatelessWidget {
     const NRPCodedDiagram(),
     const APGARCalculator2(),
     const TargetOxygenSaturation(),
-    MRSOPA(),
+    // MRSOPA(),
     // PDF VIEWER CLASS
-    LearnRouter(),
-    Record(),
+    Learn2(),
     // APGARCalculator2(),
   ];
 
@@ -161,7 +160,7 @@ OpenContainer(
                 generate_card(context, 0, Color(0xffd26d6f)),
                 generate_card(context, 1, Color(0xffffcdcf)),
                 generate_card(context, 2, Color(0xff83bab7)),
-                generate_card(context, 4, Color(0xffa47c91)),
+                generate_card(context, 3, Color(0xffa47c91)),
               
               ])),
               Container( padding: const EdgeInsets.only(left: 15, top: 10), width: double.infinity, child: Text("Resources", textAlign: TextAlign.left, style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500))),

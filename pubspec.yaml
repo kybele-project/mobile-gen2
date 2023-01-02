@@ -35,6 +35,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.4.38
   printing: ^5.9.3
   intl: ^0.17.0
+  chewie: ^1.3.6
 
 dev_dependencies:
   flutter_test:
@@ -60,3 +61,5 @@ flutter:
     - assets/T-Piece resuscitator for lamination.pdf
     - assets/Warmilu_thermal gel autoclave instructions.pdf
     - assets/A4 - NRP Checklist 27Oct2022.pdf
+    - assets/20210216_164508.mp4
+    - assets/React App - Google Chrome 2021-02-16 14-36-45.mp4
