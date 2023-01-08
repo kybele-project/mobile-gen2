@@ -1,194 +1,17 @@
-import 'package:flutter/material.dart';
-import 'package:kybele_gen2/learn/modules.dart';
 import 'package:kybele_gen2/nav/header.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:io';
+import 'package:kybele_gen2/learn/modules.dart';
+import 'package:kybele_gen2/learn/video_page.dart';
 import 'package:chewie/chewie.dart';
+import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
 import 'package:video_player/video_player.dart';
 
-class ChewieDemo extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return _ChewieDemoState();
-  }
-}
-
-class _ChewieDemoState extends State<ChewieDemo> {
-  late VideoPlayerController _videoPlayerController1;
-  ChewieController? _chewieController;
-  final int selectedIndex = 0;
-  static Module selectedModule = ghmpModule;
-
-  @override
-  void initState() {
-    super.initState();
-    initializePlayer();
-  }
-
-  @override
-  void dispose() {
-    _videoPlayerController1.dispose();
-    _chewieController?.dispose();
-    super.dispose();
-  }
-
-  List<String> srcs = [
-    "https://assets.mixkit.co/videos/preview/mixkit-spinning-around-the-earth-29351-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-daytime-city-traffic-aerial-view-56-large.mp4",
-    "https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4"
-  ];
-
-  Future<void> initializePlayer() async {
-    _videoPlayerController1 =
-        VideoPlayerController.asset(selectedModule.videoIds[selectedIndex])..addListener((() => {}));
-    await Future.wait([
-      _videoPlayerController1.initialize(),
-    ]);
-    _createChewieController();
-    setState(() {});
-  }
-
-  void _createChewieController() {
-    // final subtitles = [
-    //     Subtitle(
-    //       index: 0,
-    //       start: Duration.zero,
-    //       end: const Duration(seconds: 10),
-    //       text: 'Hello from subtitles',
-    //     ),
-    //     Subtitle(
-    //       index: 0,
-    //       start: const Duration(seconds: 10),
-    //       end: const Duration(seconds: 20),
-    //       text: 'Whats up? :)',
-    //     ),
-    //   ];
-
-    final subtitles = [
-      Subtitle(
-        index: 0,
-        start: Duration.zero,
-        end: const Duration(seconds: 10),
-        text: const TextSpan(
-          children: [
-            TextSpan(
-              text: 'Hello',
-              style: TextStyle(color: Colors.red, fontSize: 22),
-            ),
-            TextSpan(
-              text: ' from ',
-              style: TextStyle(color: Colors.green, fontSize: 20),
-            ),
-            TextSpan(
-              text: 'subtitles',
-              style: TextStyle(color: Colors.blue, fontSize: 18),
-            )
-          ],
-        ),
-      ),
-      Subtitle(
-        index: 0,
-        start: const Duration(seconds: 10),
-        end: const Duration(seconds: 20),
-        text: 'Whats up? :)',
-        // text: const TextSpan(
-        //   text: 'Whats up? :)',
-        //   style: TextStyle(color: Colors.amber, fontSize: 22, fontStyle: FontStyle.italic),
-        // ),
-      ),
-    ];
-
-    _chewieController = ChewieController(
-      videoPlayerController: _videoPlayerController1,
-      autoPlay: true,
-      looping: true,
-      additionalOptions: (context) {
-        return <OptionItem>[
-          OptionItem(
-            onTap: toggleVideo,
-            iconData: Icons.live_tv_sharp,
-            title: 'Toggle Video Src',
-          ),
-        ];
-      },
-      subtitle: Subtitles(subtitles),
-      subtitleBuilder: (context, dynamic subtitle) => Container(
-        padding: const EdgeInsets.all(10.0),
-        child: subtitle is InlineSpan
-            ? RichText(
-                text: subtitle,
-              )
-            : Text(
-                subtitle.toString(),
-                style: const TextStyle(color: Colors.black),
-              ),
-      ),
-
-      hideControlsTimer: const Duration(seconds: 1),
-
-      // Try playing around with some of these other options:
-
-      // showControls: false,
-      // materialProgressColors: ChewieProgressColors(
-      //   playedColor: Colors.red,
-      //   handleColor: Colors.blue,
-      //   backgroundColor: Colors.grey,
-      //   bufferedColor: Colors.lightGreen,
-      // ),
-      // placeholder: Container(
-      //   color: Colors.grey,
-      // ),
-      // autoInitialize: true,
-    );
-  }
-
-  int currPlayIndex = 0;
-
-  Future<void> toggleVideo() async {
-    await _videoPlayerController1.pause();
-    currPlayIndex += 1;
-    if (currPlayIndex >= srcs.length) {
-      currPlayIndex = 0;
-    }
-    await initializePlayer();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return 
-          Container(height: 300,child:
-            Center(
-                child: _chewieController != null &&
-                        _chewieController!
-                            .videoPlayerController.value.isInitialized
-                    ? Chewie(
-                        controller: _chewieController!,
-                      )
-                    : Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                          SizedBox(height: 20),
-                          Text('Loading'),
-                        ],
-                      ),
-              ));
-            
-  }
-}
-
-class YouTubeVideoButton3 extends StatefulWidget {
+class YouTubeVideoButton3 extends StatelessWidget {
   final Module module;
   final int videoIndex;
 
   const YouTubeVideoButton3(this.module, this.videoIndex, {super.key});
-
-  @override
-  State<YouTubeVideoButton3> createState() => _YouTubeVideoButton3State();
-}
-
-
-class _YouTubeVideoButton3State extends State<YouTubeVideoButton3> {
-  
 
   String fetchThumbnailUrl(String videoId) {
     return "https://img.youtube.com/vi/$videoId/0.jpg";
@@ -196,13 +19,18 @@ class _YouTubeVideoButton3State extends State<YouTubeVideoButton3> {
 
   @override
   Widget build(BuildContext context) {
-    String url = fetchThumbnailUrl(widget.module.videoIds[widget.videoIndex]);
+    String url = fetchThumbnailUrl(module.videoIds[videoIndex]);
 
     return InkWell(
       onTap: () {
-          setState(() {
-            selectedIndex: widget.videoIndex;
-          });
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TutorialPage(
+                    module,
+                    videoIndex,
+                  )),
+        );
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -243,14 +71,14 @@ class _YouTubeVideoButton3State extends State<YouTubeVideoButton3> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    widget.module.videoTitles[widget.videoIndex],
+                    module.videoTitles[videoIndex],
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14,
                     ),
                   ),
                   Text(
-                    widget.module.videoMinutes[widget.videoIndex],
+                    module.videoMinutes[videoIndex],
                     style: TextStyle(
                       fontSize: 10,
                     ),
@@ -476,54 +304,29 @@ class CertificationPane extends StatelessWidget {
 }
 
 class Learn2 extends StatelessWidget {
-  Widget tealContainer(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.width / 1.5,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.centerRight,
-          // teal
-          colors: [
-            Color(0xff005660),
-            Color(0xff007475),
-            Color(0xff008081),
-            Color(0xff229389),
-            Color(0xff34A798),
-            Color(0xff57C3AD),
-          ],
-          // sunset
-          // colors: [Color(0xff7d2c4c), Color(0xffac3d63), Color(0xffca4a67), Color(0xffe55a59),],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     double side = (MediaQuery.of(context).size.width - 60) / 2;
     double begin = MediaQuery.of(context).size.width / 1.5 - side / 2;
 
-    return Material(
+    return
+    Material(
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              PopUpHeader(
+        child: Column(
+          children: [
+            PopUpHeader(
               'Videos',
               Icon(
                 Icons.video_collection_sharp,
-                color: Colors.deepPurpleAccent[100],
-                size: 30,
+      color: Colors.pinkAccent,
+      size: 30,
               ),
             ),
-                
-                SingleChildScrollView( child:
-                Column( children:[
-                  ChewieDemo(),
-                  
-
-                  Container(child:Column(
+            Expanded(child:SingleChildScrollView(child:
+            Column(children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ModuleGroup(garhModule),
@@ -531,12 +334,7 @@ class Learn2 extends StatelessWidget {
                         ModuleGroup(ghmpModule),
                       ],
                     ),
-                  ),
-                  
-                ]
-                )
-                )
-          ]))));       
+                  )])))]),));
   }
 }
 

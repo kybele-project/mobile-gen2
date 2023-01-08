@@ -65,7 +65,7 @@ class Tools extends StatelessWidget {
     'NRP Flow Chart',
     'APGAR Calculator',
     'Target Oxygen Saturation',
-    'MR. SOPA\n Corrective Steps',
+    'Videos',
     // PDF VIEWER NAME
     'Videos',
     'Alarm',
