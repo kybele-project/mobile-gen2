@@ -377,7 +377,7 @@ class _FrameworkState extends State<Framework> {
         Column(
           children: [
             SizedBox(height: _recordCollapsed
-                ? MediaQuery.of(context).size.width * 1
+                ? MediaQuery.of(context).size.width * .8
                 : MediaQuery.of(context).size.width * .2),
             Expanded(
               child: Container(
@@ -539,7 +539,7 @@ class _FrameworkState extends State<Framework> {
                           ),
                           _recordCollapsed ? Container(
                             width: double.maxFinite,
-                            height: MediaQuery.of(context).size.width * 1,
+                            height: MediaQuery.of(context).size.width * .8,
                             padding: const EdgeInsets.fromLTRB(30,20,30,20),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
