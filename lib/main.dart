@@ -274,7 +274,7 @@ class _FrameworkState extends State<Framework> {
                                 height: MediaQuery.of(context).size.width * .2,
                                 child: Image.asset(
                                     'assets/kybele_purple.png',
-                                    height: 30,
+                                    height: 60,
                                     fit: BoxFit.fitHeight,
                                   ),
                               ),
