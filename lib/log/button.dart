@@ -206,7 +206,7 @@ class KybeleColorfulTile extends StatelessWidget {
 
 class KybelePDFTile extends StatelessWidget {
 
-  final Color bkgColor = const Color(0xffdddddd);
+  final Color bkgColor = const Color(0xfffafafa); //Color(0xffdddddd);
   final Color labelColor = const Color(0xff444444);
   final IconData icon = Icons.picture_as_pdf_rounded;
   final String header;
@@ -238,7 +238,7 @@ class KybelePDFTile extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(icon, size: 40, color: labelColor),
+              Icon(icon, size: 40, color: Colors.red),//labelColor),
               const SizedBox(width: 20),
               Text(
                 header,

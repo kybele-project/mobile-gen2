@@ -268,15 +268,15 @@ class _FrameworkState extends State<Framework> {
                           delegate: SliverChildListDelegate(
                             [
                               Container(
-                                padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                padding: const EdgeInsets.fromLTRB(20, 20, 10, 20),
+                                alignment: Alignment.centerLeft,
                                 height: MediaQuery.of(context).size.width * .2,
-                                child: Center(
-                                  child: Image.asset(
+                                child: Image.asset(
                                     'assets/kybele_purple.png',
                                     height: 30,
                                     fit: BoxFit.fitHeight,
                                   ),
-                                ),
                               ),
                             ],
                           ),
@@ -496,7 +496,7 @@ class _FrameworkState extends State<Framework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: const Color(0xff7266D7),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey[600],
         selectedItemColor: Color(0xff564BAF),

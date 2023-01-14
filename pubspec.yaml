@@ -49,7 +49,6 @@ flutter:
     - assets/CroppedFlow.jpg
     - assets/NRPFlowChart.jpg
     - assets/kybele_purple.png
-    - assets/timer_audio/timer0.wav
     - assets/timer_audio/timer1.wav
     - assets/timer_audio/timer2.wav
     - assets/timer_audio/timer3.wav
@@ -57,6 +56,10 @@ flutter:
     - assets/timer_audio/timer5.wav
     - assets/timer_audio/timer10.wav
     - assets/timer_audio/timer15.wav
+    - assets/timer_audio/timerPaused.wav
+    - assets/timer_audio/timerResumed.wav
+    - assets/timer_audio/timerStarted.wav
+    - assets/timer_audio/timerStopped.wav
     - assets/NRPQuickEquipmentChecklist.pdf
     - assets/T-Piece resuscitator for lamination.pdf
     - assets/Warmilu_thermal gel autoclave instructions.pdf
