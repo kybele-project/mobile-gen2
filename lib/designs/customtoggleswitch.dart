@@ -3,13 +3,13 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
-final List<Color> color_text_list = [
+final List<Color> colorTextList = [
   Colors.white,
   Colors.black,
   Colors.white,
 ];
 
-final List<Color> color_point_text_list = [
+final List<Color> colorPointTextList = [
   Colors.white70,
   Colors.black87,
   Colors.white70,
@@ -427,7 +427,7 @@ class _ToggleSwitchState extends State<ToggleSwitch>
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
                                               color:
-                                                  color_text_list[(index ~/ 2)],
+                                                  colorTextList[(index ~/ 2)],
                                             ),
                                             textAlign: TextAlign.center,
                                             overflow: TextOverflow.ellipsis,
@@ -448,7 +448,7 @@ class _ToggleSwitchState extends State<ToggleSwitch>
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontSize: 10,
-                                              color: color_point_text_list[
+                                              color: colorPointTextList[
                                                   (index ~/ 2)],
                                             ),
                                           )

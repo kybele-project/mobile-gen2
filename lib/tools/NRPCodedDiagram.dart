@@ -119,6 +119,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
               Container(
                 padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
                 width: double.maxFinite,
+                height: MediaQuery.of(context).size.width * .35,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border(
@@ -128,6 +129,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
                     ))),
                 child: Expanded(
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -9,7 +9,7 @@ import firebase_auth
 import firebase_core
 import path_provider_macos
 import printing
-import shared_preferences_macos
+import shared_preferences_foundation
 import sqflite
 import syncfusion_pdfviewer_macos
 import url_launcher_macos

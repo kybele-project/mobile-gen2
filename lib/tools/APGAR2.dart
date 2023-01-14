@@ -556,15 +556,16 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                               ),
                               const SizedBox(height: 30),
                             ],
-                          )),
+                          ),
+                      ),
                     ),
                   ],
                 ),
               ),
             ),
-          ],
-        ),
-      ),
+        ],
+            ),
+            ),
     );
   }
 }

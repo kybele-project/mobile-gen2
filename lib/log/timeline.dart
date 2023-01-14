@@ -1,10 +1,9 @@
-import 'dart:core' show String, bool, double, int, override;
-import 'dart:math';
+import 'dart:core' show String, bool, double, int, override, print;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart' show Consumer, Provider, ReadContext;
 
-import 'package:kybele_gen2/log/backend.dart' show RecordProvider;
+import 'backend.dart' show RecordProvider;
 
 NumberFormat timeFormat = NumberFormat("00");
 
@@ -230,6 +229,7 @@ class TimelineEntryWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     bool newDate = false;
 
+    print('${primaryKey} ${prevDate} ${date}');
     if ((date != prevDate) || (index == 0)) {
       newDate = true;
     }
@@ -302,7 +302,6 @@ class _TimelineState extends State<Timeline> {
   @override
   void initState() {
     super.initState();
-    context.read<RecordProvider>().getEvents();
   }
 
   @override
@@ -321,20 +320,31 @@ class _TimelineState extends State<Timeline> {
             padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
             child: Column(
               children: [
-                for (int i = 0; i < provider.events.length; i++)
+                TimelineEntryWrapper(
+                    0,
+                    provider.events[provider.events.length - 1].toMap()['date'],
+                    provider.events[provider.events.length - 1].toMap()['category'],
+                    provider.events[provider.events.length - 1].toMap()['header'],
+                    provider.events[provider.events.length - 1].toMap()['subHeader'],
+                    provider.events[provider.events.length - 1].toMap()['interval'],
+                    provider.events[provider.events.length - 1].toMap()['date'],
+                    provider.events[provider.events.length - 1].toMap()['time'],
+                    provider.events[provider.events.length - 1].toMap()['primaryKey'],
+                  ),
                   Column(
                     children: [
-                      TimelineEntryWrapper(
-                        i,
-                        provider.events[min(provider.events.length - i, provider.events.length - 1 - i)].toMap()['date'],
-                        provider.events[provider.events.length - 1 - i].toMap()['category'],
-                        provider.events[provider.events.length - 1 - i].toMap()['header'],
-                        provider.events[provider.events.length - 1 - i].toMap()['subHeader'],
-                        provider.events[provider.events.length - 1 - i].toMap()['interval'],
-                        provider.events[provider.events.length - 1 - i].toMap()['date'],
-                        provider.events[provider.events.length - 1 - i].toMap()['time'],
-                        provider.events[provider.events.length - 1 - i].toMap()['primaryKey'],
-                      ),
+                      for (int i = 1; i < provider.events.length; i++)
+                        TimelineEntryWrapper(
+                          i,
+                          provider.events[provider.events.length - 1 - i + 1].toMap()['date'],
+                          provider.events[provider.events.length - 1 - i].toMap()['category'],
+                          provider.events[provider.events.length - 1 - i].toMap()['header'],
+                          provider.events[provider.events.length - 1 - i].toMap()['subHeader'],
+                          provider.events[provider.events.length - 1 - i].toMap()['interval'],
+                          provider.events[provider.events.length - 1 - i].toMap()['date'],
+                          provider.events[provider.events.length - 1 - i].toMap()['time'],
+                          provider.events[provider.events.length - 1 - i].toMap()['primaryKey'],
+                        ),
                     ],
                   ),
                 GestureDetector(

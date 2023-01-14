@@ -35,82 +35,42 @@ class Document{
 }
 
 class RenderScreen extends StatefulWidget {
-  RenderScreen(this.doc, {Key ? key}) : super(key: key);
-  Document doc;
+  RenderScreen(this.doc_title, this.doc_path, {Key ? key}) : super(key: key);
+  String doc_title;
+  String doc_path;
   @override
   State<RenderScreen> createState() => _RenderScreenState();
 }
 class _RenderScreenState extends State<RenderScreen> {
   void _printExistingPdf() async {
     // import 'package:flutter/services.dart';
-    final pdf = await rootBundle.load(widget.doc.doc_path!);
+    final pdf = await rootBundle.load(widget.doc_path);
     await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
   }
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
-        actions: [
-          GestureDetector(
-            onTap: () {_printExistingPdf();},
-            child: Padding(
-              padding: EdgeInsets.only(right: 20),
-              child: Icon(
-              Icons.print,
-              size: 26.0,
-            ),)
-          )
-        ],
-        title: Text(widget.doc.doc_title!)
-      ),
-      body: Container(child: SfPdfViewer.asset(
-        widget.doc.doc_path!
-       )
-       ),
-       
-    );
-  }
-}
-
-class PDFViewer extends StatelessWidget {
-  const PDFViewer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child:
-            Expanded(
-              child: SingleChildScrollView(child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:[
-                  Column(children: Document.doc_List.map((doc) => ListTile(
-                    onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => RenderScreen(doc))); },
-                    title: Text(doc.doc_title!, overflow: TextOverflow.ellipsis),
-                    subtitle: Text("${doc.page_num!} Pages"),
-                    trailing: Text(doc.doc_date!, style: TextStyle(color: Colors.grey)),
-                    leading: Icon(
-                      Icons.picture_as_pdf,
-                      color: Colors.red,
-                      size: 32,
-                    )
-                  )).toList()
-                  )
-                ]
-              ))
-            )
+          backgroundColor: Colors.white,
+          iconTheme: IconThemeData(color: Colors.black),
+          actions: [
+            GestureDetector(
+                onTap: () {_printExistingPdf();},
+                child: Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: Icon(
+                    Icons.print,
+                    size: 26.0,
+                  ),)
             )
           ],
-        ),
+          title: Text(widget.doc_title)
       ),
+      body: Container(child: SfPdfViewer.asset(
+          widget.doc_path
+      )
+      ),
+
     );
   }
-
 }
