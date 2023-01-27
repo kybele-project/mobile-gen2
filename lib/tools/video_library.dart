@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 // ignore: depend_on_referenced_packages
 import 'package:video_player/video_player.dart';
 
+
+
 class YouTubeVideoButton3 extends StatelessWidget {
   final Module module;
   final int videoIndex;
@@ -23,14 +25,6 @@ class YouTubeVideoButton3 extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => TutorialPage(
-                    module,
-                    videoIndex,
-                  )),
-        );
       },
       child: Container(
         padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
@@ -167,8 +161,8 @@ class ModuleGroup extends StatefulWidget {
   final Module module;
 
   ModuleGroup(
-    this.module,
-  );
+      this.module,
+      );
 
   @override
   _ModuleGroupState createState() => _ModuleGroupState();
@@ -202,15 +196,15 @@ class _ModuleGroupState extends State<ModuleGroup> {
                 children: [
                   widget.isExpanded
                       ? ModuleHeader(
-                          widget.module,
-                          const Icon(Icons.expand_less_rounded,
-                              color: Colors.black),
-                        )
+                    widget.module,
+                    const Icon(Icons.expand_less_rounded,
+                        color: Colors.black),
+                  )
                       : ModuleHeader(
-                          widget.module,
-                          const Icon(Icons.expand_more_rounded,
-                              color: Colors.black),
-                        )
+                    widget.module,
+                    const Icon(Icons.expand_more_rounded,
+                        color: Colors.black),
+                  )
                 ],
               ),
             ),
@@ -219,10 +213,10 @@ class _ModuleGroupState extends State<ModuleGroup> {
                 curve: Curves.easeInOut,
                 child: widget.isExpanded
                     ? Container(
-                        padding: EdgeInsets.fromLTRB(30, 0, 30, 15),
-                        child: ModuleVideoList(
-                          widget.module,
-                        ))
+                    padding: EdgeInsets.fromLTRB(30, 0, 30, 15),
+                    child: ModuleVideoList(
+                      widget.module,
+                    ))
                     : Container()),
             PracticeQuizButton(),
           ],
@@ -310,31 +304,31 @@ class Learn2 extends StatelessWidget {
     double begin = MediaQuery.of(context).size.width / 1.5 - side / 2;
 
     return
-    Material(
-      child: SafeArea(
-        child: Column(
-          children: [
-            PopUpHeader(
-              'Videos',
-              Icon(
-                Icons.video_collection_sharp,
-      color: Colors.pinkAccent,
-      size: 30,
-              ),
-            ),
-            Expanded(child:SingleChildScrollView(child:
-            Column(children: [
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ModuleGroup(garhModule),
-                        SizedBox(height: 30),
-                        ModuleGroup(ghmpModule),
-                      ],
+      Material(
+          child: SafeArea(
+            child: Column(
+                children: [
+                  PopUpHeader(
+                    'Videos',
+                    Icon(
+                      Icons.video_collection_sharp,
+                      color: Colors.pinkAccent,
+                      size: 30,
                     ),
-                  )])))]),));
+                  ),
+                  Expanded(child:SingleChildScrollView(child:
+                  Column(children: [
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 0, 20, 40),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ModuleGroup(garhModule),
+                          SizedBox(height: 30),
+                          ModuleGroup(ghmpModule),
+                        ],
+                      ),
+                    )])))]),));
   }
 }
 

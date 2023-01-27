@@ -1,7 +1,7 @@
 import 'dart:core' show String, bool, double, int, override, print;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
-import 'package:provider/provider.dart' show Consumer, Provider, ReadContext;
+import 'package:provider/provider.dart' show Consumer, Provider;
 
 import 'backend.dart' show RecordProvider;
 
@@ -26,7 +26,7 @@ class StandardEntry extends StatelessWidget {
       this.interval,
       this.time,
       {super.key}
-      );
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +144,6 @@ class TimelineEntryWrapper extends StatelessWidget {
       );
 
   Widget entryWrapper(BuildContext context, Widget entry, Widget menuEntry, String primaryKey, bool newDate, bool padTimeline) {
-
     final recordProvider = Provider.of<RecordProvider>(context);
 
     return Column(
@@ -154,71 +153,77 @@ class TimelineEntryWrapper extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
           child: Text(date, textAlign: TextAlign.start, style: const TextStyle(fontSize: 18)),
         ) : Container(),
-        GestureDetector(
-          onTap: () {
-            showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        menuEntry,
-                        const SizedBox(height: 40),
-                        GestureDetector(
-                          onTap: () {
-                            recordProvider.removeEvent(primaryKey);
-                            Navigator.pop(context);
-                          },
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: const Text(
-                              'Delete event',
-                              style: TextStyle(
-                                color: Colors.red,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(height: 40),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                border: Border.all(width: 2, color: const Color(0xff9F97E3))
-                            ),
-                            width: MediaQuery.of(context).size.width - 40,
-                            height: 60,
-                            child: const Center(
-                              child:
-                              Text(
-                                'Back',
+        Dismissible(
+            key: Key(primaryKey),
+            onDismissed: (DismissDirection direction) {
+              recordProvider.removeEvent(primaryKey);
+            },
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          menuEntry,
+                          const SizedBox(height: 40),
+                          GestureDetector(
+                            onTap: () {
+                              recordProvider.removeEvent(primaryKey);
+                              Navigator.pop(context);
+                            },
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: const Text(
+                                'Delete event',
                                 style: TextStyle(
-                                  color: Color(0xff9F97E3),
+                                  color: Colors.red,
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 40),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+                              ),
+                              width: MediaQuery.of(context).size.width - 40,
+                              height: 60,
+                              child: const Center(
+                                child:
+                                Text(
+                                  'Back',
+                                  style: TextStyle(
+                                    color: Color(0xff9F97E3),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-            );
-          },
-          child: Padding(
-            padding: padTimeline ? const EdgeInsets.fromLTRB(20, 0, 20, 10) : const EdgeInsets.fromLTRB(0, 0, 0, 10),
-            child: entry,
+                        ],
+                      ),
+                    );
+                  }
+              );
+            },
+            child: Padding(
+              padding: padTimeline ? const EdgeInsets.fromLTRB(20, 0, 20, 10) : const EdgeInsets.fromLTRB(0, 0, 0, 10),
+              child: entry,
+            ),
           ),
         ),
       ],
@@ -311,13 +316,16 @@ class _TimelineState extends State<Timeline> {
     return Consumer<RecordProvider>(
       builder: (BuildContext context, provider, widget) {
         if (provider.events.isEmpty) {
+          provider.getEvents();
+        }
+        if (provider.events.isEmpty) {
           return const Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 20),
+            padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
             child: Text("No events logged", textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
           );
         } else {
           return Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+            padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
             child: Column(
               children: [
                 TimelineEntryWrapper(

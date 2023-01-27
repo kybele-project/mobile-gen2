@@ -15,9 +15,11 @@ enum TimerStatus {
 // TIMER STAGE INFORMATION
 // Location of stage boundaries in seconds (0, 1, 2, 3, 4, 5, 10, 15 min)
 List<num> timerLocations = [0, 60, 120, 180, 240, 300, 600]; // Leaving off 900 seconds for now
+List<num> timerLocations2 = [0, 60, 300];
 
 // nextStageLocation = timerLocation[index] + timerGap[index]
 List<num> timerGaps = [60, 60, 60, 60, 60, 300, 300];
+List<num> timerGaps2 = [60, 240, 300];
 
 // MESSAGE STRINGS
 String timerStartedMessage = 'Timer assistant started';
@@ -35,6 +37,12 @@ List<String> timerActiveMessages = [
   '15 minutes elapsed. Log APGAR score and oxygen saturation',
 ];
 
+List<String> timerActiveMessages2 = [
+  '1 minute elapsed. Log APGAR score and oxygen saturation',
+  '5 minutes elapsed. Log APGAR score and oxygen saturation',
+  '10 minutes elapsed. Log APGAR score and oxygen saturation'
+];
+
 // AUDIO ASSET STRINGS
 String timerStartedAudio = 'assets/timer_audio/timerStarted.wav';
 String timerPausedAudio = 'assets/timer_audio/timerPaused.wav';
@@ -49,4 +57,10 @@ List<String> timerActiveAudio = [
   'assets/timer_audio/timer5.wav',
   'assets/timer_audio/timer10.wav',
   'assets/timer_audio/timer15.wav',
+];
+
+List<String> timerActiveAudio2 = [
+  'assets/timer_audio/timer1.wav',
+  'assets/timer_audio/timer5.wav',
+  'assets/timer_audio/timer10.wav',
 ];

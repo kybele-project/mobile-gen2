@@ -16,7 +16,7 @@ class Module {
       this.videoIds,
       this.videoTitles,
       this.videoMinutes
-  );
+      );
 }
 
 Module ghmpModule = Module(
@@ -48,3 +48,44 @@ Module garhModule = Module(
   ],
   ["8 min", "8 min"],
 );
+
+
+class Video{
+  String? video_title;
+  String? thumbnail_path;
+  String? video_path;
+  int? video_length;
+  Video(this.video_title, this.thumbnail_path, this.video_path, this.video_length);
+  static List<Video> video_List = [
+    Video(
+      "Full Term Newborn",
+      "assets/test_thumbnail.jpg",
+      "assets/test.mp4",
+      8,
+    ),
+    Video(
+      "Preterm Newborn",
+      "assets/test_thumbnail.jpg",
+      "assets/20210216_164508.mp4",
+      8,
+    ),
+    Video(
+      "Warning Signs in Newborns",
+      "assets/test_thumbnail.jpg",
+      "assets/test.mp4",
+      8,
+    ),
+    Video(
+      "Helping Babies Breathe",
+      "assets/test_thumbnail.jpg",
+      "assets/20210216_164508.mp4",
+      8,
+    ),
+    Video(
+      "Danger Signs in Newborns,",
+      "assets/test_thumbnail.jpg",
+      "assets/test.mp4",
+      1,
+    ),
+  ];
+}
