@@ -1,25 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/tools/APGAR2.dart';
-import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
+import 'package:kybele_gen2/providers/record_provider.dart';
+import 'package:kybele_gen2/screens/home.dart';
+import 'package:kybele_gen2/screens/record.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:kybele_gen2/learn/video_page.dart';
-import 'package:kybele_gen2/learn/modules.dart';
-
-import 'package:kybele_gen2/log/backend.dart';
 import 'dart:core';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:vibration/vibration.dart';
-
-import 'package:kybele_gen2/log/button.dart';
-import 'package:kybele_gen2/log/timeline.dart';
-import 'package:kybele_gen2/log/timer_metadata.dart';
-import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
-import 'package:kybele_gen2/tools/AdditionalResources.dart';
-
-import 'main2.dart';
-
 
 Future<void> main() async {
   runApp(const Root());

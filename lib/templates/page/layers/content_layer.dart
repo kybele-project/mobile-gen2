@@ -1,118 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/tools/APGAR2.dart';
 import 'package:provider/provider.dart';
-
-import 'package:kybele_gen2/log/backend.dart';
-import 'dart:core';
-
-import 'package:kybele_gen2/log/button.dart';
-import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
-
-
-class StandardPageTemplate extends StatelessWidget {
-
-  final Color boxBkgColor;
-  final Color boxInfoColor;
-  final IconData boxIcon;
-  final bool hasIcon;
-  final String header;
-  final Widget body;
-  final bool hasButton;
-  final String buttonLabel;
-  final Widget buttonMenu;
-
-
-  const StandardPageTemplate(
-    this.boxBkgColor,
-    this.boxInfoColor,
-    this.boxIcon,
-    this.hasIcon,
-    this.header,
-    this.body,
-    this.hasButton,
-    this.buttonLabel,
-    this.buttonMenu,
-    {super.key}
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
-        ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
-      ],
-      child: Material(
-        child: Stack(
-            children: [
-              const TimerBackgroundLayer(),
-              ContentLayer(boxBkgColor, boxInfoColor, boxIcon, hasIcon, header, body),
-              hasButton ? ActionButtonLayer(buttonLabel, buttonMenu) : Container(),
-            ],
-          ),
-        ),
-    );
-  }
-}
-
-
-class TimerBackgroundLayer extends StatelessWidget {
-
-  const TimerBackgroundLayer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer<TimerProvider>(
-        builder: (context, provider, widget) {
-          return LinearProgressIndicator(
-            value: provider.fetchProgressBarPosition(),
-            minHeight: MediaQuery.of(context).size.height,
-            backgroundColor: const Color(0xff7266D7),
-            color: const Color(0xff564BAF),
-          );
-        }
-    );
-  }
-}
-
-
-class ActionButtonLayer extends StatelessWidget {
-
-  final String buttonLabel;
-  final Widget buttonMenu;
-
-
-  const ActionButtonLayer(
-      this.buttonLabel,
-      this.buttonMenu,
-      {super.key}
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        const KybeleButtonGradientLayer(),
-        Positioned(
-          bottom: 10,
-          child: GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return buttonMenu;
-                  }
-              );
-            },
-            child: KybeleSolidButton(buttonLabel),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
+import 'package:kybele_gen2/providers/timer_provider.dart';
 
 class ContentLayer extends StatefulWidget {
 
@@ -131,7 +19,7 @@ class ContentLayer extends StatefulWidget {
       this.header,
       this.body,
       {super.key}
-  );
+      );
 
   @override
   State<ContentLayer> createState() => _ContentLayerState();
@@ -284,25 +172,25 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   Widget timerDisplay() {
     if (_animationActive) {
       return SafeArea(
-          child: Container(
+        child: Container(
           width: double.maxFinite,
           height: double.maxFinite,
           color: Colors.transparent,
           padding: const EdgeInsets.fromLTRB(20,0,0,0),
           child:
-    Consumer<TimerProvider>(
-    builder: (context, provider, widget) { return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
+          Consumer<TimerProvider>(
+              builder: (context, provider, widget) { return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
 
-    Text(provider.fetchTime(),
-    style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
-    timerInteractionButtons(context),
-    ],
-    );
-    }
-    ),
-    ),);
+                  Text(provider.fetchTime(),
+                      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
+                  timerInteractionButtons(context),
+                ],
+              );
+              }
+          ),
+        ),);
     }
     else {
       return SafeArea(
@@ -326,7 +214,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                         ),
                       ),
                       Text(provider.fetchMessage(),
-                      style: TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
+                        style: TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
                       SizedBox(height: 20),
                       timerInteractionButtons(context),
                       /*
@@ -420,10 +308,10 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                     ],
                   ),
                   GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                        },
-                      child: Icon(Icons.close_rounded),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(Icons.close_rounded),
                   ),
                 ],
               ),

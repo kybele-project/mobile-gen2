@@ -1,24 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/tools/APGAR3.dart';
-import 'package:kybele_gen2/tools/NRPCodedDiagram.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:kybele_gen2/learn/video_page.dart';
-import 'package:kybele_gen2/learn/modules.dart';
+import 'package:kybele_gen2/old/tools/AdditionalResources.dart';
+import 'package:kybele_gen2/screens/APGAR3.dart';
+import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
+import 'package:kybele_gen2/screens/video_page.dart';
+import 'package:kybele_gen2/templates/page/page.dart';
 
-import 'package:kybele_gen2/log/backend.dart';
-import 'dart:core';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
-import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'package:vibration/vibration.dart';
-
-import 'package:kybele_gen2/log/button.dart';
-import 'package:kybele_gen2/log/timeline.dart';
-import 'package:kybele_gen2/log/timer_metadata.dart';
-import 'package:kybele_gen2/tools/TargetOxygenSaturation.dart';
-import 'package:kybele_gen2/tools/AdditionalResources.dart';
-import 'package:kybele_gen2/page_template.dart';
-
+import '../components/button.dart';
+import '../databases/modules.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -76,6 +64,20 @@ class HomePage extends StatelessWidget {
                   'Oxygen Saturation',
                   TargetOxygenSaturation(),
                 ),
+                KybeleColorfulTile(
+                  Color(0xffE2EEF9),
+                  Color(0xff436B8F),
+                  Icons.bubble_chart_rounded,
+                  'Forms',
+                  TargetOxygenSaturation(),
+                ),
+                KybeleColorfulTile(
+                  Color(0xffE2EEF9),
+                  Color(0xff436B8F),
+                  Icons.bubble_chart_rounded,
+                  'NRP Algorithm',
+                  TargetOxygenSaturation(),
+                ),
 /*                             KybeleColorfulTile(
                               Color(0xfff9d8b9),
                               Color(0xff9B5717),
@@ -115,12 +117,12 @@ class HomePage extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => TutorialPage(
-                              Video.video_List[index],
-                              index,
-                            )),
-                      );
-                    }, child:Container(
+                              builder: (context) => TutorialPage(
+                                Video.video_List[index],
+                                index,
+                              )),
+                        );
+                      }, child:Container(
                       width: 210.0,
                       margin: EdgeInsets.only(right:40),
                       child: Column(
@@ -211,71 +213,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    return StandardPageTemplate(
-      Color(0xffdddddd),
-      Color(0xff555555),
-      Icons.home_rounded,
-      true,
-      "Home",
-      body(context),
-      false,
-      "Log event",
-      buttonMenu(context),
-    );
-  }
-}
-
-
-class RecordPages extends StatelessWidget {
-
-  Widget body() {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            // Text("Hello?"),
-            Timeline(),
-            // SizedBox(height: 60),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buttonMenu(context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text('Log event', style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2()),
-          const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', TargetOxygenSaturation()),
-          const SizedBox(height: 20),
-          GestureDetector(onTap: () => {Navigator.pop(context)}, child: const KybeleOutlineButton('Cancel')),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    return StandardPageTemplate(
-      Color(0xffdddddd),
-      Color(0xff555555),
-        Icons.list_alt_rounded,
+    return KybelePage(
         true,
-        "Record",
-        body(),
         true,
-        "Log event",
-        buttonMenu(context),
+        true,
+        true,
+        false,
+        body(context),
+        headerText: "Home",
+        headerIcon: Icons.home_rounded,
+        headerIconBkgColor: Color(0xffdddddd),
+        headerIconColor: Color(0xff555555),
+        bottomButtonText: "Log event",
+        bottomButtonMenuWidget: buttonMenu(context),
     );
   }
 }

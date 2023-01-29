@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
-import 'package:kybele_gen2/tools/video_library.dart';
-import 'package:kybele_gen2/learn/modules.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
-import 'package:kybele_gen2/nav/header.dart';
+
+import '../databases/modules.dart';
+import '../old/nav/header.dart';
+
 class TutorialPage extends StatefulWidget {
   final Video video_List;
   final int videoIndex;

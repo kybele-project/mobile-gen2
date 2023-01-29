@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kybele_gen2/nav/header.dart';
-import 'package:kybele_gen2/designs/customtoggleswitch.dart';
-import 'package:kybele_gen2/log/backend.dart';
-import 'package:kybele_gen2/page_template.dart';
 
 import 'package:provider/provider.dart';
 
-import '../log/button.dart';
-import '../log/timeline.dart';
+import '../components/button.dart';
+import '../components/timeline.dart';
+import '../databases/record_database.dart';
+import '../models/event.dart';
+import '../components/customtoggleswitch.dart';
+import '../providers/record_provider.dart';
+import '../templates/page/page.dart';
 
 
 class APGARCalculator2 extends StatefulWidget {
@@ -53,16 +54,19 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
 
-    return StandardPageTemplate(
-      const Color(0xffFFCDCF),
-      const Color(0xff8B3E42),
-        Icons.calculate_rounded,
-        true,
-        "APGAR Calculator",
-        body(context),
-        true,
-        "Log APGAR score",
-        buttonMenu(context),
+    return KybelePage(
+      true,
+      true,
+      true,
+      true,
+      true,
+      body(context),
+      headerText: "Record",
+      headerIcon: Icons.calculate_rounded,
+      headerIconBkgColor: const Color(0xffFFCDCF),
+      headerIconColor: const Color(0xff8B3E42),
+      bottomButtonText: "Log APGAR score",
+      bottomButtonMenuWidget: buttonMenu(context),
     );
   }
 

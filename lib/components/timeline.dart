@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:provider/provider.dart' show Consumer, Provider;
 
-import 'backend.dart' show RecordProvider;
+import '../providers/record_provider.dart';
+
 
 NumberFormat timeFormat = NumberFormat("00");
 

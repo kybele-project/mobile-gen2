@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:kybele_gen2/nav/header.dart';
-import 'package:kybele_gen2/log/backend.dart';
+import 'package:kybele_gen2/providers/record_provider.dart';
 import 'package:provider/provider.dart';
+
+import '../models/event.dart';
+import '../old/nav/header.dart';
 
 
 class TargetOxygenSaturation extends StatelessWidget {
