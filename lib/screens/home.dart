@@ -3,6 +3,8 @@ import 'package:kybele_gen2/old/tools/AdditionalResources.dart';
 import 'package:kybele_gen2/screens/APGAR3.dart';
 import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
+import 'package:kybele_gen2/screens/Forms.dart';
+import 'package:kybele_gen2/screens/Videos.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
@@ -69,14 +71,14 @@ class HomePage extends StatelessWidget {
                   Color(0xff436B8F),
                   Icons.bubble_chart_rounded,
                   'Forms',
-                  TargetOxygenSaturation(),
+                  FormsPages(),
                 ),
                 KybeleColorfulTile(
                   Color(0xffE2EEF9),
                   Color(0xff436B8F),
                   Icons.bubble_chart_rounded,
-                  'NRP Algorithm',
-                  TargetOxygenSaturation(),
+                  'Videos',
+                  VideosPages(),
                 ),
 /*                             KybeleColorfulTile(
                               Color(0xfff9d8b9),
