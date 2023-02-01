@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 import 'dart:core';
 
 Future<void> main() async {
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const Root());
 }
 

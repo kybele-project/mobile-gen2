@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:provider/provider.dart';
 import 'package:kybele_gen2/providers/timer_provider.dart';
 
@@ -73,45 +74,50 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   }
 
   onTimerDisplayTap() {
-    setState(() {
-      if (_animationActive) {
-        _controller.reverse();
-      }
-      else {
-        _controller.forward();
-      }
+    if (widget.isDraggable) {
+      setState(() {
+        if (_animationActive) {
+          _controller.reverse();
+        }
+        else {
+          _controller.forward();
+        }
 
-      _animationActive = !_animationActive;
-    });
+        _animationActive = !_animationActive;
+      });
+    }
   }
 
   handleVerticalUpdate(DragUpdateDetails updateDetails) {
-    double screenHeight = MediaQuery.of(context).size.height;
-    double fractionDragged = updateDetails.primaryDelta! / screenHeight;
-    _controller.value = _controller.value - 5 * fractionDragged;
-    if (_controller.value == 0) {
-      _animationActive = false;
-    }
-    else {
-      _animationActive = true;
+    if (widget.isDraggable) {
+      double screenHeight = MediaQuery.of(context).size.height;
+      double fractionDragged = updateDetails.primaryDelta! / screenHeight;
+      _controller.value = _controller.value + 5 * fractionDragged;
+      if (_controller.value == 0) {
+        _animationActive = false;
+      }
+      else {
+        _animationActive = true;
+      }
     }
   }
 
   handleVerticalEnd(DragEndDetails endDetails) {
-    if (_controller.value >= 0.5) {
-      _controller.forward();
+    if (widget.isDraggable) {
+      if (_controller.value >= 0.5) {
+        _controller.forward();
+      }
+      else {
+        _controller.reverse();
+      }
     }
-    else {
-      _controller.reverse();
-    }
-
   }
 
   Widget timerInteractionButtons() {
 
     if (!widget.isDraggable) {
       return Container(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
         decoration: const BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -119,7 +125,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
         child: const Text(
           "VIEW RECORD",
           style: TextStyle(
-            color: Colors.black,
+            color: Color(0xff564BAF),
           ),
         ),
       );
@@ -197,13 +203,13 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   }
 
   Widget timerDisplay() {
-    if (_animationActive) {
+    if (!_animationActive) {
       return SafeArea(
         child: Container(
           width: double.maxFinite,
           height: double.maxFinite,
           color: Colors.transparent,
-          padding: const EdgeInsets.fromLTRB(20,0,0,0),
+          padding: const EdgeInsets.fromLTRB(20,0,20,0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -250,26 +256,6 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                         style: const TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
                       const SizedBox(height: 20),
                       timerInteractionButtons(),
-                      /*
-                      GestureDetector(
-                          onTap: (() {}),
-                          child: Container(
-                            padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-                            decoration: const BoxDecoration(
-                                color: Color(0xff9F97E3),
-                                borderRadius: BorderRadius.all(Radius.circular(10))
-                            ),
-                            child: const Text(
-                              'View record',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          )
-                      ),
-                       */
                     ],
                   );
                 },
@@ -357,10 +343,10 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
 
   Widget contentDisplay() {
     return ClipRRect(
-      borderRadius: const BorderRadius.only(
+      borderRadius: widget.isDraggable ? const BorderRadius.only(
         topLeft: Radius.circular(10),
         topRight: Radius.circular(10),
-      ),
+      ) : const BorderRadius.all(Radius.circular(0)),
       child: Container(
         height: double.maxFinite,
         color: Colors.white,
@@ -376,27 +362,43 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        GestureDetector(
-          onTap: onTimerDisplayTap,
-          child: FractionallySizedBox(
-            alignment: Alignment.topCenter,
-            heightFactor: _animation.value,
-            child: timerDisplay(),
-          ),
-        ),
-        GestureDetector(
-          onVerticalDragUpdate: handleVerticalUpdate,
-          onVerticalDragEnd: handleVerticalEnd,
-          child: FractionallySizedBox(
-            alignment: Alignment.bottomCenter,
-            heightFactor: 1 - _animation.value,
-            child: contentDisplay(),
-          ),
-        ),
-      ],
+    return Consumer<RecordProvider>(
+      builder: (context, provider, widget) {
+        // if (provider.events.isNotEmpty) {
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              GestureDetector(
+                onTap: onTimerDisplayTap,
+                child: FractionallySizedBox(
+                  alignment: Alignment.topCenter,
+                  heightFactor: _animation.value,
+                  child: timerDisplay(),
+                ),
+              ),
+              GestureDetector(
+                onVerticalDragUpdate: handleVerticalUpdate,
+                onVerticalDragEnd: handleVerticalEnd,
+                child: FractionallySizedBox(
+                  alignment: Alignment.bottomCenter,
+                  heightFactor: 1 - _animation.value,
+                  child: contentDisplay(),
+                ),
+              ),
+            ],
+          );
+        // }
+        /*
+        else {
+          return Stack(
+              fit: StackFit.expand,
+              children: [
+                SafeArea(child: contentDisplay()),
+              ],
+          );
+        }
+         */
+      }
     );
   }
 }
