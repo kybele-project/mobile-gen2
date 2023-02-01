@@ -44,13 +44,11 @@ class RecordPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage(
-      true,
-      true,
-      true,
-      true,
-      true,
-      body(),
+    return KybelePage.draggableWithHeader(
+      hasHeaderIcon: true,
+      hasHeaderClose: true,
+      hasBottomActionButton: true,
+      bodyWidget: body(),
       headerText: "Record",
       headerIcon: Icons.list_alt_rounded,
       headerIconBkgColor: Color(0xffdddddd),

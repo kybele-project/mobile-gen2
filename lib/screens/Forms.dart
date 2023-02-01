@@ -49,17 +49,15 @@ class FormsPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage(
-      false,
-      true,
-      true,
-      true,
-      false,
-      body(),
+    return KybelePage.fixedWithHeader(
+      hasHeaderClose: true,
+      hasHeaderIcon: true,
+      hasBottomActionButton: false,
+      bodyWidget: body(),
       headerText: "Forms",
       headerIcon: Icons.list_alt_rounded,
-      headerIconBkgColor: Color.fromARGB(255, 221, 221, 221),
-      headerIconColor: Color.fromARGB(255, 253, 100, 100),
+      headerIconBkgColor: const Color.fromARGB(255, 221, 221, 221),
+      headerIconColor: const Color.fromARGB(255, 253, 100, 100),
     );
   }
 }

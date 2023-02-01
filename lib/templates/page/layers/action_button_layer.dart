@@ -4,37 +4,44 @@ import '../../../components/button.dart';
 
 class ActionButtonLayer extends StatelessWidget {
 
-  final String buttonLabel;
-  final Widget buttonMenu;
+  final bool hasBottomActionButton;
+  final String? bottomButtonText;
+  final Widget? bottomButtonMenuWidget;
 
 
-  const ActionButtonLayer(
-      this.buttonLabel,
-      this.buttonMenu,
-      {super.key}
-      );
+  const ActionButtonLayer({
+      required this.hasBottomActionButton,
+      required this.bottomButtonText,
+      required this.bottomButtonMenuWidget,
+      super.key
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        const KybeleButtonGradientLayer(),
-        Positioned(
-          bottom: 10,
-          child: GestureDetector(
-            onTap: () {
-              showModalBottomSheet(
-                  context: context,
-                  builder: (context) {
-                    return buttonMenu;
-                  }
-              );
-            },
-            child: KybeleSolidButton(buttonLabel),
+    if (hasBottomActionButton) {
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          const KybeleButtonGradientLayer(),
+          Positioned(
+            bottom: 10,
+            child: GestureDetector(
+              onTap: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) {
+                      return bottomButtonMenuWidget!;
+                    }
+                );
+              },
+              child: KybeleSolidButton(bottomButtonText!),
+            ),
           ),
-        ),
-      ],
-    );
+        ],
+      );
+    }
+    else {
+      return Container();
+    }
   }
 }

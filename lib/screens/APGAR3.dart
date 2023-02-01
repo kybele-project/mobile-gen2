@@ -54,13 +54,11 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
 
-    return KybelePage(
-      true,
-      true,
-      true,
-      true,
-      true,
-      body(context),
+    return KybelePage.fixedWithHeader(
+      hasBottomActionButton: true,
+      hasHeaderIcon: true,
+      hasHeaderClose: true,
+      bodyWidget: body(context),
       headerText: "Record",
       headerIcon: Icons.calculate_rounded,
       headerIconBkgColor: const Color(0xffFFCDCF),

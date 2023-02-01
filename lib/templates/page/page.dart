@@ -1,29 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/providers/record_provider.dart';
-import 'package:kybele_gen2/templates/page/layers/action_button_layer.dart';
-import 'package:kybele_gen2/templates/page/layers/content_layer.dart';
 import 'package:provider/provider.dart';
 
-import 'dart:core';
-
-import '../../providers/timer_provider.dart';
-import 'layers/timer_background_layer.dart';
+import 'package:kybele_gen2/providers/kybele_providers.dart';
+import 'package:kybele_gen2/templates/page/layers/page_layers.dart';
 
 
 class KybelePage extends StatelessWidget {
 
   // Options
-  late bool isDraggable;
-  late bool hasHeader;
-  late bool hasHeaderIcon;
-  late bool hasHeaderClose;
-  late bool hasBottomActionButton;
+  final bool isDraggable;
+  final bool hasHeader;
+  final bool hasHeaderIcon;
+  final bool hasHeaderClose;
+  final bool hasBottomActionButton;
 
   // Content Layer Params
-  late IconData? headerIcon;
-  late Color? headerIconColor;
-  late Color? headerIconBkgColor;
-  late String? headerText;
+  final IconData? headerIcon;
+  final Color? headerIconColor;
+  final Color? headerIconBkgColor;
+  final String? headerText;
   final Widget bodyWidget;
 
   // Bottom Layer Params
@@ -31,103 +26,128 @@ class KybelePage extends StatelessWidget {
   final Widget? bottomButtonMenuWidget;
 
   // Big Constructor
-  KybelePage(
-    this.isDraggable,
-    this.hasHeader,
-    this.hasHeaderIcon,
-    this.hasHeaderClose,
-    this.hasBottomActionButton,
-    this.bodyWidget,
-    {
-      super.key,
+  const KybelePage({
+      required this.isDraggable,
+      required this.hasHeader,
+      required this.hasHeaderIcon,
+      required this.hasHeaderClose,
+      required this.hasBottomActionButton,
+      required this.bodyWidget,
       this.headerIcon,
       this.headerIconColor,
       this.headerIconBkgColor,
       this.headerText,
       this.bottomButtonText,
       this.bottomButtonMenuWidget,
+      super.key,
+    }) :
+    assert(
+      ((hasHeader == true) && (headerText != null)) || (hasHeader == false),
+      "Must have headerText if header is activated"
+    ),
+    assert(
+      ((hasHeaderIcon == true) && (headerIcon != null) && (headerIconColor != null) && (headerIconBkgColor != null)) ||
+      ((hasHeaderIcon == false)),
+      "Header icon activated but not all associated parameters defined"
+    ),
+    assert(
+      ((hasBottomActionButton == true) && (bottomButtonText != null) && (bottomButtonMenuWidget != null)) ||
+      ((hasBottomActionButton == false)),
+      "Bottom action button activated but not all associated parameters defined"
+    );
+
+  const KybelePage.fixedWithHeader({
+      required hasHeaderIcon,
+      required hasHeaderClose,
+      required hasBottomActionButton,
+      required headerText,
+      required bodyWidget,
+      headerIcon,
+      headerIconColor,
+      headerIconBkgColor,
+      bottomButtonText,
+      bottomButtonMenuWidget,
+      key,
     }
+  ) : this(
+      isDraggable: false,
+      hasHeader: true,
+      hasHeaderIcon: hasHeaderIcon,
+      hasHeaderClose: hasHeaderClose,
+      hasBottomActionButton: hasBottomActionButton,
+      bodyWidget: bodyWidget,
+      headerIcon: headerIcon,
+      headerIconColor: headerIconColor,
+      headerIconBkgColor: headerIconBkgColor,
+      headerText: headerText,
+      bottomButtonText: bottomButtonText,
+      bottomButtonMenuWidget: bottomButtonMenuWidget,
+      key: key,
   );
 
-  KybelePage.fixedWithHeader(
-    this.hasHeaderIcon,
-    this.hasHeaderClose,
-    this.hasBottomActionButton,
-    this.headerText,
-    this.bodyWidget,
-    {
-      super.key,
-      this.headerIcon,
-      this.headerIconColor,
-      this.headerIconBkgColor,
-      this.bottomButtonText,
-      this.bottomButtonMenuWidget
-    }
-  )
-  {
-    isDraggable = false;
-    hasHeader = true;
-  }
+  const KybelePage.draggableWithHeader({
+    required hasHeaderIcon,
+    required hasHeaderClose,
+    required hasBottomActionButton,
+    required headerText,
+    required bodyWidget,
+    headerIcon,
+    headerIconColor,
+    headerIconBkgColor,
+    bottomButtonText,
+    bottomButtonMenuWidget,
+    key,
+  }) : this(
+    isDraggable: true,
+    hasHeader: true,
+    hasHeaderIcon: hasHeaderIcon,
+    hasHeaderClose: hasHeaderClose,
+    hasBottomActionButton: hasBottomActionButton,
+    bodyWidget: bodyWidget,
+    headerIcon: headerIcon,
+    headerIconColor: headerIconColor,
+    headerIconBkgColor: headerIconBkgColor,
+    headerText: headerText,
+    bottomButtonText: bottomButtonText,
+    bottomButtonMenuWidget: bottomButtonMenuWidget,
+    key: key,
+  );
 
-  KybelePage.draggableWithHeader(
-      this.hasHeaderIcon,
-      this.hasHeaderClose,
-      this.hasBottomActionButton,
-      this.headerText,
-      this.bodyWidget,
-      {
-        super.key,
-        this.headerIcon,
-        this.headerIconColor,
-        this.headerIconBkgColor,
-        this.bottomButtonText,
-        this.bottomButtonMenuWidget
-      }
-      )
-  {
-    isDraggable = true;
-    hasHeader = true;
-  }
+  const KybelePage.fixedNoHeader({
+    required hasBottomActionButton,
+    required bodyWidget,
+    bottomButtonText,
+    bottomButtonMenuWidget,
+    key,
+  }) : this(
+    isDraggable: false,
+    hasHeader: false,
+    hasHeaderIcon: false,
+    hasHeaderClose: false,
+    hasBottomActionButton: hasBottomActionButton,
+    bodyWidget: bodyWidget,
+    bottomButtonText: bottomButtonText,
+    bottomButtonMenuWidget: bottomButtonMenuWidget,
+    key: key,
+  );
 
-  KybelePage.fixedNoHeader(
-      this.hasBottomActionButton,
-      this.bodyWidget,
-      {
-        super.key,
-        this.bottomButtonText,
-        this.bottomButtonMenuWidget
-      }
-      )
-  {
-    isDraggable = false;
-    hasHeader = false;
-    hasHeaderIcon = false;
-    hasHeaderClose = false;
-    headerText = null;
-    headerIcon = null;
-    headerIconColor = null;
-    headerIconBkgColor = null;
-  }
-
-  KybelePage.draggableNoHeader(
-      this.hasBottomActionButton,
-      this.bodyWidget,
-      {
-        super.key,
-        this.bottomButtonText,
-        this.bottomButtonMenuWidget
-      }
-      )
-  {
-    isDraggable = true;
-    hasHeader = false;
-    hasHeaderIcon = false;
-    hasHeaderClose = false;
-    headerText = null;
-    headerIcon = null;
-    headerIconColor = null;
-    headerIconBkgColor = null;
-  }
+  const KybelePage.draggableNoHeader({
+    required hasBottomActionButton,
+    required bodyWidget,
+    bottomButtonText,
+    bottomButtonMenuWidget,
+    key,
+  }) : this(
+    isDraggable: true,
+    hasHeader: true,
+    hasHeaderIcon: false,
+    hasHeaderClose: false,
+    hasBottomActionButton: hasBottomActionButton,
+    bodyWidget: bodyWidget,
+    bottomButtonText: bottomButtonText,
+    bottomButtonMenuWidget: bottomButtonMenuWidget,
+    key: key,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -139,17 +159,23 @@ class KybelePage extends StatelessWidget {
       child: Material(
         child: Stack(
           children: [
-            /* TODO fix this
-            Consumer<TimerProvider>(
-              builder: (context, provider, widget){
-                if (provider.getActive()) {
-
-                }
-              },
-            ),*/
             const TimerBackgroundLayer(),
-            ContentLayer(headerIconBkgColor!, headerIconColor!, headerIcon!, hasHeaderIcon!, headerText!, bodyWidget),
-            hasBottomActionButton ? ActionButtonLayer(bottomButtonText!, bottomButtonMenuWidget!) : Container(),
+            ContentLayer(
+                isDraggable: isDraggable,
+                hasHeader: hasHeader,
+                hasHeaderIcon: hasHeaderIcon,
+                hasHeaderClose: hasHeaderClose,
+                headerIcon: headerIcon,
+                headerIconColor: headerIconColor,
+                headerIconBkgColor: headerIconBkgColor,
+                headerText: headerText,
+                bodyWidget: bodyWidget,
+            ),
+            ActionButtonLayer(
+                hasBottomActionButton: hasBottomActionButton,
+                bottomButtonText: bottomButtonText,
+                bottomButtonMenuWidget: bottomButtonMenuWidget
+            ),
           ],
         ),
       ),

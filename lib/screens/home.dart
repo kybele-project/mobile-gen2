@@ -215,7 +215,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage(
+    return KybelePage.fixedNoHeader(
+        hasBottomActionButton: false,
+        bodyWidget: body(context),
+    );
+  }
+}
+
+/*
+@override
+  Widget build(BuildContext context) {
+    return KybelePage.fixedNoHeader(
         true,
         true,
         true,
@@ -230,4 +240,4 @@ class HomePage extends StatelessWidget {
         bottomButtonMenuWidget: buttonMenu(context),
     );
   }
-}
+ */

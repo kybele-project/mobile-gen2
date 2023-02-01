@@ -50,13 +50,11 @@ class VideosPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage(
-      false,
-      true,
-      true,
-      true,
-      false,
-      body(),
+    return KybelePage.fixedWithHeader(
+      hasHeaderIcon: true,
+      hasHeaderClose: true,
+      hasBottomActionButton: false,
+      bodyWidget: body(),
       headerText: "Videos",
       headerIcon: Icons.list_alt_rounded,
       headerIconBkgColor: Color.fromARGB(255, 221, 221, 221),

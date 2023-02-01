@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kybele_gen2/providers/record_provider.dart';
 import 'package:kybele_gen2/screens/home.dart';
 import 'package:kybele_gen2/screens/record.dart';
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'dart:core';
 
 Future<void> main() async {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const Root());
 }
 

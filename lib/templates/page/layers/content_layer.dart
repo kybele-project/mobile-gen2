@@ -4,22 +4,33 @@ import 'package:kybele_gen2/providers/timer_provider.dart';
 
 class ContentLayer extends StatefulWidget {
 
-  final Color boxBkgColor;
-  final Color boxInfoColor;
-  final IconData boxIcon;
-  final bool hasIcon;
-  final String header;
-  final Widget body;
+  // Draggable
+  final bool isDraggable;
 
-  const ContentLayer(
-      this.boxBkgColor,
-      this.boxInfoColor,
-      this.boxIcon,
-      this.hasIcon,
-      this.header,
-      this.body,
-      {super.key}
-      );
+  // Header Options
+  final bool hasHeader;
+  final bool hasHeaderIcon;
+  final bool hasHeaderClose;
+  final IconData? headerIcon;
+  final Color? headerIconColor;
+  final Color? headerIconBkgColor;
+  final String? headerText;
+
+  // Body
+  final Widget bodyWidget;
+
+  const ContentLayer({
+    required this.isDraggable,
+    required this.hasHeader,
+    required this.hasHeaderIcon,
+    required this.hasHeaderClose,
+    required this.headerIcon,
+    required this.headerIconColor,
+    required this.headerIconBkgColor,
+    required this.headerText,
+    required this.bodyWidget,
+    super.key,
+  });
 
   @override
   State<ContentLayer> createState() => _ContentLayerState();
@@ -49,8 +60,8 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     );
 
     _animation = Tween<double>(
-      begin: highHeightFactor,
-      end: lowHeightFactor,
+      begin: lowHeightFactor,
+      end: highHeightFactor,
     ).animate(_controller)
       ..addListener(() => setState(() {}));
   }
@@ -96,7 +107,23 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
 
   }
 
-  Widget timerInteractionButtons(BuildContext context) {
+  Widget timerInteractionButtons() {
+
+    if (!widget.isDraggable) {
+      return Container(
+        padding: const EdgeInsets.all(20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
+        child: const Text(
+          "VIEW RECORD",
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+      );
+    }
 
     double paddingWidth;
     MainAxisAlignment rowAlign;
@@ -177,20 +204,26 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
           height: double.maxFinite,
           color: Colors.transparent,
           padding: const EdgeInsets.fromLTRB(20,0,0,0),
-          child:
-          Consumer<TimerProvider>(
-              builder: (context, provider, widget) { return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  Text(provider.fetchTime(),
-                      style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.white)),
-                  timerInteractionButtons(context),
-                ],
-              );
-              }
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Consumer<TimerProvider>(
+                builder: (context, provider, widget) {
+                  return Text(
+                    provider.fetchTime(),
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  );
+                }
+              ),
+              timerInteractionButtons(),
+            ],
           ),
-        ),);
+        ),
+      );
     }
     else {
       return SafeArea(
@@ -214,9 +247,9 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                         ),
                       ),
                       Text(provider.fetchMessage(),
-                        style: TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
-                      SizedBox(height: 20),
-                      timerInteractionButtons(context),
+                        style: const TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
+                      const SizedBox(height: 20),
+                      timerInteractionButtons(),
                       /*
                       GestureDetector(
                           onTap: (() {}),
@@ -281,13 +314,13 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                         height: 40,
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: widget.boxBkgColor,
+                          color: widget.headerIconBkgColor,
                           borderRadius: const BorderRadius.all(Radius.circular(10)),
                         ),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Icon(widget.boxIcon, size: 20, color: widget.boxInfoColor),
+                            Icon(widget.headerIcon, size: 20, color: widget.headerIconColor),
                           ],
                         ),
                       ),
@@ -297,7 +330,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.header,
+                            widget.headerText!,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 24,
@@ -311,7 +344,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                     onTap: () {
                       Navigator.pop(context);
                     },
-                    child: Icon(Icons.close_rounded),
+                    child: const Icon(Icons.close_rounded),
                   ),
                 ],
               ),
@@ -333,8 +366,8 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
         color: Colors.white,
         child: Column(
           children: [
-            contentHeader(),
-            widget.body,
+            widget.hasHeader ? contentHeader() : Container(),
+            widget.bodyWidget,
           ],
         ),
       ),
