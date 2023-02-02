@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:kybele_gen2/providers/record_provider.dart';
+import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
 import 'package:kybele_gen2/screens/record.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,19 +16,20 @@ class Root extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => RecordProvider(),
-      child: Builder(builder: (context) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            useMaterial3: true,
-            textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
+    return MultiProvider(
+        providers: [
+            ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
+            ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
+        ],
+        child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              useMaterial3: true,
+              textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
+            ),
+            home: const Framework(),
           ),
-          home: const Framework(),
         );
-      }),
-    );
   }
 }
 
@@ -71,7 +71,10 @@ class _FrameworkState extends State<Framework> {
         selectedFontSize: 16,
         unselectedFontSize: 16,
       ),
-      body: [HomePage(), RecordPages()][_selectedIndex]
+      body: [
+        HomePage(),
+        RecordPages()
+      ][_selectedIndex]
     );
   }
 }

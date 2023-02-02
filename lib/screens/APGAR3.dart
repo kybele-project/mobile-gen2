@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kybele_gen2/providers/kybele_providers.dart';
 
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,6 @@ import '../components/timeline.dart';
 import '../databases/record_database.dart';
 import '../models/event.dart';
 import '../components/customtoggleswitch.dart';
-import '../providers/record_provider.dart';
 import '../templates/page/page.dart';
 
 
@@ -53,6 +53,9 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
 
   @override
   Widget build(BuildContext context) {
+
+    final recordProvider = Provider.of<RecordProvider>(context);
+    final timerProvider = Provider.of<TimerProvider>(context);
 
     return KybelePage.fixedWithHeader(
       hasBottomActionButton: true,

@@ -131,7 +131,7 @@ class KybeleButtonGradientLayer extends StatelessWidget {
       bottom: 0,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 80,
+        height: 90,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,

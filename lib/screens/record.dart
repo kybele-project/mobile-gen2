@@ -8,15 +8,16 @@ import '../templates/page/page.dart';
 
 class RecordPages extends StatelessWidget {
 
+  const RecordPages({super.key});
+
   Widget body() {
     return Expanded(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
-            // Text("Hello?"),
             Timeline(),
-            // SizedBox(height: 60),
+            SizedBox(height: 60),
           ],
         ),
       ),
@@ -46,13 +47,13 @@ class RecordPages extends StatelessWidget {
   Widget build(BuildContext context) {
     return KybelePage.draggableWithHeader(
       hasHeaderIcon: true,
-      hasHeaderClose: true,
+      hasHeaderClose: false,
       hasBottomActionButton: true,
       bodyWidget: body(),
       headerText: "Record",
       headerIcon: Icons.list_alt_rounded,
-      headerIconBkgColor: Color(0xffdddddd),
-      headerIconColor: Color(0xff555555),
+      headerIconBkgColor: const Color(0xffdddddd),
+      headerIconColor: const Color(0xff555555),
       bottomButtonText: "Log event",
       bottomButtonMenuWidget: buttonMenu(context),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
+import 'package:kybele_gen2/screens/record.dart';
 import 'package:provider/provider.dart';
 import 'package:kybele_gen2/providers/timer_provider.dart';
 
@@ -51,13 +52,12 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   void initState() {
     super.initState();
     generateAnimation();
-    _animationActive = false;
   }
 
   void generateAnimation() {
     _controller = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 500)
+        duration: const Duration(milliseconds: 250)
     );
 
     _animation = Tween<double>(
@@ -65,6 +65,13 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
       end: highHeightFactor,
     ).animate(_controller)
       ..addListener(() => setState(() {}));
+
+    _animationActive = false;
+
+    if (widget.isDraggable) {
+      _controller.forward();
+      _animationActive = true;
+    }
   }
 
   @override
@@ -86,6 +93,12 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
         _animationActive = !_animationActive;
       });
     }
+    else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const RecordPages()),
+      );
+    }
   }
 
   handleVerticalUpdate(DragUpdateDetails updateDetails) {
@@ -93,7 +106,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
       double screenHeight = MediaQuery.of(context).size.height;
       double fractionDragged = updateDetails.primaryDelta! / screenHeight;
       _controller.value = _controller.value + 5 * fractionDragged;
-      if (_controller.value == 0) {
+      if (_controller.value <= 0.5) {
         _animationActive = false;
       }
       else {
@@ -135,11 +148,11 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     MainAxisAlignment rowAlign;
 
     if (_animationActive) {
-      paddingWidth = 10;
+      paddingWidth = 20;
       rowAlign = MainAxisAlignment.end;
     }
     else {
-      paddingWidth = 20;
+      paddingWidth = 10;
       rowAlign = MainAxisAlignment.center;
     }
 
@@ -275,9 +288,9 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
         color: Colors.white,
         child: Stack(
           children: [
-            Center(
+            widget.isDraggable ? Center(
                 child: Container(
-                  width: MediaQuery.of(context).size.width * .15,
+                  width: MediaQuery.of(context).size.width * .1,
                   margin: const EdgeInsets.fromLTRB(0, 7.5, 0, 0),
                   height: 5,
                   decoration: BoxDecoration(
@@ -285,7 +298,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                       borderRadius: const BorderRadius.all(Radius.circular(2.5))
                   ),
                 )
-            ),
+            ) : Container(),
             Container(
               width: double.maxFinite,
               color: Colors.transparent,
@@ -326,12 +339,12 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                       ),
                     ],
                   ),
-                  GestureDetector(
+                  widget.hasHeaderClose ? GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: const Icon(Icons.close_rounded),
-                  ),
+                  ) : Container(),
                 ],
               ),
             ),
@@ -364,7 +377,6 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return Consumer<RecordProvider>(
       builder: (context, provider, widget) {
-        // if (provider.events.isNotEmpty) {
           return Stack(
             fit: StackFit.expand,
             children: [
@@ -387,17 +399,6 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
               ),
             ],
           );
-        // }
-        /*
-        else {
-          return Stack(
-              fit: StackFit.expand,
-              children: [
-                SafeArea(child: contentDisplay()),
-              ],
-          );
-        }
-         */
       }
     );
   }

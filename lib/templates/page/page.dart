@@ -139,7 +139,7 @@ class KybelePage extends StatelessWidget {
     key,
   }) : this(
     isDraggable: true,
-    hasHeader: true,
+    hasHeader: false,
     hasHeaderIcon: false,
     hasHeaderClose: false,
     hasBottomActionButton: hasBottomActionButton,
@@ -151,12 +151,7 @@ class KybelePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
-        ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
-      ],
-      child: Material(
+    return Material(
         child: Stack(
           children: [
             const TimerBackgroundLayer(),
@@ -178,7 +173,6 @@ class KybelePage extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
+      );
   }
 }

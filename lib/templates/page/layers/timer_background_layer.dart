@@ -8,6 +8,8 @@ class TimerBackgroundLayer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Consumer<TimerProvider>(
         builder: (context, provider, widget) {
           return LinearProgressIndicator(
