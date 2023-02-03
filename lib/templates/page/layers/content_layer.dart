@@ -246,13 +246,14 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     }
     else {
       return SafeArea(
+
         child: SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           child: Container(
             width: double.maxFinite,
             height: double.maxFinite,
+            padding: const EdgeInsets.all(20),
             color: Colors.transparent,
-            child: Center(
               child: Consumer<TimerProvider>(
                 builder: (context, provider, widget) {
                   return Column(
@@ -268,14 +269,13 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                       Text(provider.fetchMessage(),
                         style: const TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
                       const SizedBox(height: 20),
-                      timerInteractionButtons(),
+                      Center(child: timerInteractionButtons()),
                     ],
                   );
                 },
               ),
             ),
           ),
-        ),
       );
     }
   }

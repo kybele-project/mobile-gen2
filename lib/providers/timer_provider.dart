@@ -25,6 +25,7 @@ class TimerProvider with ChangeNotifier {
   bool _reset = true;
   bool _active = false;
 
+  bool get active => _active;
   bool get buttonsStart => ((_reset == true) && (_active == false));
   bool get buttonsPause => ((_reset == false) && (_active == true));
   bool get buttonsContinueReset => ((_reset = false) && (_active == false));

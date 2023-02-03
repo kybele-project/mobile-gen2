@@ -24,7 +24,7 @@ class ActionButtonLayer extends StatelessWidget {
         children: [
           const KybeleButtonGradientLayer(),
           Positioned(
-            bottom: 20,
+            bottom: 10,
             child: GestureDetector(
               onTap: () {
                 showModalBottomSheet(

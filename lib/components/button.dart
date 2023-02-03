@@ -131,14 +131,14 @@ class KybeleButtonGradientLayer extends StatelessWidget {
       bottom: 0,
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 90,
+        height: 80,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
               Color(0x00ffffff),
-              Color(0x88f5f5f5),
+              Color(0x99ffffff),
             ],
           ),
         ),

@@ -1,10 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
 import 'package:kybele_gen2/screens/record.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
+
+
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
+
+final GoRouter _router = GoRouter(
+  // TODO: Upgrade this to StatefulShellRoute upon GitHub merge of go_router #2650
+  initialLocation: '/simulator',
+  navigatorKey: _rootNavigatorKey,
+  routes: [
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder: (context, state, child) {
+        return Framework(child: child);
+      },
+      routes: [
+        GoRoute(
+          name: 'simulator',
+          path: '/simulator',
+          builder: (context, state) {
+            return const RecordPages();
+          }
+        ),
+        GoRoute(
+          name: 'resources',
+          path: '/resources',
+          builder: (context, state) {
+            return HomePage();
+          }
+        )
+      ]
+    )
+  ],
+);
+
 
 Future<void> main() async {
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -21,60 +57,275 @@ class Root extends StatelessWidget {
             ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
             ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
         ],
-        child: MaterialApp(
+        child: MaterialApp.router(
             title: 'Flutter Demo',
             theme: ThemeData(
               useMaterial3: true,
               textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
             ),
-            home: const Framework(),
+            routerConfig: _router,
           ),
         );
   }
 }
 
-class Framework extends StatefulWidget {
-  final int customIndex;
-  const Framework({this.customIndex = 0});
+
+class NavButton extends StatefulWidget {
+
+  final String label;
+  final IconData icon;
+  final int index;
+  final int selectedIndex;
+  final Function(int) onTabClick;
+  final bool isSim;
+
+  const NavButton({
+    required this.label,
+    required this.icon,
+    required this.index,
+    required this.selectedIndex,
+    required this.onTabClick,
+    this.isSim = false,
+    super.key,
+  });
 
   @override
-  State<Framework> createState() => _FrameworkState();
+  State<NavButton> createState() => _NavButtonState();
 }
 
-class _FrameworkState extends State<Framework> {
+class _NavButtonState extends State<NavButton> {
 
-  int _selectedIndex= 0;
+  bool get _isPressed => (widget.index == widget.selectedIndex);
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  Widget linearProgressBackground() {
+
+    if (!widget.isSim) {
+      return Container();
+    }
+
+    return Consumer<TimerProvider>(
+          builder: (context, provider, widget) {
+            if (_isPressed && !provider.buttonsStart) {
+              return Container(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                color: const Color(0xff7266d7),
+              );
+            }
+
+            if (!provider.buttonsStart) {
+              return LinearProgressIndicator(
+                value: provider.fetchProgressBarPosition(),
+                minHeight: double.maxFinite,
+                backgroundColor: const Color(0xff7266D7),
+                color: const Color(0xff564baf),
+              );
+            }
+
+            return Container(
+                width: double.maxFinite,
+                height: double.maxFinite,
+                color: Colors.transparent
+            );
+          }
+      );
   }
+
+
+  Widget iconPlaceholder() {
+
+    final Color _color = Colors.white;
+    final IconData _icon = widget.icon;
+
+    if (!widget.isSim && _isPressed) {
+      return Icon(_icon, size: 26, color: const Color(0xff7266D7));
+    }
+
+    if (!widget.isSim && !_isPressed) {
+      return Icon(_icon, size: 26, color: const Color(0xffaaaaaaa));
+    }
+
+    return Consumer<TimerProvider>(
+            builder: (context, provider, widget) {
+
+              if (_isPressed && !provider.buttonsStart) {
+                return Text(
+                  "Active",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: _color,
+                  ),
+                );
+              }
+
+              if (_isPressed && provider.buttonsStart) {
+                return Icon(_icon, size: 22, color: const Color(0xff564baf));
+              }
+
+              if (!_isPressed && provider.buttonsStart) {
+                return Icon(_icon, size: 22, color: const Color(0xffaaaaaaa));
+              }
+
+              if (provider.milliseconds < 6000000) {
+                return Text(
+                  provider.fetchTime(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white,
+                  ),
+                );
+              }
+
+              return Text(
+                "Active",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              );
+            }
+          );
+  }
+
+  Widget textPlaceholder() {
+
+    final String label = widget.label;
+    final bool isSim = widget.isSim;
+
+    return Consumer<TimerProvider>(
+        builder: (context, provider, widget) {
+
+          if (isSim && !provider.buttonsStart) {
+            return Text(label, style: const TextStyle(color: Colors.white, fontSize: 14));
+          }
+
+          if (_isPressed) {
+            return Text(label, style: const TextStyle(color: Color(0xff564baf), fontSize: 14));
+          }
+
+          return Text(label, style: TextStyle(color: Color(0xffaaaaaa), fontSize: 14));
+        }
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+      onTap: () {
+        setState((){
+          context.go(tabs[widget.index]);
+        });
+        // TODO: Add navigation here
+      },
+      child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.25,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              linearProgressBackground(),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  iconPlaceholder(),
+                  textPlaceholder(),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+const tabs = [
+  '/simulator',
+  '/resources',
+];
+
+class BottomNavBar2 extends StatefulWidget {
+  const BottomNavBar2({Key? key}) : super(key: key);
+
+  @override
+  State<BottomNavBar2> createState() => _BottomNavBar2State();
+}
+
+class _BottomNavBar2State extends State<BottomNavBar2> {
+
+  int get _selectedIndex => _locationToTabIndex(GoRouter.of(context).location);
+
+  int _locationToTabIndex(String location) {
+    final index =
+    tabs.indexWhere((t) => location.startsWith(t));
+    // if index not found (-1), return 0
+    return index < 0 ? 0 : index;
+  }
+
+  void _onTabClick(BuildContext context, int index) {
+    if (index != _selectedIndex) {
+      context.go(tabs[index]);
+    }
+    else if (index == _selectedIndex) {
+      context.go(tabs[_selectedIndex]);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 80,
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        border: Border(top: BorderSide(color: Color(0xffcccccc), width: 1),),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          NavButton(
+            label: 'Simulation',
+            icon: Icons.play_arrow_rounded,
+            index: 0,
+            selectedIndex: _selectedIndex,
+            isSim: true,
+            onTabClick: (index) => _onTabClick(context, index),
+          ),
+          NavButton(
+            label: 'Resources',
+            icon: Icons.home_repair_service_rounded,
+            index: 1,
+            selectedIndex: _selectedIndex,
+            isSim: false,
+            onTabClick: (index) => _onTabClick(context, index),
+          ),
+        ]
+      ),
+    );
+  }
+}
+
+
+class Framework extends StatelessWidget {
+  final Widget child;
+
+  const Framework({
+    required this.child,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff7266D7),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey[600],
-        selectedItemColor: Color(0xff564BAF),
-        elevation: 0,
-        backgroundColor: Color(0xffffffff), // Colors.black54,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home_rounded), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_rounded), label: "Record"),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedFontSize: 16,
-        unselectedFontSize: 16,
-      ),
-      body: [
-        HomePage(),
-        RecordPages()
-      ][_selectedIndex]
+      bottomNavigationBar: const BottomNavBar2(),
+      body: child,
     );
   }
 }
