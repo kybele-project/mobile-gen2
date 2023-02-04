@@ -4,13 +4,18 @@ import 'package:provider/provider.dart';
 
 class TimerBackgroundLayer extends StatelessWidget {
 
-  const TimerBackgroundLayer({super.key});
+  final bool isDraggable;
+
+  const TimerBackgroundLayer({
+    required this.isDraggable,
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
 
 
-    return Consumer<TimerProvider>(
+    return isDraggable ? Consumer<TimerProvider>(
         builder: (context, provider, widget) {
           return LinearProgressIndicator(
             value: provider.fetchProgressBarPosition(),
@@ -19,6 +24,6 @@ class TimerBackgroundLayer extends StatelessWidget {
             color: const Color(0xff564BAF),
           );
         }
-    );
+    ) : Container(width: double.maxFinite, height: double.maxFinite, color: Colors.white);
   }
 }

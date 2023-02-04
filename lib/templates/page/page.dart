@@ -154,7 +154,9 @@ class KybelePage extends StatelessWidget {
     return Material(
         child: Stack(
           children: [
-            const TimerBackgroundLayer(),
+            TimerBackgroundLayer(
+              isDraggable: isDraggable,
+            ),
             ContentLayer(
                 isDraggable: isDraggable,
                 hasHeader: hasHeader,

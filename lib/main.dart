@@ -160,11 +160,11 @@ class _NavButtonState extends State<NavButton> {
               }
 
               if (_isPressed && provider.buttonsStart) {
-                return Icon(_icon, size: 22, color: const Color(0xff564baf));
+                return Icon(_icon, size: 20, color: const Color(0xff564baf));
               }
 
               if (!_isPressed && provider.buttonsStart) {
-                return Icon(_icon, size: 22, color: const Color(0xffaaaaaaa));
+                return Icon(_icon, size: 20, color: const Color(0xffaaaaaaa));
               }
 
               if (provider.milliseconds < 6000000) {
@@ -199,14 +199,14 @@ class _NavButtonState extends State<NavButton> {
         builder: (context, provider, widget) {
 
           if (isSim && !provider.buttonsStart) {
-            return Text(label, style: const TextStyle(color: Colors.white, fontSize: 14));
+            return Text(label, style: const TextStyle(color: Colors.white, fontSize: 12));
           }
 
           if (_isPressed) {
-            return Text(label, style: const TextStyle(color: Color(0xff564baf), fontSize: 14));
+            return Text(label, style: const TextStyle(color: Color(0xff564baf), fontSize: 12));
           }
 
-          return Text(label, style: TextStyle(color: Color(0xffaaaaaa), fontSize: 14));
+          return Text(label, style: TextStyle(color: Color(0xffaaaaaa), fontSize: 12));
         }
     );
   }
@@ -219,23 +219,31 @@ class _NavButtonState extends State<NavButton> {
         setState((){
           context.go(tabs[widget.index]);
         });
-        // TODO: Add navigation here
       },
       child: ClipRRect(
         borderRadius: const BorderRadius.all(Radius.circular(10)),
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 0.25,
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.33,
+          height: double.maxFinite,
+          color: Colors.transparent,
           child: Stack(
             alignment: Alignment.center,
             children: [
               linearProgressBackground(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  iconPlaceholder(),
-                  textPlaceholder(),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: iconPlaceholder(),
+                      ),
+                    ),
+                    textPlaceholder(),
+                  ],
+                ),
               ),
             ],
           ),
@@ -281,10 +289,10 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.fromLTRB(0,10,0,20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        border: Border(top: BorderSide(color: Color(0xffcccccc), width: 1),),
+        border: Border(top: BorderSide(color: Color(0xfff1f1f1), width: 1),),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,

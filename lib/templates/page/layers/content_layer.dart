@@ -48,6 +48,8 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  bool get _isDraggable => widget.isDraggable;
+
   @override
   void initState() {
     super.initState();
@@ -380,15 +382,15 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
           return Stack(
             fit: StackFit.expand,
             children: [
-              GestureDetector(
+              _isDraggable ? GestureDetector(
                 onTap: onTimerDisplayTap,
                 child: FractionallySizedBox(
                   alignment: Alignment.topCenter,
                   heightFactor: _animation.value,
                   child: timerDisplay(),
                 ),
-              ),
-              GestureDetector(
+              ) : Container(),
+              _isDraggable ? GestureDetector(
                 onVerticalDragUpdate: handleVerticalUpdate,
                 onVerticalDragEnd: handleVerticalEnd,
                 child: FractionallySizedBox(
@@ -396,6 +398,12 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                   heightFactor: 1 - _animation.value,
                   child: contentDisplay(),
                 ),
+              ) : SafeArea(
+                    child: FractionallySizedBox(
+                      alignment: Alignment.bottomCenter,
+                      heightFactor: 1,
+                      child: contentDisplay(),
+                    ),
               ),
             ],
           );
