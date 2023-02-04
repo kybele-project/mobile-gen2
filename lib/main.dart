@@ -25,9 +25,21 @@ final GoRouter _router = GoRouter(
         GoRoute(
           name: 'simulator',
           path: '/simulator',
-          builder: (context, state) {
-            return const RecordPages();
-          }
+          pageBuilder: (context, state) => CustomTransitionPage(
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(-1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.ease;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+            child: const RecordPages(),
+          ),
         ),
         GoRoute(
           name: 'resources',
@@ -231,7 +243,7 @@ class _NavButtonState extends State<NavButton> {
             children: [
               linearProgressBackground(),
               Padding(
-                padding: const EdgeInsets.symmetric(vertical: 2),
+                padding: const EdgeInsets.symmetric(vertical: 3),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
