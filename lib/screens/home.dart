@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/old/tools/AdditionalResources.dart';
 import 'package:kybele_gen2/screens/APGAR3.dart';
 import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
 import 'package:kybele_gen2/screens/Forms.dart';
 import 'package:kybele_gen2/screens/Videos.dart';
+import 'package:kybele_gen2/screens/nrp_algorithm.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
@@ -34,15 +34,6 @@ class HomePage extends StatelessWidget {
                   ),
 
                   SizedBox(height: 20),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Tools",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -71,7 +62,7 @@ class HomePage extends StatelessWidget {
                   Color(0xff89683e),
                   Icons.account_tree_rounded,
                   'NRP Modules',
-                  VideosPages(),
+                  NRPPages(),
                 ),
                 KybeleColorfulTile(
                   Color(0xffdaf7d9),

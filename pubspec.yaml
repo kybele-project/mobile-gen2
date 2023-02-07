@@ -48,7 +48,7 @@ flutter:
   assets:
     - assets/kybele_logo_no_bg.png
     - assets/CroppedFlow.jpg
-    - assets/NRPFlowChart.jpg
+    - assets/NRP FlowChart.jpg
     - assets/kybele_purple.png
     - assets/timer_audio/timer1.wav
     - assets/timer_audio/timer2.wav
@@ -68,3 +68,4 @@ flutter:
     - assets/20210216_164508.mp4
     - assets/test.mp4
     - assets/test_thumbnail.jpg
+    - assets/Tables.jpg

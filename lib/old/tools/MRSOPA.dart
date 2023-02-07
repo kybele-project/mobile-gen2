@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:kybele_gen2/nav/header.dart';
-
 
 class MRSOPA extends StatelessWidget {
 
@@ -11,14 +9,6 @@ class MRSOPA extends StatelessWidget {
       child: SafeArea(
         child: Column(
           children: [
-            PopUpHeader(
-              'MR. SOPA Corrective Steps',
-              Icon(
-                Icons.air_rounded,
-                color: Colors.deepPurpleAccent[100],
-                size: 30,
-              ),
-            ),
             Padding(
               padding: EdgeInsets.fromLTRB(30, 10, 30, 30),
               child: Column (

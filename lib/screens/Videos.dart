@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/timeline.dart';
 import 'package:kybele_gen2/screens/APGAR3.dart';
 import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
-import 'package:kybele_gen2/old/tools/AdditionalResources.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
-
 import '../components/button.dart';
 import '../templates/page/page.dart';
 import '../databases/modules.dart';
@@ -56,9 +54,9 @@ class VideosPages extends StatelessWidget {
       hasBottomActionButton: false,
       bodyWidget: body(),
       headerText: "Videos",
-      headerIcon: Icons.list_alt_rounded,
-      headerIconBkgColor: Color.fromARGB(255, 221, 221, 221),
-      headerIconColor: Color.fromARGB(255, 239, 66, 255),
+      headerIcon: Icons.ondemand_video_rounded,
+      headerIconBkgColor: Color(0xfff9e1f5),
+      headerIconColor: Color(0xff8e4383),
     );
   }
 }

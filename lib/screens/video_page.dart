@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:kybele_gen2/templates/page/page.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 
@@ -75,21 +76,8 @@ class _ChewieDemoState extends State<TutorialPage> {
       // autoInitialize: true,
     );
   }
-  @override
-  Widget build(BuildContext context) {
-    return
-      Material(
-          child: SafeArea(
-              child: Column(
-                  children: [
-                    PopUpHeader(
-                      widget.video_List.video_title!,
-                      Icon(
-                        Icons.video_collection_sharp,
-                        color: Colors.pinkAccent,
-                        size: 30,
-                      ),
-                    ),
+  Widget body(BuildContext context) {
+    return 
                     Expanded(
                       child: Center(
                         child: _chewieController != null &&
@@ -107,6 +95,19 @@ class _ChewieDemoState extends State<TutorialPage> {
                           ],
                         ),
                       ),
-                    ),])));
+                    );
+  }
+  @override
+  Widget build(BuildContext context){
+    return KybelePage.fixedWithHeader(
+      hasHeaderClose: true,
+      hasHeaderIcon: true,
+      hasBottomActionButton: false,
+      bodyWidget: body(context),
+      headerText: widget.video_List.video_title!,
+      headerIcon: Icons.list_alt_rounded,
+      headerIconBkgColor: const Color.fromARGB(255, 221, 221, 221),
+      headerIconColor: const Color.fromARGB(255, 253, 100, 100),
+    );
   }
 }
