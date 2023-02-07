@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:kybele_gen2/providers/record_provider.dart';
+import 'package:kybele_gen2/templates/page/page.dart';
 import 'package:provider/provider.dart';
 
 import '../models/event.dart';
@@ -10,9 +11,7 @@ import '../old/nav/header.dart';
 class TargetOxygenSaturation extends StatelessWidget {
   const TargetOxygenSaturation({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-
+  Widget body(context) {
     return Material(
       child: SafeArea(
         child: Column(
@@ -26,215 +25,231 @@ class TargetOxygenSaturation extends StatelessWidget {
               ),
             ),
             Expanded(
-                  child: SingleChildScrollView(
-              child: Column (
-                children: [
-                  Padding(
-                    padding: EdgeInsets.fromLTRB(30, 10, 30, 30),
-                    child: Column(children: [
-                      LineChartSample1(),
-                      Container(
-                        child: Table(
-                          border: TableBorder(
-                            top: const BorderSide(color: Color(0xffeaeaea), width: 1),
-                            right: const BorderSide(color: Color(0xffeaeaea), width: 1),
-                            left: const BorderSide(color: Color(0xffeaeaea), width: 1),
-                            bottom: const BorderSide(color: Color(0xffeaeaea), width: 1),
+              child: SingleChildScrollView(
+                child: Column (
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(30, 10, 30, 30),
+                      child: Column(children: [
+                        LineChartSample1(),
+                        Container(
+                          child: Table(
+                            border: TableBorder(
+                              top: const BorderSide(color: Color(0xffeaeaea), width: 1),
+                              right: const BorderSide(color: Color(0xffeaeaea), width: 1),
+                              left: const BorderSide(color: Color(0xffeaeaea), width: 1),
+                              bottom: const BorderSide(color: Color(0xffeaeaea), width: 1),
+                            ),
+                            defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                            columnWidths: const <int, TableColumnWidth>{
+                              0: FixedColumnWidth(150),
+                              1: FlexColumnWidth(),
+                            },
+                            children: [
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                        ),
+                                        padding: EdgeInsets.all(10),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "ELAPSED TIME",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                        ),
+                                        padding: EdgeInsets.all(10),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "TARGET OXYGEN SATURATION",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("1 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("60% - 65%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              TableRow(
+                                children: [
+                                  TableCell(
+                                    child: Container(
+                                      color: Colors.grey[50],
+                                      padding: EdgeInsets.all(8),
+                                      alignment: Alignment.center,
+                                      child: Text("2 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: Container(
+                                      color: Colors.grey[50],
+                                      padding: EdgeInsets.all(8),
+                                      alignment: Alignment.center,
+                                      child: Text("65% - 70%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("3 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("70% - 75%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.grey[50],
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("4 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.grey[50],
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("75% - 80%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("5 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.white,
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("80% - 85%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                              TableRow(
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.grey[50],
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("10 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        color: Colors.grey[50],
+                                        padding: EdgeInsets.all(8),
+                                        alignment: Alignment.center,
+                                        child: Text("85% - 95%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                            ],
                           ),
-                          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-                          columnWidths: const <int, TableColumnWidth>{
-                            0: FixedColumnWidth(150),
-                            1: FlexColumnWidth(),
-                          },
-                          children: [
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                      ),
-                                      padding: EdgeInsets.all(10),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "ELAPSED TIME",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey[200],
-                                      ),
-                                      padding: EdgeInsets.all(10),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "TARGET OXYGEN SATURATION",
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("1 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("60% - 65%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            TableRow(
-                              children: [
-                                TableCell(
-                                  child: Container(
-                                    color: Colors.grey[50],
-                                    padding: EdgeInsets.all(8),
-                                    alignment: Alignment.center,
-                                    child: Text("2 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                  ),
-                                ),
-                                TableCell(
-                                  child: Container(
-                                    color: Colors.grey[50],
-                                    padding: EdgeInsets.all(8),
-                                    alignment: Alignment.center,
-                                    child: Text("65% - 70%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("3 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("70% - 75%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.grey[50],
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("4 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.grey[50],
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("75% - 80%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("5 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.white,
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("80% - 85%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                            TableRow(
-                                children: [
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.grey[50],
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("10 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                                    ),
-                                  ),
-                                  TableCell(
-                                    child: Container(
-                                      color: Colors.grey[50],
-                                      padding: EdgeInsets.all(8),
-                                      alignment: Alignment.center,
-                                      child: Text("85% - 95%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
-                                    ),
-                                  ),
-                                ]
-                            ),
-                          ],
+                        ),
+
+                      ]),
+                    ),
+                    Container(
+                      padding: EdgeInsets.all(30),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border(
+                            top: BorderSide(width: 1, color: Color(0xffeaeaea))
                         ),
                       ),
-
-                    ]),
-                  ),
-                Container(
-                  padding: EdgeInsets.all(30),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                      top: BorderSide(width: 1, color: Color(0xffeaeaea))
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OxygenRecord(),
+                        ],
+                      ),
                     ),
-                  ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    OxygenRecord(),
                   ],
                 ),
               ),
-              ],
-            ),
-                  ),
             ),
           ],
         ),
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return KybelePage.fixedWithHeader(
+        hasHeaderIcon: true,
+        hasHeaderClose: true,
+        hasBottomActionButton: false,
+        headerText: "Oxygen Saturation",
+        bodyWidget: body(context),
+        headerIcon: Icons.bubble_chart_rounded,
+        headerIconBkgColor: Color(0xffE2EEF9),
+        headerIconColor: Color(0xff436B8F),
+    );
+  }
+
+
 }
 
 
@@ -537,7 +552,8 @@ class _OxygenRecordState extends State<OxygenRecord> {
                 category: 'OxygenSaturation',
                 header: 'Oxygen Saturation: ${_currentSliderValue.toInt()}%',
                 subHeader: 'Insert status here',
-                interval: 'Test'
+                interval: 'Test',
+                status: 0,
               );
               saveData(o2Event);
               ScaffoldMessenger.of(context).showSnackBar(

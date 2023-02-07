@@ -24,6 +24,7 @@ class TimerBackgroundLayer extends StatelessWidget {
             color: const Color(0xff564BAF),
           );
         }
+        // TODO: RAHUL THIS IS WHAT CHANGES TOP BAR COLOR
     ) : Container(width: double.maxFinite, height: double.maxFinite, color: Colors.white);
   }
 }

@@ -24,7 +24,7 @@ List<num> timerGaps2 = [60, 240, 300];
 // MESSAGE STRINGS
 String timerStartedMessage = 'Timer assistant started';
 String timerPausedMessage = 'Timer assistant paused';
-String timerStoppedMessage = 'Press play to start timer assistant';
+String timerStoppedMessage = 'Timer assistant ready';
 String timerResumedMessage = 'Timer assistant resumed';
 
 List<String> timerActiveMessages = [

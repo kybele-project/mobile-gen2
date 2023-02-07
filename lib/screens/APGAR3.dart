@@ -79,6 +79,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
       header: 'APGAR Score: $_scoreAPGAR',
       subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
       interval: _dropdownValue,
+      status: 0,
     );
 
     return Padding(
@@ -94,6 +95,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
             'APGAR Score: $_scoreAPGAR',
             'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
             _dropdownValue,
+            0,
             DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
           ),
           const SizedBox(height: 20),

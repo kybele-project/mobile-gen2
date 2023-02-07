@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/record.dart';
 import 'package:provider/provider.dart';
@@ -41,8 +42,8 @@ class ContentLayer extends StatefulWidget {
 class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderStateMixin {
 
   // height animation vars
-  double lowHeightFactor = 0.15;
-  double highHeightFactor = 0.5;
+  double lowHeightFactor = 0.5;
+  double highHeightFactor = 0.15;
 
   late bool _animationActive;
   late AnimationController _controller;
@@ -69,11 +70,6 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
       ..addListener(() => setState(() {}));
 
     _animationActive = false;
-
-    if (widget.isDraggable) {
-      _controller.forward();
-      _animationActive = true;
-    }
   }
 
   @override
@@ -107,7 +103,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     if (widget.isDraggable) {
       double screenHeight = MediaQuery.of(context).size.height;
       double fractionDragged = updateDetails.primaryDelta! / screenHeight;
-      _controller.value = _controller.value + 5 * fractionDragged;
+      _controller.value = _controller.value - 3 * fractionDragged;
       if (_controller.value <= 0.5) {
         _animationActive = false;
       }
@@ -128,6 +124,67 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     }
   }
 
+  void startActions(BuildContext context) {
+    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+    timerProvider.startTimer();
+
+    final recordProvider = Provider.of<RecordProvider>(context, listen: false);
+    Event timerEvent = Event(
+      category: "Timer",
+      header: "Timer started",
+      subHeader: "NA",
+      interval: "NA",
+      status: 2,
+    );
+    recordProvider.addEvent(timerEvent);
+  }
+
+  void pauseActions(BuildContext context) {
+    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+    timerProvider.pauseTimer();
+
+    final recordProvider = Provider.of<RecordProvider>(context, listen: false);
+    Event timerEvent = Event(
+      category: "Timer",
+      header: "Timer paused",
+      subHeader: "NA",
+      interval: "NA",
+      status: 2,
+    );
+    recordProvider.addEvent(timerEvent);
+  }
+
+  void continueActions(BuildContext context) {
+    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+    timerProvider.continueTimer();
+
+    final recordProvider = Provider.of<RecordProvider>(context, listen: false);
+    Event timerEvent = Event(
+      category: "Timer",
+      header: "Timer resumed",
+      subHeader: "NA",
+      interval: "NA",
+      status: 2,
+    );
+    recordProvider.addEvent(timerEvent);
+  }
+
+  void resetActions(BuildContext context) {
+    final timerProvider = Provider.of<TimerProvider>(context, listen: false);
+    timerProvider.resetTimer();
+
+    final recordProvider = Provider.of<RecordProvider>(context, listen: false);
+    Event timerEvent = Event(
+      category: "Timer",
+      header: "Timer stopped",
+      subHeader: "NA",
+      interval: "NA",
+      status: 2,
+    );
+    recordProvider.addEvent(timerEvent);
+  }
+
+  // TODO reduce length of function
   Widget timerInteractionButtons() {
 
     if (!widget.isDraggable) {
@@ -150,38 +207,130 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     MainAxisAlignment rowAlign;
 
     if (_animationActive) {
-      paddingWidth = 20;
-      rowAlign = MainAxisAlignment.end;
-    }
-    else {
       paddingWidth = 10;
-      rowAlign = MainAxisAlignment.center;
+      rowAlign = MainAxisAlignment.end;
+
+      return Consumer<TimerProvider>(
+          builder: (context, provider, widget) {
+            if (provider.buttonsStart) {
+              return RawMaterialButton(
+                  onPressed: () {
+                    provider.startTimer();
+                  },
+                  elevation: 0,
+                  fillColor: const Color(0xff9F97E3),
+                  padding: EdgeInsets.all(paddingWidth),
+                  shape: const CircleBorder(),
+                  child: const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white)
+              );
+            }
+            else if (provider.buttonsPause) {
+              return RawMaterialButton(
+                  onPressed: () {
+                    provider.pauseTimer();
+                  },
+                  elevation: 0,
+                  fillColor: const Color(0xff9F97E3),
+                  padding: EdgeInsets.all(paddingWidth),
+                  shape: const CircleBorder(),
+                  child: const Icon(Icons.pause_rounded, size: 30, color: Colors.white)
+              );
+            }
+            else {
+              return Row(
+                mainAxisAlignment: rowAlign,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  RawMaterialButton(
+                      onPressed: () {
+                        provider.continueTimer();
+                      },
+                      elevation: 0,
+                      fillColor: const Color(0xff9F97E3),
+                      padding: EdgeInsets.all(paddingWidth),
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white)
+                  ),
+                  SizedBox(width: paddingWidth),
+                  RawMaterialButton(
+                      onPressed: () {
+                        provider.resetTimer();
+                      },
+                      elevation: 0,
+                      fillColor: const Color(0xff9F97E3),
+                      padding: EdgeInsets.all(paddingWidth),
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.stop_rounded, size: 30, color: Colors.white)
+                  ),
+                ],
+              );
+            }
+          }
+      );
+
     }
+
+    paddingWidth = 20;
+    rowAlign = MainAxisAlignment.center;
 
     return Consumer<TimerProvider>(
         builder: (context, provider, widget) {
           if (provider.buttonsStart) {
-            return RawMaterialButton(
-                onPressed: () {
-                  provider.startTimer();
-                },
-                elevation: 0,
-                fillColor: const Color(0xff9F97E3),
-                padding: EdgeInsets.all(paddingWidth),
-                shape: const CircleBorder(),
-                child: const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white)
+            return GestureDetector(
+                onTap: () => startActions(context),
+                child: Container(
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  padding: EdgeInsets.all(paddingWidth),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: const Color(0xff9F97E3)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white),
+                      SizedBox(width: 10),
+                      Text(
+                          "START",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                      ),
+                    ],
+                ),
+              ),
             );
           }
           else if (provider.buttonsPause) {
-            return RawMaterialButton(
-                onPressed: () {
-                  provider.pauseTimer();
-                },
-                elevation: 0,
-                fillColor: const Color(0xff9F97E3),
+            return GestureDetector(
+              onTap: () => pauseActions(context),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.4,
                 padding: EdgeInsets.all(paddingWidth),
-                shape: const CircleBorder(),
-                child: const Icon(Icons.pause_rounded, size: 30, color: Colors.white)
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: const Color(0xff9F97E3)
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.pause_rounded, size: 30, color: Colors.white),
+                    SizedBox(width: 10),
+                    Text(
+                      "PAUSE",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             );
           }
           else {
@@ -189,26 +338,60 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
               mainAxisAlignment: rowAlign,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                RawMaterialButton(
-                    onPressed: () {
-                      provider.continueTimer();
-                    },
-                    elevation: 0,
-                    fillColor: const Color(0xff9F97E3),
+                GestureDetector(
+                  onTap: () => continueActions(context),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
                     padding: EdgeInsets.all(paddingWidth),
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white)
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xff9F97E3)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.play_arrow_rounded, size: 30, color: Colors.white),
+                        SizedBox(width: 10),
+                        Text(
+                          "RESUME",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 SizedBox(width: paddingWidth),
-                RawMaterialButton(
-                    onPressed: () {
-                      provider.resetTimer();
-                    },
-                    elevation: 0,
-                    fillColor: const Color(0xff9F97E3),
+                GestureDetector(
+                  onTap: () => resetActions(context),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
                     padding: EdgeInsets.all(paddingWidth),
-                    shape: const CircleBorder(),
-                    child: const Icon(Icons.stop_rounded, size: 30, color: Colors.white)
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: const Color(0xff9F97E3)
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Icon(Icons.stop_rounded, size: 30, color: Colors.white),
+                        SizedBox(width: 10),
+                        Text(
+                          "STOP",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ],
             );
@@ -218,7 +401,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   }
 
   Widget timerDisplay() {
-    if (!_animationActive) {
+    if (_animationActive) {
       return SafeArea(
         child: Container(
           width: double.maxFinite,
@@ -247,18 +430,16 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
       );
     }
     else {
-      return SafeArea(
-
-        child: SingleChildScrollView(
+      return SingleChildScrollView(
           physics: const NeverScrollableScrollPhysics(),
           child: Container(
             width: double.maxFinite,
-            height: double.maxFinite,
-            padding: const EdgeInsets.all(20),
+            height: (MediaQuery.of(context).size.height - 80) * 0.5,
             color: Colors.transparent,
               child: Consumer<TimerProvider>(
                 builder: (context, provider, widget) {
                   return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         provider.fetchTime(),
@@ -277,7 +458,6 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                 },
               ),
             ),
-          ),
       );
     }
   }

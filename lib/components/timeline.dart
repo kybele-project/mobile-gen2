@@ -1,12 +1,14 @@
 import 'dart:core' show String, bool, double, int, override, print;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
+import 'package:kybele_gen2/components/launch_graphic.dart';
 import 'package:provider/provider.dart' show Consumer, Provider;
 
 import '../providers/record_provider.dart';
 
 
 NumberFormat timeFormat = NumberFormat("00");
+
 
 class StandardEntry extends StatelessWidget {
 
@@ -16,6 +18,7 @@ class StandardEntry extends StatelessWidget {
   final String header;
   final String subHeader;
   final String interval;
+  final int status;
   final String time;
 
   const StandardEntry(
@@ -25,12 +28,46 @@ class StandardEntry extends StatelessWidget {
       this.header,
       this.subHeader,
       this.interval,
+      this.status,
       this.time,
       {super.key}
   );
 
+  Widget signalIcon() {
+
+    if (status == 1) {
+      return Container(
+        width: 16,
+        height: 16,
+        decoration: BoxDecoration(
+          color: Colors.green.shade400,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const Center(
+          child: Icon(Icons.check_rounded, size: 10, color: Colors.white),
+        ),
+      );
+    }
+    else if (status == 0) {
+      return Container(
+        width: 16,
+        height: 16,
+        decoration: BoxDecoration(
+          color: Colors.red.shade400,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const Center(
+          child: Icon(Icons.priority_high_rounded, size: 10, color: Colors.white),
+        ),
+      );
+    }
+
+    return Container();
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Container(
       width: double.maxFinite,
       color: Colors.transparent,
@@ -60,7 +97,15 @@ class StandardEntry extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(header, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(header, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                      (status != 2) ? const SizedBox(width: 15) : Container(),
+                      signalIcon(),
+                    ],
+                  ),
+
                   Text(subHeader, style: const TextStyle(fontSize: 14)),
                 ],
               ),
@@ -127,6 +172,7 @@ class TimelineEntryWrapper extends StatelessWidget {
   final String header;
   final String subHeader;
   final String interval;
+  final int status;
   final String date;
   final String time;
   final String primaryKey;
@@ -138,6 +184,7 @@ class TimelineEntryWrapper extends StatelessWidget {
       this.header,
       this.subHeader,
       this.interval,
+      this.status,
       this.date,
       this.time,
       this.primaryKey,
@@ -249,6 +296,7 @@ class TimelineEntryWrapper extends StatelessWidget {
             header,
             subHeader,
             interval,
+            status,
             time
         );
         return entryWrapper(context, apgarEntry, apgarEntry, primaryKey, newDate, true);
@@ -262,6 +310,7 @@ class TimelineEntryWrapper extends StatelessWidget {
             header,
             subHeader,
             interval,
+            status,
             time
         );
         return entryWrapper(context, oxygenEntry, oxygenEntry, primaryKey, newDate, true);
@@ -320,10 +369,7 @@ class _TimelineState extends State<Timeline> {
           provider.getEvents();
         }
         if (provider.events.isEmpty) {
-          return const Padding(
-            padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
-            child: Text("No events logged", textAlign: TextAlign.start, style: TextStyle(fontSize: 18)),
-          );
+          return const LaunchGraphic();
         } else {
           return Container(
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -336,6 +382,7 @@ class _TimelineState extends State<Timeline> {
                     provider.events[provider.events.length - 1].toMap()['header'],
                     provider.events[provider.events.length - 1].toMap()['subHeader'],
                     provider.events[provider.events.length - 1].toMap()['interval'],
+                    provider.events[provider.events.length - 1].toMap()['status'],
                     provider.events[provider.events.length - 1].toMap()['date'],
                     provider.events[provider.events.length - 1].toMap()['time'],
                     provider.events[provider.events.length - 1].toMap()['primaryKey'],
@@ -350,6 +397,7 @@ class _TimelineState extends State<Timeline> {
                           provider.events[provider.events.length - 1 - i].toMap()['header'],
                           provider.events[provider.events.length - 1 - i].toMap()['subHeader'],
                           provider.events[provider.events.length - 1 - i].toMap()['interval'],
+                          provider.events[provider.events.length - 1 - i].toMap()['status'],
                           provider.events[provider.events.length - 1 - i].toMap()['date'],
                           provider.events[provider.events.length - 1 - i].toMap()['time'],
                           provider.events[provider.events.length - 1 - i].toMap()['primaryKey'],
@@ -380,6 +428,7 @@ class _TimelineState extends State<Timeline> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 90),
               ],
             ),
           );
