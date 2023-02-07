@@ -102,8 +102,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
                       color: Color(0xffeaeaea),
                       width: 1,
                     ))),
-                child: Expanded(
-                  child: Column(
+                child: Column(
                     children: [
                       TabBar(
                         controller: _tabController,
@@ -112,7 +111,6 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
                       ),
                     ],
                   ),
-                ),
               ),
               tabBodies[_activeTabIndex],
             ],
