@@ -29,6 +29,10 @@ class ActionButtonLayer extends StatelessWidget {
               onTap: () {
                 showModalBottomSheet(
                     context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                    ),
+                    backgroundColor: Colors.white,
                     builder: (context) {
                       return bottomButtonMenuWidget!;
                     }

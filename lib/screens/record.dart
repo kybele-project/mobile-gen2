@@ -17,7 +17,6 @@ class RecordPages extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: const [
             Timeline(),
-            SizedBox(height: 60),
           ],
         ),
       ),

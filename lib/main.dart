@@ -25,11 +25,14 @@ final GoRouter _router = GoRouter(
         GoRoute(
           name: 'simulator',
           path: '/simulator',
+          parentNavigatorKey: _shellNavigatorKey,
           pageBuilder: (context, state) => CustomTransitionPage(
+            key: UniqueKey(),
+            transitionDuration: const Duration(milliseconds: 250),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               const begin = Offset(-1.0, 0.0);
               const end = Offset.zero;
-              const curve = Curves.ease;
+              const curve = Curves.linear;
 
               var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
 
@@ -44,10 +47,25 @@ final GoRouter _router = GoRouter(
         GoRoute(
           name: 'resources',
           path: '/resources',
-          builder: (context, state) {
-            return HomePage();
-          }
-        )
+          parentNavigatorKey: _shellNavigatorKey,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: UniqueKey(),
+            transitionDuration: const Duration(milliseconds: 250),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              const begin = Offset(1.0, 0.0);
+              const end = Offset.zero;
+              const curve = Curves.linear;
+
+              var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+              return SlideTransition(
+                position: animation.drive(tween),
+                child: child,
+              );
+            },
+            child: HomePage(),
+          ),
+        ),
       ]
     )
   ],
@@ -301,7 +319,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
   Widget build(BuildContext context) {
     return Container(
       height: 80,
-      padding: const EdgeInsets.fromLTRB(0,10,0,20),
+      padding: const EdgeInsets.fromLTRB(0,5,0,25),
       decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(top: BorderSide(color: Color(0xfff1f1f1), width: 1),),
@@ -310,8 +328,8 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           NavButton(
-            label: 'Simulation',
-            icon: Icons.play_arrow_rounded,
+            label: 'Assistant',
+            icon: Icons.handshake_rounded,
             index: 0,
             selectedIndex: _selectedIndex,
             isSim: true,

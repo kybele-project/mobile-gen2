@@ -5,6 +5,7 @@ class Event {
   final String header;
   final String subHeader;
   final String interval;
+  final int status;
   late final String date;
   late final String time;
   late final String primaryKey;
@@ -14,6 +15,7 @@ class Event {
     required this.header,
     required this.subHeader,
     required this.interval,
+    required this.status,
   }) {
     DateTime timeNoFormat = DateTime.now();
     date = DateFormat.yMMMMd('en_US').format(timeNoFormat);
@@ -26,6 +28,7 @@ class Event {
         header = data['header'],
         subHeader = data['subHeader'],
         interval = data['interval'],
+        status = data['status'],
         date = data['date'],
         time = data['time'],
         primaryKey = data['primaryKey'];
@@ -36,6 +39,7 @@ class Event {
       'header': header,
       'subHeader': subHeader,
       'interval': interval,
+      'status': status,
       'date': date,
       'time': time,
       'primaryKey': primaryKey,

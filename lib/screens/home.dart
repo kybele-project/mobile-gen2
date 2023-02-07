@@ -9,6 +9,7 @@ import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
 import '../databases/modules.dart';
+import 'oxygen_saturation.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -32,17 +33,7 @@ class HomePage extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-
                   SizedBox(height: 20),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.fromLTRB(0, 0, 10, 10),
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      "Tools",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -64,7 +55,7 @@ class HomePage extends StatelessWidget {
                   Color(0xff436B8F),
                   Icons.bubble_chart_rounded,
                   'Oxygen Saturation',
-                  TargetOxygenSaturation(),
+                  OxygenSaturation(),
                 ),
                 KybeleColorfulTile(
                   Color(0xffffe9cc),

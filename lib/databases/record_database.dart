@@ -30,6 +30,7 @@ class RecordDatabase {
             interval TEXT NOT NULL,
             date TEXT NOT NULL,
             time TEXT NOT NULL,
+            status INT NOT NULL,
             primaryKey TEXT PRIMARY KEY
         )
         """
