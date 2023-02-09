@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 import 'package:provider/provider.dart';
 
+
+typedef IntVoidFunc = void Function(int);
+
 class OxygenSaturation extends StatefulWidget {
   const OxygenSaturation({Key? key}) : super(key: key);
 
@@ -19,6 +22,13 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
   int _saturationPercentage = 60;
   int _minuteInterval = 0;
   int _status = 1;
+
+  void updateMinuteInterval(int nextMinuteInterval) {
+    setState(() {
+      _minuteInterval = nextMinuteInterval;
+    });
+    updateStatus(_minuteMSList[_minuteInterval]);
+  }
 
   void updateStatus(int milliseconds) {
     int currMinute = (milliseconds/1000).floor();
@@ -156,12 +166,102 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
             ),
             SizedBox(height: 40),
             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[0],
+                    minuteIndex: 0,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[1],
+                    minuteIndex: 1,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[2],
+                    minuteIndex: 2,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[3],
+                    minuteIndex: 3,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[4],
+                    minuteIndex: 4,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                  OxygenSaturationButton(
+                    label: _minuteIntervalList[5],
+                    minuteIndex: 5,
+                    currMinuteIndex: _minuteInterval,
+                    updateFunction: updateMinuteInterval,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 40),
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: OxygenSaturationTable(),
             ),
+            SizedBox(height: 80,)
           ],
         ),
       ),
+    );
+  }
+}
+
+class OxygenSaturationButton extends StatelessWidget {
+
+  final String label;
+  final int minuteIndex;
+  final int currMinuteIndex;
+  final void Function(int) updateFunction;
+
+  const OxygenSaturationButton({
+    required this.label,
+    required this.minuteIndex,
+    required this.currMinuteIndex,
+    required this.updateFunction,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () => updateFunction(minuteIndex),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: (minuteIndex == currMinuteIndex) ? Colors.deepOrange : Colors.grey,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Text(label + " min",
+            style: TextStyle(
+              color: Colors.white,
+            )
+          ),
+        ),
     );
   }
 }
