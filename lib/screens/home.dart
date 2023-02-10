@@ -11,6 +11,8 @@ import '../components/button.dart';
 import '../databases/modules.dart';
 import 'oxygen_saturation.dart';
 
+const List<String> list = <String>["NRP Module                                        "];
+
 class HomePage extends StatelessWidget {
 
   Widget body(BuildContext context) {
@@ -19,10 +21,9 @@ class HomePage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20,0,20,0),
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverList(
+             SliverList(
               delegate: SliverChildListDelegate(
                 [
-
                   Container(
                     width: MediaQuery.of(context).size.width * 0.9,
                     padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
@@ -33,8 +34,29 @@ class HomePage extends StatelessWidget {
                       fit: BoxFit.fitHeight,
                     ),
                   ),
-                  SizedBox(height: 20),
-                ],
+              SizedBox(height: 20),
+/*                   Container( width: 50, child:
+                  DropdownButton<String>(
+      value: "NRP Module                                        ",
+      icon: const Icon(Icons.arrow_downward),
+      elevation: 16,
+      style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 22, fontWeight: FontWeight.w300),
+      underline: Container(
+        height: 2,
+        color: Colors.deepPurpleAccent,
+      ),
+      onChanged: (String? value) {
+        // This is called when the user selects an item
+      },
+      items: list.map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    )),
+    SizedBox(height: 10) */
+              ],
               ),
             ),
             SliverGrid.count(
@@ -47,7 +69,7 @@ class HomePage extends StatelessWidget {
                   Color(0xffFFCDCF),
                   Color(0xff8B3E42),
                   Icons.calculate_rounded,
-                  'APGAR Calculator',
+                  'APGAR Score',
                   APGARCalculator2(),
                 ),
                 KybeleColorfulTile(

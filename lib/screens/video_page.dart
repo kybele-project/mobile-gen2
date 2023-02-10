@@ -35,7 +35,7 @@ class _ChewieDemoState extends State<TutorialPage> {
   }
   Future<void> initializePlayer() async {
     _videoPlayerController1 =
-        VideoPlayerController.asset(widget.video_List.video_path!);
+        VideoPlayerController.network(widget.video_List.video_path!);
     await Future.wait([
       _videoPlayerController1.initialize(),
     ]);
@@ -105,9 +105,9 @@ class _ChewieDemoState extends State<TutorialPage> {
       hasBottomActionButton: false,
       bodyWidget: body(context),
       headerText: widget.video_List.video_title!,
-      headerIcon: Icons.list_alt_rounded,
-      headerIconBkgColor: const Color.fromARGB(255, 221, 221, 221),
-      headerIconColor: const Color.fromARGB(255, 253, 100, 100),
+      headerIcon: Icons.ondemand_video_rounded,
+      headerIconBkgColor: Color(0xfff9e1f5),
+      headerIconColor: Color(0xff8e4383),
     );
   }
 }

@@ -20,7 +20,7 @@ class VideosPages extends StatelessWidget {
                 maxCrossAxisExtent: 200,
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20),
-            itemCount: 5,
+            itemCount: 2,
             itemBuilder: (BuildContext ctx, index) {
               return GestureDetector(
                       onTap:() {
@@ -35,7 +35,10 @@ class VideosPages extends StatelessWidget {
                       }, child:Container(
                       child: Column(
                           children: [
-                            Image.asset(Video.video_List[index].thumbnail_path!),
+                            ClipRRect(
+    borderRadius: BorderRadius.circular(4.0),
+    child:
+                            Image.asset(Video.video_List[index].thumbnail_path!),),
                             Container(width: 225, child:Text(Video.video_List[index].video_title!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
                             Container(width: 225, child:Text("${Video.video_List[index].video_length} mins", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
                           ]

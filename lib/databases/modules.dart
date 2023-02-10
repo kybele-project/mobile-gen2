@@ -57,35 +57,17 @@ class Video{
   int? video_length;
   Video(this.video_title, this.thumbnail_path, this.video_path, this.video_length);
   static List<Video> video_List = [
-    Video(
+      Video(
       "Full Term Newborn",
-      "assets/test_thumbnail.jpg",
-      "assets/test.mp4",
+      "assets/Fullterm_thumbnail.jpg",
+      "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       8,
     ),
     Video(
       "Preterm Newborn",
-      "assets/test_thumbnail.jpg",
-      "assets/20210216_164508.mp4",
+      "assets/Preterm_thumbnail.jpg",
+      "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
       8,
-    ),
-    Video(
-      "Warning Signs in Newborns",
-      "assets/test_thumbnail.jpg",
-      "assets/test.mp4",
-      8,
-    ),
-    Video(
-      "Helping Babies Breathe",
-      "assets/test_thumbnail.jpg",
-      "assets/20210216_164508.mp4",
-      8,
-    ),
-    Video(
-      "Danger Signs in Newborns,",
-      "assets/test_thumbnail.jpg",
-      "assets/test.mp4",
-      1,
     ),
   ];
 }

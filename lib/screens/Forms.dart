@@ -89,8 +89,8 @@ class PDFViewer extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
               child:
-            Expanded(
-              child: SingleChildScrollView(child: Column(
+
+              SingleChildScrollView(child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
@@ -108,7 +108,6 @@ class PDFViewer extends StatelessWidget {
                   )
                 ]
               ))
-            )
             )
           ]);
   }
