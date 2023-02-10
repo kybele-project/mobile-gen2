@@ -32,6 +32,7 @@ class ActionButtonLayer extends StatelessWidget {
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10)),
                     ),
+                    isScrollControlled: true,
                     backgroundColor: Colors.white,
                     builder: (context) {
                       return bottomButtonMenuWidget!;

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 import 'package:provider/provider.dart';
 
+import '../components/button.dart';
+import '../components/timeline.dart';
+import '../providers/kybele_providers.dart';
 
-typedef IntVoidFunc = void Function(int);
 
 class OxygenSaturation extends StatefulWidget {
   const OxygenSaturation({Key? key}) : super(key: key);
@@ -21,7 +26,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
 
   int _saturationPercentage = 60;
   int _minuteInterval = 0;
-  int _status = 1;
+  int _status = 2;
 
   void updateMinuteInterval(int nextMinuteInterval) {
     setState(() {
@@ -71,6 +76,9 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
         _status = 0;
       });
     }
+
+    // TODO: Upgrade function in future
+    _status = 2;
   }
 
   @override
@@ -82,8 +90,12 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
       headerIcon: Icons.bubble_chart_rounded,
       hasHeaderClose: true,
       hasBottomActionButton: true,
-      bottomButtonText: "Log event",
-      bottomButtonMenuWidget: const Placeholder(),
+      bottomButtonText: "Log oxygen saturation",
+      bottomButtonMenuWidget: OxygenSaturationMenu(
+        header: "Oxygen Saturation",
+        subHeader: "$_saturationPercentage%",
+        timeInterval: "${_minuteIntervalList[_minuteInterval]} min",
+      ),
       headerText: "Oxygen Saturation",
       bodyWidget: body(context),
     );
@@ -105,20 +117,20 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        _saturationPercentage.toString() + "%",
-                        style: TextStyle(
+                        "$_saturationPercentage%",
+                        style: const TextStyle(
                           fontSize: 48,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       (_status == 2) ? Container() :
-                      ((_status == 1) ? Text(
+                      ((_status == 1) ? const Text(
                         "SAFE",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
-                      ) : Text(
+                      ) : const Text(
                         "UNSAFE",
                         style: TextStyle(
                           fontSize: 18,
@@ -127,11 +139,11 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                       )),
                     ],
                   ),
-                  (_status != 2) ? Row(
+                  (_status == 2) ? Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Selected: " + _minuteIntervalList[_minuteInterval] + " min",
+                        "Selected: ${_minuteIntervalList[_minuteInterval]} min",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.normal,
@@ -139,7 +151,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                         ),
                       ),
                       Text(
-                        _lowerBound[_minuteInterval].toString() + "% - " + _upperBound[_minuteInterval].toString() + "%",
+                        "${_lowerBound[_minuteInterval]}% - ${_upperBound[_minuteInterval]}%",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.normal,
@@ -151,79 +163,129 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                 ],
               ),
             ),
-            SizedBox(height: 40),
-            Slider(
-              value: _saturationPercentage.toDouble(),
-              min: 50,
-              max: 100,
-              divisions: 50,
-              onChanged: (double value) => {
-                setState((){
-                  _saturationPercentage = value.toInt();
-                  updateStatus(_minuteMSList[_minuteInterval]);
-                })
-              },
-            ),
-            SizedBox(height: 40),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Container(
+              color: Colors.grey.shade100,
+              child: Column(
                 children: [
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[0],
-                    minuteIndex: 0,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      SizedBox(width: 20),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _saturationPercentage -= 1;
+                            updateStatus(_minuteMSList[_minuteInterval]);
+                          });
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Color(0xff564BAF),
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                          child: Icon(Icons.remove_rounded, color: Colors.white),
+                        ),
+                      ),
+                      Expanded(
+                        child: Slider(
+                          value: _saturationPercentage.toDouble(),
+                          min: 50,
+                          max: 100,
+                          divisions: 50,
+                          onChanged: (double value) => {
+                            setState((){
+                              _saturationPercentage = value.toInt();
+                              updateStatus(_minuteMSList[_minuteInterval]);
+                            })
+                          },
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _saturationPercentage += 1;
+                            updateStatus(_minuteMSList[_minuteInterval]);
+                          });
+                        },
+                        child: Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                              color: Color(0xff564BAF),
+                              borderRadius: BorderRadius.all(Radius.circular(10))
+                          ),
+                          child: Icon(Icons.add_rounded, color: Colors.white),
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                    ],
                   ),
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[1],
-                    minuteIndex: 1,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[0],
+                          minuteIndex: 0,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[1],
+                          minuteIndex: 1,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[2],
+                          minuteIndex: 2,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                      ],
+                    ),
                   ),
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[2],
-                    minuteIndex: 2,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[3],
+                          minuteIndex: 3,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[4],
+                          minuteIndex: 4,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                        OxygenSaturationButton(
+                          label: _minuteIntervalList[5],
+                          minuteIndex: 5,
+                          currMinuteIndex: _minuteInterval,
+                          updateFunction: updateMinuteInterval,
+                        ),
+                      ],
+                    ),
                   ),
+                  const SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: OxygenSaturationTable(),
+                  ),
+                  SizedBox(height: 80,)
                 ],
               ),
             ),
-            SizedBox(height: 20),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[3],
-                    minuteIndex: 3,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
-                  ),
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[4],
-                    minuteIndex: 4,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
-                  ),
-                  OxygenSaturationButton(
-                    label: _minuteIntervalList[5],
-                    minuteIndex: 5,
-                    currMinuteIndex: _minuteInterval,
-                    updateFunction: updateMinuteInterval,
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 40),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: OxygenSaturationTable(),
-            ),
-            SizedBox(height: 80,)
+
           ],
         ),
       ),
@@ -252,14 +314,18 @@ class OxygenSaturationButton extends StatelessWidget {
         onTap: () => updateFunction(minuteIndex),
         child: Container(
           padding: EdgeInsets.all(20),
+          width: MediaQuery.of(context).size.width * .25,
           decoration: BoxDecoration(
-            color: (minuteIndex == currMinuteIndex) ? Colors.deepOrange : Colors.grey,
-            borderRadius: BorderRadius.all(Radius.circular(20)),
+            color: (minuteIndex == currMinuteIndex) ? Color(0xff564BAF) : Colors.grey.shade600,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
-          child: Text(label + " min",
-            style: TextStyle(
-              color: Colors.white,
-            )
+          child: Center(
+            child: Text(label + " min",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
           ),
         ),
     );
@@ -328,7 +394,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("1 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
@@ -336,7 +402,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("60% - 65%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                 ),
@@ -347,16 +413,16 @@ class OxygenSaturationTable extends StatelessWidget {
           children: [
             TableCell(
               child: Container(
-                color: Colors.grey[50],
-                padding: EdgeInsets.all(8),
+                color: Colors.grey[200],
+                padding: EdgeInsets.all(10),
                 alignment: Alignment.center,
                 child: Text("2 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
               ),
             ),
             TableCell(
               child: Container(
-                color: Colors.grey[50],
-                padding: EdgeInsets.all(8),
+                color: Colors.grey[200],
+                padding: EdgeInsets.all(10),
                 alignment: Alignment.center,
                 child: Text("65% - 70%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
               ),
@@ -368,7 +434,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("3 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
@@ -376,7 +442,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("70% - 75%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                 ),
@@ -387,16 +453,16 @@ class OxygenSaturationTable extends StatelessWidget {
             children: [
               TableCell(
                 child: Container(
-                  color: Colors.grey[50],
-                  padding: EdgeInsets.all(8),
+                  color: Colors.grey[200],
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("4 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
               ),
               TableCell(
                 child: Container(
-                  color: Colors.grey[50],
-                  padding: EdgeInsets.all(8),
+                  color: Colors.grey[200],
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("75% - 80%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                 ),
@@ -408,7 +474,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("5 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
@@ -416,7 +482,7 @@ class OxygenSaturationTable extends StatelessWidget {
               TableCell(
                 child: Container(
                   color: Colors.white,
-                  padding: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("80% - 85%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                 ),
@@ -427,16 +493,16 @@ class OxygenSaturationTable extends StatelessWidget {
             children: [
               TableCell(
                 child: Container(
-                  color: Colors.grey[50],
-                  padding: EdgeInsets.all(8),
+                  color: Colors.grey[200],
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("10 min", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                 ),
               ),
               TableCell(
                 child: Container(
-                  color: Colors.grey[50],
-                  padding: EdgeInsets.all(8),
+                  color: Colors.grey[200],
+                  padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text("85% - 95%", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300)),
                 ),
@@ -444,6 +510,93 @@ class OxygenSaturationTable extends StatelessWidget {
             ]
         ),
       ],
+    );
+  }
+}
+
+class OxygenSaturationMenu extends StatefulWidget {
+
+  final String header;
+  final String subHeader;
+  final String timeInterval;
+
+  const OxygenSaturationMenu({Key? key,
+    required this.header,
+    required this.subHeader,
+    required this.timeInterval,
+  }) : super(key: key);
+
+  @override
+  State<OxygenSaturationMenu> createState() => _OxygenSaturationMenuState();
+}
+
+class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
+
+  @override
+  Widget build(BuildContext context) {
+    final recordProvider = Provider.of<RecordProvider>(context);
+
+    Event oxygenEvent = Event(
+      category: 'OxygenSaturation',
+      header: widget.header,
+      subHeader: widget.subHeader,
+      interval: widget.timeInterval,
+      status: 2,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          StandardEntry(
+            const Color(0xffE2EEF9),
+            const Color(0xff436B8F),
+            Icons.bubble_chart_rounded,
+            widget.header,
+            widget.subHeader,
+            widget.timeInterval,
+            2,
+            DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
+          ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              recordProvider.addEvent(oxygenEvent);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: KybeleSolidButton("Log oxygen saturation"),
+          ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+              ),
+              width: MediaQuery.of(context).size.width - 40,
+              height: 60,
+              child: const Center(
+                child:
+                Text(
+                  'Back',
+                  style: TextStyle(
+                    color: Color(0xff9F97E3),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }

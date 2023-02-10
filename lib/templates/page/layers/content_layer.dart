@@ -3,7 +3,7 @@ import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/record.dart';
 import 'package:provider/provider.dart';
-import 'package:kybele_gen2/providers/timer_provider.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class ContentLayer extends StatefulWidget {
 
@@ -378,8 +378,8 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(Icons.stop_rounded, size: 30, color: Colors.white),
+                      children: const [
+                        Icon(Icons.stop_rounded, size: 30, color: Colors.white),
                         SizedBox(width: 10),
                         Text(
                           "STOP",
@@ -441,18 +441,15 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
+                      AutoSizeText(
                         provider.fetchTime(),
                         style: const TextStyle(
-                          fontSize: 100,
+                          fontSize: 120,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
                       ),
-                      Text(provider.fetchMessage(),
-                        style: const TextStyle(color: Colors.white, fontSize: 30), textAlign: TextAlign.center,),
-                      const SizedBox(height: 20),
-                      Center(child: timerInteractionButtons()),
+                      timerInteractionButtons(),
                     ],
                   );
                 },

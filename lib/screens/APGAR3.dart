@@ -10,6 +10,7 @@ import '../databases/record_database.dart';
 import '../models/event.dart';
 import '../components/customtoggleswitch.dart';
 import '../templates/page/page.dart';
+import 'oxygen_saturation.dart';
 
 
 class APGARCalculator2 extends StatefulWidget {
@@ -54,20 +55,26 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
 
-    final recordProvider = Provider.of<RecordProvider>(context);
-    final timerProvider = Provider.of<TimerProvider>(context);
-
     return KybelePage.fixedWithHeader(
       hasBottomActionButton: true,
       hasHeaderIcon: true,
       hasHeaderClose: true,
       bodyWidget: body(context),
-      headerText: "Record",
+      headerText: "APGAR Score",
       headerIcon: Icons.calculate_rounded,
       headerIconBkgColor: const Color(0xffFFCDCF),
       headerIconColor: const Color(0xff8B3E42),
       bottomButtonText: "Log APGAR score",
-      bottomButtonMenuWidget: buttonMenu(context),
+      bottomButtonMenuWidget: APGARMenu(
+        header: 'APGAR Score: $_scoreAPGAR',
+        subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
+        timeInterval: "1 min",
+        A: _varA1,
+        P: _varP,
+        G: _varG,
+        A2: _varA2,
+        R: _varR,
+      ),
     );
   }
 
@@ -631,3 +638,160 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
     );
   }
 }
+
+
+class APGARMenu extends StatefulWidget {
+
+  final String header;
+  final String subHeader;
+  final String timeInterval;
+  final int A;
+  final int P;
+  final int G;
+  final int A2;
+  final int R;
+
+  const APGARMenu({Key? key,
+    required this.header,
+    required this.subHeader,
+    required this.timeInterval,
+    required this.A,
+    required this.P,
+    required this.G,
+    required this.A2,
+    required this.R,
+  }) : super(key: key);
+
+  @override
+  State<APGARMenu> createState() => _APGARMenuState();
+}
+
+
+class _APGARMenuState extends State<APGARMenu> {
+
+  final List<String> _minuteIntervalList = ['1', '2', '3', '4', '5', '10'];
+  int _minuteInterval = 0;
+
+  void updateMinuteInterval(int nextMinuteInterval) {
+    setState(() {
+      _minuteInterval = nextMinuteInterval;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final recordProvider = Provider.of<RecordProvider>(context);
+
+    Event oxygenEvent = Event(
+      category: 'APGAR',
+      header: widget.header,
+      subHeader: widget.subHeader,
+      interval: "${_minuteIntervalList[_minuteInterval]} min",
+      status: 2,
+    );
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          StandardEntry(
+            Color(0xffFFCDCF),
+            Color(0xff8B3E42),
+            Icons.calculate_rounded,
+            widget.header,
+            widget.subHeader,
+            "${_minuteIntervalList[_minuteInterval]} min",
+            2,
+            DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
+          ),
+          const SizedBox(height: 20),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[0],
+                  minuteIndex: 0,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[1],
+                  minuteIndex: 1,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[2],
+                  minuteIndex: 2,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+              ],
+            ),
+          SizedBox(height: 20),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[3],
+                  minuteIndex: 3,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[4],
+                  minuteIndex: 4,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[5],
+                  minuteIndex: 5,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+              ],
+            ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              recordProvider.addEvent(oxygenEvent);
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            child: KybeleSolidButton("Log APGAR score"),
+          ),
+          const SizedBox(height: 20),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+              ),
+              width: MediaQuery.of(context).size.width - 40,
+              height: 60,
+              child: const Center(
+                child:
+                Text(
+                  'Back',
+                  style: TextStyle(
+                    color: Color(0xff9F97E3),
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}
+

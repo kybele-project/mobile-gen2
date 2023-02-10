@@ -5,6 +5,7 @@ import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 
 import '../components/button.dart';
 import '../templates/page/page.dart';
+import 'oxygen_saturation.dart';
 
 class RecordPages extends StatelessWidget {
 
@@ -34,7 +35,7 @@ class RecordPages extends StatelessWidget {
           const SizedBox(height: 20),
           const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2()),
           const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', TargetOxygenSaturation()),
+          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', OxygenSaturation()),
           const SizedBox(height: 20),
           GestureDetector(onTap: () => {Navigator.pop(context)}, child: const KybeleOutlineButton('Cancel')),
         ],
