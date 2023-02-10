@@ -9,6 +9,7 @@ class KybelePage extends StatelessWidget {
 
   // Options
   final bool isDraggable;
+  final bool startExpanded;
   final bool hasHeader;
   final bool hasHeaderIcon;
   final bool hasHeaderClose;
@@ -33,6 +34,7 @@ class KybelePage extends StatelessWidget {
       required this.hasHeaderClose,
       required this.hasBottomActionButton,
       required this.bodyWidget,
+      this.startExpanded = true,
       this.headerIcon,
       this.headerIconColor,
       this.headerIconBkgColor,
@@ -91,6 +93,7 @@ class KybelePage extends StatelessWidget {
     required hasBottomActionButton,
     required headerText,
     required bodyWidget,
+    required startExpanded,
     headerIcon,
     headerIconColor,
     headerIconBkgColor,
@@ -99,6 +102,7 @@ class KybelePage extends StatelessWidget {
     key,
   }) : this(
     isDraggable: true,
+    startExpanded: startExpanded,
     hasHeader: true,
     hasHeaderIcon: hasHeaderIcon,
     hasHeaderClose: hasHeaderClose,
@@ -132,6 +136,7 @@ class KybelePage extends StatelessWidget {
   );
 
   const KybelePage.draggableNoHeader({
+    required startExpanded,
     required hasBottomActionButton,
     required bodyWidget,
     bottomButtonText,
@@ -139,6 +144,7 @@ class KybelePage extends StatelessWidget {
     key,
   }) : this(
     isDraggable: true,
+    startExpanded: startExpanded,
     hasHeader: false,
     hasHeaderIcon: false,
     hasHeaderClose: false,
@@ -159,6 +165,7 @@ class KybelePage extends StatelessWidget {
             ),
             ContentLayer(
                 isDraggable: isDraggable,
+                startExpanded: startExpanded,
                 hasHeader: hasHeader,
                 hasHeaderIcon: hasHeaderIcon,
                 hasHeaderClose: hasHeaderClose,

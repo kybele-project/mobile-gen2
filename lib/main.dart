@@ -13,7 +13,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>()
 
 final GoRouter _router = GoRouter(
   // TODO: Upgrade this to StatefulShellRoute upon GitHub merge of go_router #2650
-  initialLocation: '/simulator',
+  initialLocation: '/resources',
   navigatorKey: _rootNavigatorKey,
   routes: [
     ShellRoute(
@@ -172,7 +172,7 @@ class _NavButtonState extends State<NavButton> {
     }
 
     if (!widget.isSim && !_isPressed) {
-      return Icon(_icon, size: 26, color: const Color(0xffaaaaaaa));
+      return Icon(_icon, size: 26, color: Colors.grey.shade600);
     }
 
     return Consumer<TimerProvider>(
@@ -194,7 +194,7 @@ class _NavButtonState extends State<NavButton> {
               }
 
               if (!_isPressed && provider.buttonsStart) {
-                return Icon(_icon, size: 20, color: const Color(0xffaaaaaaa));
+                return Icon(_icon, size: 20, color: Colors.grey.shade600);
               }
 
               if (provider.milliseconds < 6000000) {
@@ -236,7 +236,7 @@ class _NavButtonState extends State<NavButton> {
             return Text(label, style: const TextStyle(color: Color(0xff564baf), fontSize: 12));
           }
 
-          return Text(label, style: TextStyle(color: Color(0xffaaaaaa), fontSize: 12));
+          return Text(label, style: TextStyle(color: Colors.grey.shade600, fontSize: 12));
         }
     );
   }

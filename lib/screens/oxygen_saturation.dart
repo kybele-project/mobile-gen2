@@ -83,7 +83,8 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.fixedWithHeader(
+    return KybelePage.draggableWithHeader(
+      startExpanded: false,
       hasHeaderIcon: true,
       headerIconBkgColor: const Color(0xffE2EEF9),
       headerIconColor: const Color(0xff436B8F),

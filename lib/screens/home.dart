@@ -65,6 +65,12 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 20,
               childAspectRatio: 1,
               children: [
+                KybeleAssistantTile(
+                  Color(0xff564BAF),
+                  Colors.white,
+                  Icons.handshake_rounded,
+                  'Assistant',
+                ),
                 KybeleColorfulTile(
                   Color(0xffFFCDCF),
                   Color(0xff8B3E42),

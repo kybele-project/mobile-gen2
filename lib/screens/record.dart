@@ -46,6 +46,7 @@ class RecordPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return KybelePage.draggableWithHeader(
+      startExpanded: true,
       hasHeaderIcon: true,
       hasHeaderClose: false,
       hasBottomActionButton: true,

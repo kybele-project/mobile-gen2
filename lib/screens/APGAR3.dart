@@ -55,7 +55,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
 
-    return KybelePage.fixedWithHeader(
+    return KybelePage.draggableWithHeader(
+      startExpanded: false,
       hasBottomActionButton: true,
       hasHeaderIcon: true,
       hasHeaderClose: true,
@@ -188,13 +189,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          child: (_scoreAPGAR >= 8)
+                          child: (_scoreAPGAR >= 7)
                               ? Text("$_scoreAPGAR",
                               style: const TextStyle(
                                   fontSize: 50,
                                   fontWeight: FontWeight.w900,
                                   color: Colors.green))
-                              : ((_scoreAPGAR >= 6)
+                              : ((_scoreAPGAR >= 5)
                               ? Text("$_scoreAPGAR",
                               style: const TextStyle(
                                   fontSize: 50,
@@ -207,14 +208,14 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                   color: Colors.redAccent))),
                         ),
                         Flexible(
-                          child: (_scoreAPGAR >= 8)
+                          child: (_scoreAPGAR >= 7)
                               ? Text("Normal",
                               style: const TextStyle(
                                 fontSize: 24,
                                 fontWeight: FontWeight.bold,
                               ),
                               textAlign: TextAlign.center)
-                              : ((_scoreAPGAR >= 6)
+                              : ((_scoreAPGAR >= 5)
                               ? Text("Further monitoring\nrequired",
                               style: const TextStyle(
                                   fontSize: 24,

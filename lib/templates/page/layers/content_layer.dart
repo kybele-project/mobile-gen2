@@ -9,6 +9,7 @@ class ContentLayer extends StatefulWidget {
 
   // Draggable
   final bool isDraggable;
+  final bool startExpanded;
 
   // Header Options
   final bool hasHeader;
@@ -24,6 +25,7 @@ class ContentLayer extends StatefulWidget {
 
   const ContentLayer({
     required this.isDraggable,
+    required this.startExpanded,
     required this.hasHeader,
     required this.hasHeaderIcon,
     required this.hasHeaderClose,
@@ -42,8 +44,8 @@ class ContentLayer extends StatefulWidget {
 class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderStateMixin {
 
   // height animation vars
-  double lowHeightFactor = 0.5;
-  double highHeightFactor = 0.15;
+  late double startHeightFactor;
+  late double endHeightFactor;
 
   late bool _animationActive;
   late AnimationController _controller;
@@ -58,18 +60,27 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   }
 
   void generateAnimation() {
+    if (widget.startExpanded) {
+      startHeightFactor = 0.5;
+      endHeightFactor = 0.15;
+    }
+    else {
+      startHeightFactor = 0.15;
+      endHeightFactor = 0.5;
+    }
+
     _controller = AnimationController(
         vsync: this,
-        duration: const Duration(milliseconds: 250)
+        duration: const Duration(milliseconds: 100)
     );
 
     _animation = Tween<double>(
-      begin: lowHeightFactor,
-      end: highHeightFactor,
+      begin: startHeightFactor,
+      end: endHeightFactor,
     ).animate(_controller)
       ..addListener(() => setState(() {}));
 
-    _animationActive = false;
+    _animationActive = widget.startExpanded ? false : true;
   }
 
   @override
@@ -79,7 +90,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   }
 
   onTimerDisplayTap() {
-    if (widget.isDraggable) {
+    if (widget.startExpanded) {
       setState(() {
         if (_animationActive) {
           _controller.reverse();
@@ -92,10 +103,16 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
       });
     }
     else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const RecordPages()),
-      );
+      setState(() {
+        if (_animationActive) {
+          _controller.forward();
+        }
+        else {
+          _controller.reverse();
+        }
+
+        _animationActive = !_animationActive;
+      });
     }
   }
 
@@ -103,12 +120,24 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     if (widget.isDraggable) {
       double screenHeight = MediaQuery.of(context).size.height;
       double fractionDragged = updateDetails.primaryDelta! / screenHeight;
-      _controller.value = _controller.value - 3 * fractionDragged;
-      if (_controller.value <= 0.5) {
-        _animationActive = false;
+
+      if (widget.startExpanded) {
+        _controller.value = _controller.value - 3 * fractionDragged;
+        if (_controller.value <= 0.5) {
+          _animationActive = false;
+        }
+        else {
+          _animationActive = true;
+        }
       }
       else {
-        _animationActive = true;
+        _controller.value = _controller.value + 3 * fractionDragged;
+        if (_controller.value > 0.5) {
+          _animationActive = false;
+        }
+        else {
+          _animationActive = true;
+        }
       }
     }
   }

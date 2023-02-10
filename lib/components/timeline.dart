@@ -338,6 +338,28 @@ class TimelineEntryWrapper extends StatelessWidget {
         return entryWrapper(context, timerEntry, timerMenuEntry, primaryKey, newDate, false);
       }
 
+      case "Simulation": {
+        Widget timerEntry = TimerEntry(
+          const Color(0xff7266D7),
+          const Color(0xffffffff),
+          Icons.timer_rounded,
+          header,
+          time,
+          false,
+        );
+
+        Widget timerMenuEntry = TimerEntry(
+          const Color(0xff7266D7),
+          const Color(0xffffffff),
+          Icons.timer_rounded,
+          header,
+          time,
+          true,
+        );
+
+        return entryWrapper(context, timerEntry, timerMenuEntry, primaryKey, newDate, false);
+      }
+
       default: {
         return const Text('Error');
       }
