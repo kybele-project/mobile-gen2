@@ -47,7 +47,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/kybele_logo_no_bg.png
-    - assets/NRP FlowChart.jpg
+    - assets/NRP FlowChart.png
     - assets/kybele_purple.png
     - assets/timer_audio/timer1.wav
     - assets/timer_audio/timer2.wav
@@ -65,7 +65,7 @@ flutter:
     - assets/Warmilu_thermal gel autoclave instructions.pdf
     - assets/A4 - NRP Checklist 27Oct2022.pdf
     - assets/test_thumbnail.jpg
-    - assets/Tables.jpg
+    - assets/Tables.png
     - assets/Fullterm_thumbnail.jpg
     - assets/Preterm_thumbnail.jpg
     - assets/CroppedFlow.jpg

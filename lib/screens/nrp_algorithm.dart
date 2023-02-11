@@ -56,7 +56,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/NRP FlowChart.jpg'),
+              image: AssetImage('assets/NRP FlowChart.png'),
             ),
           ),
         ),
@@ -70,7 +70,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/Tables.jpg'),
+              image: AssetImage('assets/Tables.png'),
             ),
           ),
         ),
