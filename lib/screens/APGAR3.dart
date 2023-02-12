@@ -234,8 +234,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                 ),
               ),
             ),
+            
             Container(
-              color: Colors.grey[100],
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20, 15, 20, 85),
                 child: Column(
@@ -252,6 +252,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    Image.asset('assets/apgar_blue.png', height: 100),
                     const SizedBox(height: 10),
                     Container(
                       width: double.maxFinite,
@@ -330,6 +332,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    Image.asset('assets/apgar_pulse.png', height: 100),
                     const SizedBox(height: 10),
                     Container(
                       width: double.maxFinite,
@@ -408,6 +412,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    Image.asset('assets/apgar_grimace.png', height: 100),
                     const SizedBox(height: 10),
                     Container(
                       width: double.maxFinite,
@@ -486,6 +492,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    Image.asset('assets/apgar_activity.png', height: 100),
                     const SizedBox(height: 10),
                     Container(
                       width: double.maxFinite,
@@ -564,6 +572,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 5),
+                    Image.asset('assets/apgar_respiration.png', height: 100),
                     const SizedBox(height: 10),
                     Container(
                       width: double.maxFinite,

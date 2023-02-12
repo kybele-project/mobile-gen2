@@ -69,3 +69,8 @@ flutter:
     - assets/Fullterm_thumbnail.jpg
     - assets/Preterm_thumbnail.jpg
     - assets/CroppedFlow.jpg
+    - assets/apgar_blue.png
+    - assets/apgar_pulse.png
+    - assets/apgar_grimace.png
+    - assets/apgar_activity.png
+    - assets/apgar_respiration.png
