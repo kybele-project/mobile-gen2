@@ -60,13 +60,13 @@ class Video{
       Video(
       "Full Term Newborn",
       "assets/Fullterm_thumbnail.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      "https://www.youtube.com/watch?v=jwnkRmzsiEg&feature=youtu.be&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
       8,
     ),
     Video(
       "Preterm Newborn",
       "assets/Preterm_thumbnail.jpg",
-      "https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4",
+      "https://www.youtube.com/watch?v=uuP-TmIBIfk&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
       8,
     ),
   ];
