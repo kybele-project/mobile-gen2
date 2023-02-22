@@ -128,7 +128,7 @@ class NRPPages extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: NRPCodedDiagram(),
-      headerText: "NRP Modules",
+      headerText: "Algorithm",
       headerIcon: Icons.account_tree_rounded,
       headerIconBkgColor: const Color(0xffffe9cc),
       headerIconColor: const Color(0xff89683e),

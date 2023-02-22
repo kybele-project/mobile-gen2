@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/screens/APGAR3.dart';
+import 'package:kybele_gen2/screens/Manuals.dart';
 import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
 import 'package:kybele_gen2/screens/Forms.dart';
@@ -11,7 +12,7 @@ import '../components/button.dart';
 import '../databases/modules.dart';
 import 'oxygen_saturation.dart';
 
-const List<String> list = <String>["NRP Module                                        "];
+const List<String> list = <String>["NRP Module"];
 
 class HomePage extends StatelessWidget {
 
@@ -24,17 +25,35 @@ class HomePage extends StatelessWidget {
              SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      'assets/kybele_purple.png',
-                      height: 40,
-                      fit: BoxFit.fitHeight,
-                    ),
+                  Padding(
+                  padding: EdgeInsets.fromLTRB(0,40,0,20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        alignment: Alignment.center,
+                        child: Image.asset(
+                          'assets/kybele_purple.png',
+                          height: 40,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                      GestureDetector(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color:  Color(0xff7266D7),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                            
+                            padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            child: Text("NRP MODULE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                        ),
+                      ),
+                    ],
                   ),
-              SizedBox(height: 20),
+                  ),
 /*                   Container( width: 50, child:
                   DropdownButton<String>(
       value: "NRP Module                                        ",
@@ -65,12 +84,12 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 20,
               childAspectRatio: 1,
               children: [
-/*                 KybeleAssistantTile(
+                KybeleAssistantTile(
                   Color(0xff564BAF),
                   Colors.white,
                   Icons.handshake_rounded,
                   'Assistant',
-                ), */
+                ),
                 KybeleColorfulTile(
                   Color(0xffFFCDCF),
                   Color(0xff8B3E42),
@@ -89,7 +108,7 @@ class HomePage extends StatelessWidget {
                   Color(0xffffe9cc),
                   Color(0xff89683e),
                   Icons.account_tree_rounded,
-                  'NRP Modules',
+                  'Algorithm',
                   NRPPages(),
                 ),
                 KybeleColorfulTile(
@@ -100,26 +119,19 @@ class HomePage extends StatelessWidget {
                   FormsPages(),
                 ),
                 KybeleColorfulTile(
+                  Color(0xfff6f7d9),
+                  Color(0xff8d8e43),
+                  Icons.library_books_rounded,
+                  'Manuals',
+                  ManualsPages(),
+                ),
+                KybeleColorfulTile(
                   Color(0xfff9e1f5),
                   Color(0xff8e4383),
                   Icons.ondemand_video_rounded,
                   'Videos',
                   VideosPages(),
                 ),
-/*                             KybeleColorfulTile(
-                              Color(0xfff9d8b9),
-                              Color(0xff9B5717),
-                              Icons.account_tree_rounded,
-                              'NRP Algorithm',
-                              NRPCodedDiagram(),
-                            ),
-                            KybeleColorfulTile(
-                              Color(0xffE2F9E3),
-                              Color(0xff69976B),
-                              Icons.video_library_rounded,
-                              'Training Videos',
-                              Learn2(),
-                            ), */
               ],
             ),
 

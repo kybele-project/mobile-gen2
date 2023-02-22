@@ -170,74 +170,79 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
 
   Widget body(context) {
     return Expanded(
+      child: Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white54,
+              border: Border(
+                  bottom: BorderSide(
+                      color: Color(0xffeaeaea), width: 1))),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+            child: Column(
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: (_scoreAPGAR >= 8)
+                          ? Text("$_scoreAPGAR",
+                          style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.green))
+                          : ((_scoreAPGAR >= 6)
+                          ? Text("$_scoreAPGAR",
+                          style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.amber))
+                          : Text("$_scoreAPGAR",
+                          style: const TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w900,
+                              color: Colors.redAccent))),
+                    ),
+                    Flexible(
+                      child: (_scoreAPGAR >= 8)
+                          ? Text("Normal",
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center)
+                          : ((_scoreAPGAR >= 6)
+                          ? Text("Further monitoring\nrequired",
+                          style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.right)
+                          : Text(
+                          "Immediate medical\nattention needed",
+                          style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.right)),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      Expanded(
       child: SingleChildScrollView(
         child: Column(
           children: [
             // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white54,
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Color(0xffeaeaea), width: 1))),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-                child: Column(
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          child: (_scoreAPGAR >= 7)
-                              ? Text("$_scoreAPGAR",
-                              style: const TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.green))
-                              : ((_scoreAPGAR >= 5)
-                              ? Text("$_scoreAPGAR",
-                              style: const TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.amber))
-                              : Text("$_scoreAPGAR",
-                              style: const TextStyle(
-                                  fontSize: 50,
-                                  fontWeight: FontWeight.w900,
-                                  color: Colors.redAccent))),
-                        ),
-                        Flexible(
-                          child: (_scoreAPGAR >= 7)
-                              ? Text("Normal",
-                              style: const TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              textAlign: TextAlign.center)
-                              : ((_scoreAPGAR >= 5)
-                              ? Text("Further monitoring\nrequired",
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.right)
-                              : Text(
-                              "Immediate medical\nattention needed",
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.bold),
-                              textAlign: TextAlign.right)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+
             
             Container(
+              color: Colors.grey[50],
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20, 15, 20, 85),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 85),
                 child: Column(
                   children: [
                     Row(
@@ -645,6 +650,9 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
             ),
           ],
         ),
+      ),
+      ),
+            ],
       ),
     );
   }

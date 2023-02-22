@@ -350,7 +350,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
 }
 
 
-class Framework extends StatelessWidget {
+class Framework extends StatefulWidget {
   final Widget child;
 
   const Framework({
@@ -359,11 +359,48 @@ class Framework extends StatelessWidget {
   });
 
   @override
+  State<Framework> createState() => _FrameworkState();
+}
+
+class _FrameworkState extends State<Framework> {
+
+  int get _selectedIndex => _locationToTabIndex(GoRouter.of(context).location);
+
+  int _locationToTabIndex(String location) {
+    final index =
+    tabs.indexWhere((t) => location.startsWith(t));
+    // if index not found (-1), return 0
+    return index < 0 ? 0 : index;
+  }
+
+  void _onTabClick(int index) {
+    if (index != _selectedIndex) {
+      context.go(tabs[index]);
+    }
+    else if (index == _selectedIndex) {
+      context.go(tabs[_selectedIndex]);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff7266D7),
-      bottomNavigationBar: const BottomNavBar2(),
-      body: child,
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Assistant"),
+          BottomNavigationBarItem(icon: Icon(Icons.home_repair_service_rounded, size: 28), label: "Resources"),
+        ],
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color(0xff7266D7),
+        backgroundColor: Color(0xffffffff),
+        onTap: _onTabClick,
+
+
+      ),
+      body: widget.child,
     );
   }
 }

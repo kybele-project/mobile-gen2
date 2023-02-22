@@ -62,10 +62,10 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
   void generateAnimation() {
     if (widget.startExpanded) {
       startHeightFactor = 0.5;
-      endHeightFactor = 0.15;
+      endHeightFactor = 0.1;
     }
     else {
-      startHeightFactor = 0.15;
+      startHeightFactor = 0.1;
       endHeightFactor = 0.5;
     }
 
@@ -236,7 +236,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
     MainAxisAlignment rowAlign;
 
     if (_animationActive) {
-      paddingWidth = 10;
+      paddingWidth = 5;
       rowAlign = MainAxisAlignment.end;
 
       return Consumer<TimerProvider>(
@@ -510,7 +510,7 @@ class _ContentLayerState extends State<ContentLayer> with SingleTickerProviderSt
             Container(
               width: double.maxFinite,
               color: Colors.transparent,
-              padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+              padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
