@@ -104,192 +104,106 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
 
   Widget body(BuildContext context) {
     return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              color: (_status == 2) ? Colors.white : ((_status == 1) ? Colors.green.shade50 : Colors.red.shade50),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "$_saturationPercentage%",
-                        style: const TextStyle(
-                          fontSize: 48,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      (_status == 2) ? Container() :
-                      ((_status == 1) ? const Text(
-                        "SAFE",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ) : const Text(
-                        "UNSAFE",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                    ],
-                  ),
-                  (_status == 2) ? Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Selected: ${_minuteIntervalList[_minuteInterval]} min",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                      Text(
-                        "${_lowerBound[_minuteInterval]}% - ${_upperBound[_minuteInterval]}%",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.normal,
-                          color: Colors.grey[800],
-                        ),
-                      ),
-                    ],
-                  ) : Container(),
-                ],
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.white54,
+                border: Border(
+                    bottom: BorderSide(
+                        color: Color(0xffeaeaea),
+                        width: 1
+                    ),
+                ),
             ),
-            Container(
-              color: Colors.grey.shade100,
+            padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+            child: Text(
+              "$_saturationPercentage%",
+              style: const TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.left,
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 20),
-                  Row(
-                    children: [
-                      SizedBox(width: 20),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _saturationPercentage -= 1;
-                            updateStatus(_minuteMSList[_minuteInterval]);
-                          });
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Color(0xff564BAF),
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: Icon(Icons.remove_rounded, color: Colors.white),
-                        ),
-                      ),
-                      Expanded(
-                        child: Slider(
-                          value: _saturationPercentage.toDouble(),
-                          min: 50,
-                          max: 100,
-                          divisions: 50,
-                          onChanged: (double value) => {
-                            setState((){
-                              _saturationPercentage = value.toInt();
-                              updateStatus(_minuteMSList[_minuteInterval]);
-                            })
-                          },
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _saturationPercentage += 1;
-                            updateStatus(_minuteMSList[_minuteInterval]);
-                          });
-                        },
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              color: Color(0xff564BAF),
-                              borderRadius: BorderRadius.all(Radius.circular(10))
-                          ),
-                          child: Icon(Icons.add_rounded, color: Colors.white),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  Container(
+                    color: Colors.grey.shade50,
+                    child: Column(
                       children: [
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[0],
-                          minuteIndex: 0,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
+                        SizedBox(height: 20),
+                        Row(
+                          children: [
+                            SizedBox(width: 20),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _saturationPercentage -= 1;
+                                });
+                              },
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Color(0xff564BAF),
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Icon(Icons.remove_rounded, color: Colors.white),
+                              ),
+                            ),
+                            Expanded(
+                              child: Slider(
+                                value: _saturationPercentage.toDouble(),
+                                min: 50,
+                                max: 100,
+                                divisions: 50,
+                                onChanged: (double value) => {
+                                  setState((){
+                                    _saturationPercentage = value.toInt();
+                                  })
+                                },
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _saturationPercentage += 1;
+                                });
+                              },
+                              child: Container(
+                                width: 40,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    color: Color(0xff564BAF),
+                                    borderRadius: BorderRadius.all(Radius.circular(10))
+                                ),
+                                child: Icon(Icons.add_rounded, color: Colors.white),
+                              ),
+                            ),
+                            const SizedBox(width: 20),
+                          ],
                         ),
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[1],
-                          minuteIndex: 1,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: OxygenSaturationTable(),
                         ),
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[2],
-                          minuteIndex: 2,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
-                        ),
+                        SizedBox(height: 500,)
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[3],
-                          minuteIndex: 3,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
-                        ),
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[4],
-                          minuteIndex: 4,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
-                        ),
-                        OxygenSaturationButton(
-                          label: _minuteIntervalList[5],
-                          minuteIndex: 5,
-                          currMinuteIndex: _minuteInterval,
-                          updateFunction: updateMinuteInterval,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: OxygenSaturationTable(),
-                  ),
-                  SizedBox(height: 80,)
-                ],
-              ),
-            ),
 
-          ],
-        ),
-      ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      )
+
     );
   }
 }
@@ -317,7 +231,7 @@ class OxygenSaturationButton extends StatelessWidget {
           padding: EdgeInsets.all(20),
           width: MediaQuery.of(context).size.width * .25,
           decoration: BoxDecoration(
-            color: (minuteIndex == currMinuteIndex) ? Color(0xff564BAF) : Colors.grey.shade600,
+            color: (minuteIndex == currMinuteIndex) ? Color(0xff564BAF) : Colors.grey.shade500,
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),
           child: Center(
@@ -533,6 +447,15 @@ class OxygenSaturationMenu extends StatefulWidget {
 
 class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
 
+  final List<String> _minuteIntervalList = ['1', '5', '10', '15', '20', '30'];
+  int _minuteInterval = 0;
+
+  void updateMinuteInterval(int nextMinuteInterval) {
+    setState(() {
+      _minuteInterval = nextMinuteInterval;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final recordProvider = Provider.of<RecordProvider>(context);
@@ -541,7 +464,7 @@ class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
       category: 'OxygenSaturation',
       header: widget.header,
       subHeader: widget.subHeader,
-      interval: widget.timeInterval,
+      interval: "${_minuteIntervalList[_minuteInterval]} min",
       status: 2,
     );
 
@@ -557,9 +480,57 @@ class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
             Icons.bubble_chart_rounded,
             widget.header,
             widget.subHeader,
-            widget.timeInterval,
+            "${_minuteIntervalList[_minuteInterval]} min",
             2,
             DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OxygenSaturationButton(
+                label: _minuteIntervalList[0],
+                minuteIndex: 0,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+              OxygenSaturationButton(
+                label: _minuteIntervalList[1],
+                minuteIndex: 1,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+              OxygenSaturationButton(
+                label: _minuteIntervalList[2],
+                minuteIndex: 2,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+            ],
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              OxygenSaturationButton(
+                label: _minuteIntervalList[3],
+                minuteIndex: 3,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+              OxygenSaturationButton(
+                label: _minuteIntervalList[4],
+                minuteIndex: 4,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+              OxygenSaturationButton(
+                label: _minuteIntervalList[5],
+                minuteIndex: 5,
+                currMinuteIndex: _minuteInterval,
+                updateFunction: updateMinuteInterval,
+              ),
+            ],
           ),
           const SizedBox(height: 20),
           GestureDetector(

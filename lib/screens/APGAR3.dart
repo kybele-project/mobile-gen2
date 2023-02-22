@@ -688,7 +688,7 @@ class APGARMenu extends StatefulWidget {
 
 class _APGARMenuState extends State<APGARMenu> {
 
-  final List<String> _minuteIntervalList = ['1', '2', '3', '4', '5', '10'];
+  final List<String> _minuteIntervalList = ['1', '5', '10', '15', '20', '30'];
   int _minuteInterval = 0;
 
   void updateMinuteInterval(int nextMinuteInterval) {
