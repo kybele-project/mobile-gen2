@@ -11,7 +11,9 @@ import '../providers/kybele_providers.dart';
 
 
 class OxygenSaturation extends StatefulWidget {
-  const OxygenSaturation({Key? key}) : super(key: key);
+  final bool simVariant;
+
+  const OxygenSaturation({Key? key, required this.simVariant}) : super(key: key);
 
   @override
   State<OxygenSaturation> createState() => _OxygenSaturationState();
@@ -83,23 +85,40 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.draggableWithHeader(
-      startExpanded: false,
-      hasHeaderIcon: true,
-      headerIconBkgColor: const Color(0xffE2EEF9),
-      headerIconColor: const Color(0xff436B8F),
-      headerIcon: Icons.bubble_chart_rounded,
-      hasHeaderClose: true,
-      hasBottomActionButton: true,
-      bottomButtonText: "Log oxygen saturation",
-      bottomButtonMenuWidget: OxygenSaturationMenu(
-        header: "Oxygen Saturation",
-        subHeader: "$_saturationPercentage%",
-        timeInterval: "${_minuteIntervalList[_minuteInterval]} min",
-      ),
-      headerText: "Oxygen Saturation",
-      bodyWidget: body(context),
-    );
+
+    if (widget.simVariant) {
+      return KybelePage.draggableWithHeader(
+        startExpanded: false,
+        hasHeaderIcon: true,
+        headerIconBkgColor: const Color(0xffE2EEF9),
+        headerIconColor: const Color(0xff436B8F),
+        headerIcon: Icons.bubble_chart_rounded,
+        hasHeaderClose: true,
+        hasBottomActionButton: true,
+        bottomButtonText: "Log oxygen saturation",
+        bottomButtonMenuWidget: OxygenSaturationMenu(
+          header: "Oxygen Saturation",
+          subHeader: "$_saturationPercentage%",
+          timeInterval: "${_minuteIntervalList[_minuteInterval]} min",
+        ),
+        headerText: "Oxygen Saturation [SIM]",
+        bodyWidget: body(context),
+      );
+    }
+
+    else {
+      return KybelePage.draggableWithHeader(
+        startExpanded: false,
+        hasHeaderIcon: true,
+        headerIconBkgColor: const Color(0xffE2EEF9),
+        headerIconColor: const Color(0xff436B8F),
+        headerIcon: Icons.bubble_chart_rounded,
+        hasHeaderClose: true,
+        hasBottomActionButton: false,
+        headerText: "Oxygen Saturation",
+        bodyWidget: body(context),
+      );
+    }
   }
 
   Widget body(BuildContext context) {
@@ -107,7 +126,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
+          widget.simVariant ? Container(
             decoration: BoxDecoration(
                 color: Colors.white54,
                 border: Border(
@@ -126,7 +145,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
               ),
               textAlign: TextAlign.left,
             ),
-          ),
+          ) : Container(),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
@@ -136,7 +155,8 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                     child: Column(
                       children: [
                         SizedBox(height: 20),
-                        Row(
+
+                        widget.simVariant ? Row(
                           children: [
                             SizedBox(width: 20),
                             GestureDetector(
@@ -186,13 +206,13 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
                             ),
                             const SizedBox(width: 20),
                           ],
-                        ),
-                        const SizedBox(height: 20),
+                        ) : Container(),
+                        widget.simVariant ? const SizedBox(height: 20) : Container(),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: OxygenSaturationTable(),
                         ),
-                        SizedBox(height: 500,)
+                        SizedBox(height: 300,)
                       ],
                     ),
                   ),
@@ -524,12 +544,7 @@ class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
                 currMinuteIndex: _minuteInterval,
                 updateFunction: updateMinuteInterval,
               ),
-              OxygenSaturationButton(
-                label: _minuteIntervalList[5],
-                minuteIndex: 5,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
+              SizedBox(width: MediaQuery.of(context).size.width * .25),
             ],
           ),
           const SizedBox(height: 20),

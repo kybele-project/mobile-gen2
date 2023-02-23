@@ -106,7 +106,10 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
                     children: [
                       TabBar(
                         controller: _tabController,
-                        labelColor: Colors.grey[500],
+                        labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        unselectedLabelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Colors.grey[600],
                         tabs: nrpTabs,
                       ),
                     ],

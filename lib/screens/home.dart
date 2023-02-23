@@ -84,25 +84,19 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 20,
               childAspectRatio: 1,
               children: [
-                KybeleAssistantTile(
-                  Color(0xff564BAF),
-                  Colors.white,
-                  Icons.handshake_rounded,
-                  'Assistant',
-                ),
                 KybeleColorfulTile(
                   Color(0xffFFCDCF),
                   Color(0xff8B3E42),
                   Icons.calculate_rounded,
                   'APGAR Score',
-                  APGARCalculator2(),
+                  APGARCalculator2(simVariant: false),
                 ),
                 KybeleColorfulTile(
                   Color(0xffE2EEF9),
                   Color(0xff436B8F),
                   Icons.bubble_chart_rounded,
                   'Oxygen Saturation',
-                  OxygenSaturation(),
+                  OxygenSaturation(simVariant: false),
                 ),
                 KybeleColorfulTile(
                   Color(0xffffe9cc),
@@ -141,6 +135,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  /*
   Widget buttonMenu(context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
@@ -150,7 +145,7 @@ class HomePage extends StatelessWidget {
         children: <Widget>[
           const Text('Log event', style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2()),
+          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2(simVariant: true,)),
           const SizedBox(height: 20),
           const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', TargetOxygenSaturation()),
           const SizedBox(height: 20),
@@ -159,6 +154,7 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
+  */
 
   @override
   Widget build(BuildContext context) {

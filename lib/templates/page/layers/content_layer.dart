@@ -61,9 +61,9 @@ class _ContentLayerState extends State<ContentLayer>
   void generateAnimation() {
     if (widget.startExpanded) {
       startHeightFactor = 0.5;
-      endHeightFactor = 0.125;
+      endHeightFactor = 0.15;
     } else {
-      startHeightFactor = 0.125;
+      startHeightFactor = 0.15;
       endHeightFactor = 0.5;
     }
 
@@ -224,7 +224,7 @@ class _ContentLayerState extends State<ContentLayer>
     MainAxisAlignment rowAlign;
 
     if (_animationActive) {
-      paddingWidth = 3;
+      paddingWidth = 10;
       rowAlign = MainAxisAlignment.end;
 
       return Consumer<TimerProvider>(builder: (context, provider, widget) {

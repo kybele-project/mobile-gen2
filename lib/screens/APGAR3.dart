@@ -14,7 +14,9 @@ import 'oxygen_saturation.dart';
 
 
 class APGARCalculator2 extends StatefulWidget {
-  const APGARCalculator2({super.key});
+  final bool simVariant;
+
+  const APGARCalculator2({required this.simVariant, super.key});
 
   @override
   State<APGARCalculator2> createState() => _APGARCalculatorState2();
@@ -31,7 +33,6 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   int _varR = 2;
 
   String _dropdownValue = "Event";
-  int _intervalIndex = 0;
 
   final List<String> intervals = [
     "Event",
@@ -55,28 +56,43 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
 
-    return KybelePage.draggableWithHeader(
-      startExpanded: false,
-      hasBottomActionButton: true,
-      hasHeaderIcon: true,
-      hasHeaderClose: true,
-      bodyWidget: body(context),
-      headerText: "APGAR Score",
-      headerIcon: Icons.calculate_rounded,
-      headerIconBkgColor: const Color(0xffFFCDCF),
-      headerIconColor: const Color(0xff8B3E42),
-      bottomButtonText: "Log APGAR score",
-      bottomButtonMenuWidget: APGARMenu(
-        header: 'APGAR Score: $_scoreAPGAR',
-        subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
-        timeInterval: "1 min",
-        A: _varA1,
-        P: _varP,
-        G: _varG,
-        A2: _varA2,
-        R: _varR,
-      ),
-    );
+    if (widget.simVariant) {
+      return KybelePage.draggableWithHeader(
+        startExpanded: false,
+        hasBottomActionButton: true,
+        hasHeaderIcon: true,
+        hasHeaderClose: true,
+        bodyWidget: body(context),
+        headerText: "APGAR Score [SIM]",
+        headerIcon: Icons.calculate_rounded,
+        headerIconBkgColor: const Color(0xffFFCDCF),
+        headerIconColor: const Color(0xff8B3E42),
+        bottomButtonText: "Log APGAR score",
+        bottomButtonMenuWidget: APGARMenu(
+          header: 'APGAR Score: $_scoreAPGAR',
+          subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
+          timeInterval: "1 min",
+          A: _varA1,
+          P: _varP,
+          G: _varG,
+          A2: _varA2,
+          R: _varR,
+        ),
+      );
+    }
+    else {
+      return KybelePage.draggableWithHeader(
+        startExpanded: false,
+        hasBottomActionButton: false,
+        hasHeaderIcon: true,
+        hasHeaderClose: true,
+        bodyWidget: body(context),
+        headerText: "APGAR Score",
+        headerIcon: Icons.calculate_rounded,
+        headerIconBkgColor: const Color(0xffFFCDCF),
+        headerIconColor: const Color(0xff8B3E42),
+      );
+    }
   }
 
   Widget buttonMenu(context) {
@@ -184,7 +200,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
               children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       child: (_scoreAPGAR >= 8)
@@ -205,6 +221,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                               fontWeight: FontWeight.w900,
                               color: Colors.redAccent))),
                     ),
+                    /* APGAR Score Indicator
                     Flexible(
                       child: (_scoreAPGAR >= 8)
                           ? Text("Normal",
@@ -225,7 +242,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                               fontSize: 24,
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.right)),
-                    ),
+                    ), */
                   ],
                 ),
               ],
@@ -765,12 +782,7 @@ class _APGARMenuState extends State<APGARMenu> {
                   currMinuteIndex: _minuteInterval,
                   updateFunction: updateMinuteInterval,
                 ),
-                OxygenSaturationButton(
-                  label: _minuteIntervalList[5],
-                  minuteIndex: 5,
-                  currMinuteIndex: _minuteInterval,
-                  updateFunction: updateMinuteInterval,
-                ),
+                SizedBox(width: MediaQuery.of(context).size.width * .25),
               ],
             ),
           const SizedBox(height: 20),

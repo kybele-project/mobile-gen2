@@ -388,7 +388,7 @@ class _FrameworkState extends State<Framework> {
       backgroundColor: const Color(0xff7266D7),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Assistant"),
+          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Simulation"),
           BottomNavigationBarItem(icon: Icon(Icons.home_repair_service_rounded, size: 28), label: "Resources"),
         ],
         selectedFontSize: 12,
