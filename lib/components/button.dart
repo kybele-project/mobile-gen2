@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../screens/record.dart';
 
 
 class KybeleSolidButton extends StatelessWidget {
@@ -224,7 +227,12 @@ class KybeleAssistantTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/simulator');
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => RecordPages(),
+          ),
+        );
+        // context.go('/simulator');
       },
       child: Container(
         width: double.maxFinite,

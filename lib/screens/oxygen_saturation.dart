@@ -296,14 +296,14 @@ class OxygenSaturationTable extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   alignment: Alignment.center,
                   child: Text(
-                    "ELAPSED TIME",
+                    "",
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
                     ),
                   ),
-                ),
+              ),
               ),
               TableCell(
                 child: Container(

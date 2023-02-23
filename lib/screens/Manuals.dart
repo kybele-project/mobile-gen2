@@ -19,7 +19,7 @@ class Document2{
 
   static List<Document2> doc_List = [
     Document2(
-      "T-Piece Resuscitator for Lamination", 
+      "T-Piece Resuscitator Device",
       "assets/T-Piece resuscitator for lamination.pdf",
       4,
       ""),
@@ -55,7 +55,7 @@ class _RenderScreenState extends State<RenderScreen> {
             child: Padding(
               padding: EdgeInsets.only(right: 20),
               child: Icon(
-              Icons.print,
+              Icons.share_rounded,
               size: 26.0,
             ),)
           )
@@ -88,8 +88,8 @@ class PDFViewer2 extends StatelessWidget {
                 children:[
                   Column(children: Document2.doc_List.map((doc) => ListTile(
                     onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => RenderScreen(doc))); },
-                    title: Text(doc.doc_title!, overflow: TextOverflow.ellipsis),
-                    subtitle: Text("${doc.page_num!} Pages"),
+                    title: Text(doc.doc_title!, maxLines: 2, overflow: TextOverflow.ellipsis),
+                    subtitle: Text("${doc.page_num!} pages", maxLines: 2),
                     trailing: Text(doc.doc_date!, style: TextStyle(color: Colors.grey)),
                     leading: Icon(
                       Icons.picture_as_pdf,

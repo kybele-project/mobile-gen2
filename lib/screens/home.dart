@@ -54,27 +54,6 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                   ),
-/*                   Container( width: 50, child:
-                  DropdownButton<String>(
-      value: "NRP Module                                        ",
-      icon: const Icon(Icons.arrow_downward),
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurpleAccent, fontSize: 22, fontWeight: FontWeight.w300),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (String? value) {
-        // This is called when the user selects an item
-      },
-      items: list.map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
-    )),
-    SizedBox(height: 10) */
               ],
               ),
             ),
@@ -84,19 +63,11 @@ class HomePage extends StatelessWidget {
               mainAxisSpacing: 20,
               childAspectRatio: 1,
               children: [
-                KybeleColorfulTile(
-                  Color(0xffFFCDCF),
-                  Color(0xff8B3E42),
-                  Icons.calculate_rounded,
-                  'APGAR Score',
-                  APGARCalculator2(simVariant: false),
-                ),
-                KybeleColorfulTile(
-                  Color(0xffE2EEF9),
-                  Color(0xff436B8F),
-                  Icons.bubble_chart_rounded,
-                  'Oxygen Saturation',
-                  OxygenSaturation(simVariant: false),
+                KybeleAssistantTile
+                  (Color(0xff564BAF),
+                    Colors.white,
+                    Icons.handshake_rounded,
+                    "Simulation"
                 ),
                 KybeleColorfulTile(
                   Color(0xffffe9cc),
@@ -106,18 +77,32 @@ class HomePage extends StatelessWidget {
                   NRPPages(),
                 ),
                 KybeleColorfulTile(
-                  Color(0xffdaf7d9),
-                  Color(0xff458e43),
-                  Icons.feed_outlined,
-                  'Forms',
-                  FormsPages(),
+                  Color(0xffFFCDCF),
+                  Color(0xff8B3E42),
+                  Icons.calculate_rounded,
+                  'APGAR Score',
+                  APGARCalculator2(simVariant: false),
                 ),
                 KybeleColorfulTile(
                   Color(0xfff6f7d9),
                   Color(0xff8d8e43),
                   Icons.library_books_rounded,
-                  'Manuals',
+                  'Educational Material/Manuals',
                   ManualsPages(),
+                ),
+                KybeleColorfulTile(
+                  Color(0xffdaf7d9),
+                  Color(0xff458e43),
+                  Icons.checklist_rtl_rounded,
+                  'Forms',
+                  FormsPages(),
+                ),
+                KybeleColorfulTile(
+                  Color(0xffE2EEF9),
+                  Color(0xff436B8F),
+                  Icons.bubble_chart_rounded,
+                  'Oxygen Saturation',
+                  OxygenSaturation(simVariant: false),
                 ),
                 KybeleColorfulTile(
                   Color(0xfff9e1f5),

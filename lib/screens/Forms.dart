@@ -114,7 +114,7 @@ class FormsPages extends StatelessWidget {
       hasBottomActionButton: false,
       bodyWidget: PDFViewer(),
       headerText: "Forms",
-      headerIcon: Icons.feed_outlined,
+      headerIcon: Icons.checklist_rtl_rounded,
       headerIconBkgColor: const Color(0xffdaf7d9),
       headerIconColor: const Color(0xff458e43),
     );

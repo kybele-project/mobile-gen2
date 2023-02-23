@@ -7,7 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 
-
+/*
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 final GlobalKey<NavigatorState> _shellNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -70,7 +70,7 @@ final GoRouter _router = GoRouter(
     )
   ],
 );
-
+ */
 
 Future<void> main() async {
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -87,13 +87,14 @@ class Root extends StatelessWidget {
             ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
             ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
         ],
-        child: MaterialApp.router(
+        child: MaterialApp(
             title: 'Flutter Demo',
             theme: ThemeData(
               useMaterial3: true,
               textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
             ),
-            routerConfig: _router,
+            home: HomePage(),
+            // routerConfig: _router,
           ),
         );
   }
@@ -386,6 +387,7 @@ class _FrameworkState extends State<Framework> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff7266D7),
+      /*
       bottomNavigationBar: BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Simulation"),
@@ -397,9 +399,8 @@ class _FrameworkState extends State<Framework> {
         selectedItemColor: Color(0xff7266D7),
         backgroundColor: Color(0xffffffff),
         onTap: _onTabClick,
-
-
       ),
+       */
       body: widget.child,
     );
   }
