@@ -230,9 +230,7 @@ class _ContentLayerState extends State<ContentLayer>
       return Consumer<TimerProvider>(builder: (context, provider, widget) {
         if (provider.buttonsStart) {
           return RawMaterialButton(
-              onPressed: () {
-                provider.startTimer();
-              },
+              onPressed: () => startActions(context),
               elevation: 0,
               fillColor: const Color(0xff9F97E3),
               padding: EdgeInsets.all(paddingWidth),
@@ -241,9 +239,7 @@ class _ContentLayerState extends State<ContentLayer>
                   size: 30, color: Colors.white));
         } else if (provider.buttonsPause) {
           return RawMaterialButton(
-              onPressed: () {
-                provider.pauseTimer();
-              },
+              onPressed: () => pauseActions(context),
               elevation: 0,
               fillColor: const Color(0xff9F97E3),
               padding: EdgeInsets.all(paddingWidth),
@@ -256,9 +252,7 @@ class _ContentLayerState extends State<ContentLayer>
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               RawMaterialButton(
-                  onPressed: () {
-                    provider.continueTimer();
-                  },
+                  onPressed: () => continueActions(context),
                   elevation: 0,
                   fillColor: const Color(0xff9F97E3),
                   padding: EdgeInsets.all(paddingWidth),
@@ -267,9 +261,7 @@ class _ContentLayerState extends State<ContentLayer>
                       size: 30, color: Colors.white)),
               SizedBox(width: paddingWidth),
               RawMaterialButton(
-                  onPressed: () {
-                    provider.resetTimer();
-                  },
+                  onPressed: () => resetActions(context),
                   elevation: 0,
                   fillColor: const Color(0xff9F97E3),
                   padding: EdgeInsets.all(paddingWidth),

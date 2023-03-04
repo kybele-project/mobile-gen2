@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kybele_gen2/components/shared_prefs.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
-import 'package:kybele_gen2/screens/record.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
@@ -72,8 +72,20 @@ final GoRouter _router = GoRouter(
 );
  */
 
+
+// Pulling TimerProvider reference outside the widget tree
+TimerProvider timerProvider = TimerProvider();
+
+const startTimerKey = "startTimer";
+const pauseTimerKey = "pauseTimer";
+const continueTimerKey = "continueTimer";
+const resetTimerKey = "resetTimer";
+
+
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await sharedPrefs.init();
   runApp(const Root());
 }
 
