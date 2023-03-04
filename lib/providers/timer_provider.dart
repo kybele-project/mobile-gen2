@@ -31,7 +31,7 @@ class TimerProvider with ChangeNotifier {
   TimerProvider() {
     _reset = sharedPrefs.initBool(resetStatusKey, true);
     _active = sharedPrefs.initBool(activeStatusKey, false);
-    _reset = sharedPrefs.initBool(resumedStatusKey, false);
+    _resumed = sharedPrefs.initBool(resumedStatusKey, false);
 
     _milliseconds = sharedPrefs.initInt(currMillisecondsKey, 0);
 
