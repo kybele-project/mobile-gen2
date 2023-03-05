@@ -46,7 +46,8 @@ class TimerProvider with ChangeNotifier {
       num nextCheckpoint = (timerLocations2[_timerIndex] +
           timerGaps2[_timerIndex]) * 1000;
 
-      while ((_timerIndex < timerLocations2.length) && (_milliseconds >= nextCheckpoint)) {
+      while ((_timerIndex < (timerLocations2.length - 1)) && (_milliseconds >= nextCheckpoint)) {
+
         _timerIndex += 1;
         nextCheckpoint = (timerLocations2[_timerIndex] + timerGaps2[_timerIndex]) * 1000;
       }
@@ -56,8 +57,6 @@ class TimerProvider with ChangeNotifier {
     else {
       _timerIndex = sharedPrefs.initInt(currTimerIndexKey, 0);
     }
-
-    // setSharedPrefs();
   }
 
   int get milliseconds => _milliseconds;
@@ -123,7 +122,7 @@ class TimerProvider with ChangeNotifier {
     setSharedPrefs();
     notificationSound(timerResumedAudio);
     notifyListeners();
-    _stopwatch = timerActive() as Timer;
+    _stopwatch = timerActive();
   }
 
   void resetTimer() {
