@@ -38,6 +38,7 @@ class RecordPages extends StatelessWidget {
           const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', OxygenSaturation(simVariant: true)),
           const SizedBox(height: 20),
           GestureDetector(onTap: () => {Navigator.pop(context)}, child: const KybeleOutlineButton('Cancel')),
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -285,7 +285,7 @@ class _ContentLayerState extends State<ContentLayer>
             width: MediaQuery.of(context).size.width * 0.4,
             padding: EdgeInsets.all(paddingWidth),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(50),
                 color: const Color(0xff9F97E3)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -313,7 +313,7 @@ class _ContentLayerState extends State<ContentLayer>
             width: MediaQuery.of(context).size.width * 0.4,
             padding: EdgeInsets.all(paddingWidth),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(50),
                 color: const Color(0xff9F97E3)),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -344,7 +344,7 @@ class _ContentLayerState extends State<ContentLayer>
                 width: MediaQuery.of(context).size.width * 0.4,
                 padding: EdgeInsets.all(paddingWidth),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(50),
                     color: const Color(0xff9F97E3)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -372,7 +372,7 @@ class _ContentLayerState extends State<ContentLayer>
                 width: MediaQuery.of(context).size.width * 0.4,
                 padding: EdgeInsets.all(paddingWidth),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(50),
                     color: const Color(0xff9F97E3)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
