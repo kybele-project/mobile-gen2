@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.example" "\0"
+            VALUE "CompanyName", "com.kybele_gen2.beta_06mar2023" "\0"
             VALUE "FileDescription", "kybele_gen2" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "kybele_gen2" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.example. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.kybele_gen2.beta_06mar2023. All rights reserved." "\0"
             VALUE "OriginalFilename", "kybele_gen2.exe" "\0"
             VALUE "ProductName", "kybele_gen2" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

@@ -66,8 +66,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '339132272891',
     projectId: 'kybele-gen2',
     storageBucket: 'kybele-gen2.appspot.com',
-    iosClientId: '339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.kybeleGen2',
+    iosClientId:
+        '339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com',
+    iosBundleId: 'com.kybele_gen2.beta_06mar2023',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,7 +77,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '339132272891',
     projectId: 'kybele-gen2',
     storageBucket: 'kybele-gen2.appspot.com',
-    iosClientId: '339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com',
-    iosBundleId: 'com.example.kybeleGen2',
+    iosClientId:
+        '339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com',
+    iosBundleId: 'com.kybele_gen2.beta_06mar2023',
   );
 }

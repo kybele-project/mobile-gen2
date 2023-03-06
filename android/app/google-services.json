@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:339132272891:android:debda091166bc875da205e",
         "android_client_info": {
-          "package_name": "com.example.kybele_gen2"
+          "package_name": "com.kybele_gen2.beta_06mar2023"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "339132272891-cdk5htdshvmm6jrqmm1juhse3ljc5ngt.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.kybeleGen2"
+                "bundle_id": "com.kybele_gen2.beta_06mar2023"
               }
             }
           ]

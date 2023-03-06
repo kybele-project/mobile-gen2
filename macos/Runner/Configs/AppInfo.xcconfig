@@ -8,7 +8,7 @@
 PRODUCT_NAME = kybele_gen2
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.kybeleGen2
+PRODUCT_BUNDLE_IDENTIFIER = com.kybele_gen2.beta_06mar2023
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.kybele_gen2.beta_06mar2023. All rights reserved.
