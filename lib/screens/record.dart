@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/timeline.dart';
 import 'package:kybele_gen2/screens/APGAR3.dart';
-import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 
 import '../components/button.dart';
+import '../main.dart';
 import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';
 
@@ -33,9 +33,9 @@ class RecordPages extends StatelessWidget {
         children: <Widget>[
           const Text('Log event', style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
           const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2(simVariant: true)),
+          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', Framework(child: APGARCalculator2(simVariant: true))),
           const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', OxygenSaturation(simVariant: true)),
+          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', Framework(child: OxygenSaturation(simVariant: true))),
           const SizedBox(height: 20),
           GestureDetector(onTap: () => {Navigator.pop(context)}, child: const KybeleOutlineButton('Cancel')),
           const SizedBox(height: 20),

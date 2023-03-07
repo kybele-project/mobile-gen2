@@ -10,6 +10,7 @@ import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
 import '../databases/modules.dart';
+import '../main.dart';
 import 'oxygen_saturation.dart';
 
 const List<String> list = <String>["NRP Module"];
@@ -74,42 +75,42 @@ class HomePage extends StatelessWidget {
                   Color(0xff89683e),
                   Icons.account_tree_rounded,
                   'Algorithm',
-                  NRPPages(),
+                  Framework(child: NRPPages()),
                 ),
                 KybeleColorfulTile(
                   Color(0xffFFCDCF),
                   Color(0xff8B3E42),
                   Icons.calculate_rounded,
                   'APGAR Score',
-                  APGARCalculator2(simVariant: false),
+                  Framework(child: APGARCalculator2(simVariant: false)),
                 ),
                 KybeleColorfulTile(
                   Color(0xfff6f7d9),
                   Color(0xff8d8e43),
                   Icons.library_books_rounded,
                   'Educational Material/Manuals',
-                  ManualsPages(),
+                  Framework(child: ManualsPages()),
                 ),
                 KybeleColorfulTile(
                   Color(0xffdaf7d9),
                   Color(0xff458e43),
                   Icons.checklist_rtl_rounded,
                   'Forms',
-                  FormsPages(),
+                  Framework(child: FormsPages()),
                 ),
                 KybeleColorfulTile(
                   Color(0xffE2EEF9),
                   Color(0xff436B8F),
                   Icons.bubble_chart_rounded,
                   'Oxygen Saturation',
-                  OxygenSaturation(simVariant: false),
+                  Framework(child: OxygenSaturation(simVariant: false)),
                 ),
                 KybeleColorfulTile(
                   Color(0xfff9e1f5),
                   Color(0xff8e4383),
                   Icons.ondemand_video_rounded,
                   'Videos',
-                  VideosPages(),
+                  Framework(child: VideosPages()),
                 ),
               ],
             ),

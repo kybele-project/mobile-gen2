@@ -105,7 +105,7 @@ class Root extends StatelessWidget {
               useMaterial3: true,
               textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
             ),
-            home: HomePage(),
+            home: Framework(child: HomePage()),
             // routerConfig: _router,
           ),
         );
