@@ -7,8 +7,6 @@ import 'package:vibration/vibration.dart';
 
 import '../databases/timer_metadata.dart';
 
-import 'package:shared_preferences/shared_preferences.dart';
-
 class TimerProvider with ChangeNotifier {
 
   late Timer _stopwatch;

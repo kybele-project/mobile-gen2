@@ -51,12 +51,12 @@ Module garhModule = Module(
 
 
 class Video{
-  String? video_title;
-  String? thumbnail_path;
-  String? video_path;
-  int? video_length;
-  Video(this.video_title, this.thumbnail_path, this.video_path, this.video_length);
-  static List<Video> video_List = [
+  String? videoTitle;
+  String? thumbnailPath;
+  String? videoPath;
+  int? videoLength;
+  Video(this.videoTitle, this.thumbnailPath, this.videoPath, this.videoLength);
+  static List<Video> videoList = [
       Video(
       "Full Term Newborn",
       "assets/Fullterm_thumbnail.jpg",

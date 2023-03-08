@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-
 import '../screens/record.dart';
 
 
@@ -229,7 +227,7 @@ class KybeleAssistantTile extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           CupertinoPageRoute(
-              builder: (context) => RecordPages(),
+              builder: (context) => const RecordPages(),
           ),
         );
         // context.go('/simulator');

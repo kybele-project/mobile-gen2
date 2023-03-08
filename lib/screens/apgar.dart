@@ -41,16 +41,16 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
     "10 min",
   ];
 
-  final List<Color> colors_list = [
+  final List<Color> colorsList = [
     Colors.redAccent,
     Colors.amber,
     Colors.green,
   ];
 
-  final List<Color> colors_list2 = [
-    Color.fromARGB(255, 184, 89, 89),
-    Color.fromARGB(255, 227, 208, 122),
-    Color.fromARGB(255, 110, 205, 101),
+  final List<Color> colorsList2 = [
+    const Color.fromARGB(255, 184, 89, 89),
+    const Color.fromARGB(255, 227, 208, 122),
+    const Color.fromARGB(255, 110, 205, 101),
   ];
 
   @override
@@ -72,11 +72,11 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
           header: 'APGAR Score: $_scoreAPGAR',
           subHeader: 'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
           timeInterval: "1 min",
-          A: _varA1,
-          P: _varP,
-          G: _varG,
-          A2: _varA2,
-          R: _varR,
+          a: _varA1,
+          p: _varP,
+          g: _varG,
+          a2: _varA2,
+          r: _varR,
         ),
       );
     }
@@ -151,7 +151,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
               recordProvider.addEvent(apgarEvent);
               Navigator.pop(context);
             },
-            child: KybeleSolidButton("Log APGAR score"),
+            child: const KybeleSolidButton("Log APGAR score"),
           ),
           const SizedBox(height: 20),
           GestureDetector(
@@ -178,7 +178,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 20),
         ],
       ),
     );
@@ -189,13 +189,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
       child: Column(
       children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               color: Colors.white54,
               border: Border(
                   bottom: BorderSide(
                       color: Color(0xffeaeaea), width: 1))),
           child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
             child: Column(
               children: [
                 Row(
@@ -254,8 +254,6 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
         child: Column(
           children: [
             // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
-
-            
             Container(
               color: Colors.grey[50],
               child: Padding(
@@ -264,8 +262,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Appearance",
                           style: TextStyle(
                             fontSize: 16,
@@ -282,7 +280,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       height: 80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xccbbbbbb),
                               offset: Offset(0, 3),
@@ -304,13 +302,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           cornerRadius: 10,
                           initialLabelIndex: _varA1,
                           totalSwitches: 3,
-                          inactiveFgColor: Color(0xccbbbbbb),
-                          labels: [
+                          inactiveFgColor: const Color(0xccbbbbbb),
+                          labels: const [
                             'Blue all over',
                             'Blue only at\nextremities',
                             'No blue\ncoloration'
                           ],
-                          customTextStyles: [
+                          customTextStyles: const [
                             TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
@@ -321,12 +319,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold),
                           ],
-                          activeBgColors: [
+                          activeBgColors: const [
                             [Color.fromARGB(255, 184, 89, 89)],
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: Color(0xffffffff),
+                          inactiveBgColor: const Color(0xffffffff),
                           onToggle: (index) {
                             setState(() {
                               _varA1 = index!;
@@ -344,8 +342,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Pulse",
                           style: TextStyle(
                             fontSize: 16,
@@ -362,7 +360,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       height: 80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xccbbbbbb),
                               offset: Offset(0, 3),
@@ -384,13 +382,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           cornerRadius: 10,
                           initialLabelIndex: _varP,
                           totalSwitches: 3,
-                          inactiveFgColor: Color(0xccbbbbbb),
-                          labels: [
+                          inactiveFgColor: const Color(0xccbbbbbb),
+                          labels: const [
                             'No pulse',
                             '<100 beats per minute',
                             '>100 beats per minute'
                           ],
-                          customTextStyles: [
+                          customTextStyles: const [
                             TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
@@ -401,12 +399,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ],
-                          activeBgColors: [
+                          activeBgColors: const [
                             [Color.fromARGB(255, 184, 89, 89)],
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: Color(0xffffffff),
+                          inactiveBgColor: const Color(0xffffffff),
                           onToggle: (index) {
                             setState(() {
                               _varP = index!;
@@ -424,8 +422,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Grimace when stimulated",
                           style: TextStyle(
                             fontSize: 16,
@@ -442,7 +440,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       height: 80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xccbbbbbb),
                               offset: Offset(0, 3),
@@ -464,13 +462,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           cornerRadius: 10,
                           initialLabelIndex: _varG,
                           totalSwitches: 3,
-                          inactiveFgColor: Color(0xccbbbbbb),
-                          labels: [
+                          inactiveFgColor: const Color(0xccbbbbbb),
+                          labels: const [
                             'No response',
                             'Grimace or feeble cry',
                             'Sneezing, coughing, or pulling away'
                           ],
-                          customTextStyles: [
+                          customTextStyles: const [
                             TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
@@ -481,12 +479,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ],
-                          activeBgColors: [
+                          activeBgColors: const [
                             [Color.fromARGB(255, 184, 89, 89)],
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: Color(0xffffffff),
+                          inactiveBgColor: const Color(0xffffffff),
                           onToggle: (index) {
                             setState(() {
                               _varG = index!;
@@ -504,8 +502,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Activity",
                           style: TextStyle(
                             fontSize: 16,
@@ -522,7 +520,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       height: 80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xccbbbbbb),
                               offset: Offset(0, 3),
@@ -544,13 +542,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           cornerRadius: 10,
                           initialLabelIndex: _varA2,
                           totalSwitches: 3,
-                          inactiveFgColor: Color(0xccbbbbbb),
-                          labels: [
+                          inactiveFgColor: const Color(0xccbbbbbb),
+                          labels: const [
                             'No movement',
                             'Some movement',
                             'Active movement'
                           ],
-                          customTextStyles: [
+                          customTextStyles: const [
                             TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
@@ -561,12 +559,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ],
-                          activeBgColors: [
+                          activeBgColors: const [
                             [Color.fromARGB(255, 184, 89, 89)],
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: Color(0xffffffff),
+                          inactiveBgColor: const Color(0xffffffff),
                           onToggle: (index) {
                             setState(() {
                               _varA2 = index!;
@@ -584,8 +582,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                     const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
+                      children: const [
+                        Text(
                           "Respirations",
                           style: TextStyle(
                             fontSize: 16,
@@ -602,7 +600,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                       height: 80,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                               color: Color(0xccbbbbbb),
                               offset: Offset(0, 3),
@@ -624,13 +622,13 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           cornerRadius: 10,
                           initialLabelIndex: _varR,
                           totalSwitches: 3,
-                          inactiveFgColor: Color(0xccbbbbbb),
-                          labels: [
+                          inactiveFgColor: const Color(0xccbbbbbb),
+                          labels: const [
                             'No breathing',
                             'Weak, slow, or irregular breathing',
                             'Strong cry'
                           ],
-                          customTextStyles: [
+                          customTextStyles: const [
                             TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
@@ -641,12 +639,12 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold),
                           ],
-                          activeBgColors: [
+                          activeBgColors: const [
                             [Color.fromARGB(255, 184, 89, 89)],
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: Color(0xffffffff),
+                          inactiveBgColor: const Color(0xffffffff),
                           onToggle: (index) {
                             setState(() {
                               _varR = index!;
@@ -681,21 +679,21 @@ class APGARMenu extends StatefulWidget {
   final String header;
   final String subHeader;
   final String timeInterval;
-  final int A;
-  final int P;
-  final int G;
-  final int A2;
-  final int R;
+  final int a;
+  final int p;
+  final int g;
+  final int a2;
+  final int r;
 
   const APGARMenu({Key? key,
     required this.header,
     required this.subHeader,
     required this.timeInterval,
-    required this.A,
-    required this.P,
-    required this.G,
-    required this.A2,
-    required this.R,
+    required this.a,
+    required this.p,
+    required this.g,
+    required this.a2,
+    required this.r,
   }) : super(key: key);
 
   @override
@@ -733,8 +731,8 @@ class _APGARMenuState extends State<APGARMenu> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           StandardEntry(
-            Color(0xffFFCDCF),
-            Color(0xff8B3E42),
+            const Color(0xffFFCDCF),
+            const Color(0xff8B3E42),
             Icons.calculate_rounded,
             widget.header,
             widget.subHeader,
@@ -766,7 +764,7 @@ class _APGARMenuState extends State<APGARMenu> {
                 ),
               ],
             ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -792,7 +790,7 @@ class _APGARMenuState extends State<APGARMenu> {
               Navigator.pop(context);
               Navigator.pop(context);
             },
-            child: KybeleSolidButton("Log APGAR score"),
+            child: const KybeleSolidButton("Log APGAR score"),
           ),
           const SizedBox(height: 20),
           GestureDetector(
@@ -819,7 +817,7 @@ class _APGARMenuState extends State<APGARMenu> {
               ),
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 20),
         ],
       ),
     );

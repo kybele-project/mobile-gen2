@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/components/timeline.dart';
-import 'package:kybele_gen2/screens/APGAR3.dart';
-import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
-import '../components/button.dart';
 import '../templates/page/page.dart';
 import '../databases/modules.dart';
 
 class VideosPages extends StatelessWidget {
 
+  const VideosPages({super.key});
+
   Widget body() {
     return Expanded(
       child: 
       Container(
-        margin: EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
         child:
       GridView.builder(
             gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -28,22 +26,21 @@ class VideosPages extends StatelessWidget {
                           ctx,
                           MaterialPageRoute(
                               builder: (context) => TutorialPage(
-                                Video.video_List[index],
+                                Video.videoList[index],
                                 index,
                               )),
                         );
-                      }, child:Container(
+                      },
                       child: Column(
                           children: [
                             ClipRRect(
-    borderRadius: BorderRadius.circular(4.0),
-    child:
-                            Image.asset(Video.video_List[index].thumbnail_path!),),
-                            Container(width: 225, child:Text(Video.video_List[index].video_title!, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
-                            Container(width: 225, child:Text("${Video.video_List[index].video_length} mins", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
+                              borderRadius: BorderRadius.circular(4.0),
+                              child:
+                            Image.asset(Video.videoList[index].thumbnailPath!),),
+                            SizedBox(width: 225, child:Text(Video.videoList[index].videoTitle!, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
+                            SizedBox(width: 225, child:Text("${Video.videoList[index].videoLength} mins", style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w100), textAlign: TextAlign.left,)),
                           ]
                       ),
-                    ),
                     );
             }),
     ));
@@ -58,8 +55,8 @@ class VideosPages extends StatelessWidget {
       bodyWidget: body(),
       headerText: "Videos",
       headerIcon: Icons.ondemand_video_rounded,
-      headerIconBkgColor: Color(0xfff9e1f5),
-      headerIconColor: Color(0xff8e4383),
+      headerIconBkgColor: const Color(0xfff9e1f5),
+      headerIconColor: const Color(0xff8e4383),
     );
   }
 }

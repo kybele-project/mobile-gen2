@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/screens/APGAR3.dart';
-import 'package:kybele_gen2/screens/Manuals.dart';
-import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
-import 'package:kybele_gen2/screens/video_page.dart';
-import 'package:kybele_gen2/screens/Forms.dart';
-import 'package:kybele_gen2/screens/Videos.dart';
+import 'package:kybele_gen2/screens/apgar.dart';
+import 'package:kybele_gen2/screens/manuals.dart';
+import 'package:kybele_gen2/screens/forms.dart';
+import 'package:kybele_gen2/screens/videos.dart';
 import 'package:kybele_gen2/screens/nrp_algorithm.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
-import '../databases/modules.dart';
 import '../main.dart';
 import 'oxygen_saturation.dart';
 
-const List<String> list = <String>["NRP Module"];
-
 class HomePage extends StatelessWidget {
+
+  const HomePage({super.key});
 
   Widget body(BuildContext context) {
     return Expanded(
@@ -27,7 +24,7 @@ class HomePage extends StatelessWidget {
               delegate: SliverChildListDelegate(
                 [
                   Padding(
-                  padding: EdgeInsets.fromLTRB(0,40,0,20),
+                  padding: const EdgeInsets.fromLTRB(0,40,0,20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -44,12 +41,12 @@ class HomePage extends StatelessWidget {
                       GestureDetector(
                         child: Container(
                           decoration: BoxDecoration(
-                            color:  Color(0xff7266D7),
+                            color:  const Color(0xff7266D7),
                             borderRadius: BorderRadius.circular(10),
                           ),
                             
-                            padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-                            child: Text("NRP MODULE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
+                            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                            child: const Text("NRP MODULE", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))
                         ),
                       ),
                     ],
@@ -63,7 +60,7 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
               childAspectRatio: 1,
-              children: [
+              children: const [
                 KybeleAssistantTile
                   (Color(0xff564BAF),
                     Colors.white,
@@ -120,27 +117,6 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
-
-  /*
-  Widget buttonMenu(context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text('Log event', style: TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffFFCDCF), Color(0xff8B3E42), Icons.calculate_rounded, 'APGAR Score', APGARCalculator2(simVariant: true,)),
-          const SizedBox(height: 20),
-          const KybeleColorfulButton(Color(0xffE2EEF9), Color(0xff436B8F), Icons.bubble_chart_rounded, 'Oxygen Saturation', TargetOxygenSaturation()),
-          const SizedBox(height: 20),
-          GestureDetector(onTap: () => {Navigator.pop(context)}, child: const KybeleOutlineButton('Cancel')),
-        ],
-      ),
-    );
-  }
-  */
 
   @override
   Widget build(BuildContext context) {

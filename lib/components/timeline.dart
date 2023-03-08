@@ -1,4 +1,4 @@
-import 'dart:core' show String, bool, double, int, override, print;
+import 'dart:core' show String, bool, double, int, override;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' show NumberFormat;
 import 'package:kybele_gen2/components/launch_graphic.dart';
@@ -282,7 +282,6 @@ class TimelineEntryWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     bool newDate = false;
 
-    print('${primaryKey} ${prevDate} ${date}');
     if ((date != prevDate) || (index == 0)) {
       newDate = true;
     }

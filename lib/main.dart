@@ -1,11 +1,101 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:kybele_gen2/components/shared_prefs.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
+
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await sharedPrefs.init();
+  runApp(const Root());
+}
+
+class Root extends StatelessWidget {
+  const Root({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+        providers: [
+            ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
+            ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
+        ],
+        child: MaterialApp(
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              useMaterial3: true,
+              textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
+            ),
+            home: const Framework(child: HomePage()),
+            // routerConfig: _router,
+          ),
+        );
+  }
+}
+
+
+class Framework extends StatefulWidget {
+  final Widget child;
+
+  const Framework({
+    required this.child,
+    super.key,
+  });
+
+  @override
+  State<Framework> createState() => _FrameworkState();
+}
+
+class _FrameworkState extends State<Framework> {
+
+  /*
+  int get _selectedIndex => _locationToTabIndex(GoRouter.of(context).location);
+
+  int _locationToTabIndex(String location) {
+    final index =
+    tabs.indexWhere((t) => location.startsWith(t));
+    // if index not found (-1), return 0
+    return index < 0 ? 0 : index;
+  }
+
+  void _onTabClick(int index) {
+    if (index != _selectedIndex) {
+      context.go(tabs[index]);
+    }
+    else if (index == _selectedIndex) {
+      context.go(tabs[_selectedIndex]);
+    }
+  }
+  */
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xff7266D7),
+      /*
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Simulation"),
+          BottomNavigationBarItem(icon: Icon(Icons.home_repair_service_rounded, size: 28), label: "Resources"),
+        ],
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color(0xff7266D7),
+        backgroundColor: Color(0xffffffff),
+        onTap: _onTabClick,
+      ),
+       */
+      body: widget.child,
+    );
+  }
+}
+
+// NAVIGATION CODE - saved for future reference
 
 /*
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -72,47 +162,7 @@ final GoRouter _router = GoRouter(
 );
  */
 
-
-// Pulling TimerProvider reference outside the widget tree
-TimerProvider timerProvider = TimerProvider();
-
-const startTimerKey = "startTimer";
-const pauseTimerKey = "pauseTimer";
-const continueTimerKey = "continueTimer";
-const resetTimerKey = "resetTimer";
-
-
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await sharedPrefs.init();
-  runApp(const Root());
-}
-
-class Root extends StatelessWidget {
-  const Root({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-        providers: [
-            ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
-            ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
-        ],
-        child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              useMaterial3: true,
-              textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
-            ),
-            home: Framework(child: HomePage()),
-            // routerConfig: _router,
-          ),
-        );
-  }
-}
-
-
+/*
 class NavButton extends StatefulWidget {
 
   final String label;
@@ -361,59 +411,4 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
     );
   }
 }
-
-
-class Framework extends StatefulWidget {
-  final Widget child;
-
-  const Framework({
-    required this.child,
-    super.key,
-  });
-
-  @override
-  State<Framework> createState() => _FrameworkState();
-}
-
-class _FrameworkState extends State<Framework> {
-
-  int get _selectedIndex => _locationToTabIndex(GoRouter.of(context).location);
-
-  int _locationToTabIndex(String location) {
-    final index =
-    tabs.indexWhere((t) => location.startsWith(t));
-    // if index not found (-1), return 0
-    return index < 0 ? 0 : index;
-  }
-
-  void _onTabClick(int index) {
-    if (index != _selectedIndex) {
-      context.go(tabs[index]);
-    }
-    else if (index == _selectedIndex) {
-      context.go(tabs[_selectedIndex]);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xff7266D7),
-      /*
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Simulation"),
-          BottomNavigationBarItem(icon: Icon(Icons.home_repair_service_rounded, size: 28), label: "Resources"),
-        ],
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff7266D7),
-        backgroundColor: Color(0xffffffff),
-        onTap: _onTabClick,
-      ),
-       */
-      body: widget.child,
-    );
-  }
-}
+*/

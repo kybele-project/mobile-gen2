@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/components/timeline.dart';
-import 'package:kybele_gen2/screens/APGAR3.dart';
-import 'package:kybele_gen2/screens/TargetOxygenSaturation2.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter/services.dart';
-
-import '../components/button.dart';
 import '../templates/page/page.dart';
 
 class Document2{
-  String? doc_title;
-  String? doc_path;
-  int? page_num;
-  String? doc_date;
+  String? docTitle;
+  String? docPath;
+  int? pageNum;
+  String? docDate;
 
-  Document2(this.doc_title,this.doc_path,this.page_num, this.doc_date);
+  Document2(this.docTitle,this.docPath,this.pageNum, this.docDate);
 
-  static List<Document2> doc_List = [
+  static List<Document2> docList = [
     Document2(
       "T-Piece Resuscitator Device",
       "assets/T-Piece resuscitator for lamination.pdf",
@@ -32,15 +27,18 @@ class Document2{
 }
 
 class RenderScreen extends StatefulWidget {
-  RenderScreen(this.doc, {Key ? key}) : super(key: key);
-  Document2 doc;
+
+  final Document2 doc;
+
+  const RenderScreen(this.doc, {Key ? key}) : super(key: key);
+
   @override
   State<RenderScreen> createState() => _RenderScreenState();
 }
 class _RenderScreenState extends State<RenderScreen> {
   void _printExistingPdf() async {
     // import 'package:flutter/services.dart';
-    final pdf = await rootBundle.load(widget.doc.doc_path!);
+    final pdf = await rootBundle.load(widget.doc.docPath!);
     await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
   }
   @override
@@ -48,11 +46,11 @@ class _RenderScreenState extends State<RenderScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         actions: [
           GestureDetector(
             onTap: () {_printExistingPdf();},
-            child: Padding(
+            child: const Padding(
               padding: EdgeInsets.only(right: 20),
               child: Icon(
               Icons.share_rounded,
@@ -60,13 +58,9 @@ class _RenderScreenState extends State<RenderScreen> {
             ),)
           )
         ],
-        title: Text(widget.doc.doc_title!)
+        title: Text(widget.doc.docTitle!)
       ),
-      body: Container(child: SfPdfViewer.asset(
-        widget.doc.doc_path!
-       )
-       ),
-       
+      body: SfPdfViewer.asset(widget.doc.docPath!),
     );
   }
 }
@@ -79,19 +73,17 @@ class PDFViewer2 extends StatelessWidget {
     return Column(
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-              child:
-
-              SingleChildScrollView(child: Column(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: SingleChildScrollView(child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:[
-                  Column(children: Document2.doc_List.map((doc) => ListTile(
+                  Column(children: Document2.docList.map((doc) => ListTile(
                     onTap:() { Navigator.push(context, MaterialPageRoute(builder: (context) => RenderScreen(doc))); },
-                    title: Text(doc.doc_title!, maxLines: 2, overflow: TextOverflow.ellipsis),
-                    subtitle: Text("${doc.page_num!} pages", maxLines: 2),
-                    trailing: Text(doc.doc_date!, style: TextStyle(color: Colors.grey)),
-                    leading: Icon(
+                    title: Text(doc.docTitle!, maxLines: 2, overflow: TextOverflow.ellipsis),
+                    subtitle: Text("${doc.pageNum!} pages", maxLines: 2),
+                    trailing: Text(doc.docDate!, style: const TextStyle(color: Colors.grey)),
+                    leading: const Icon(
                       Icons.picture_as_pdf,
                       color: Colors.red,
                       size: 32,
@@ -108,17 +100,19 @@ class PDFViewer2 extends StatelessWidget {
 
 class ManualsPages extends StatelessWidget {
 
+  const ManualsPages({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return KybelePage.fixedWithHeader(
+    return const KybelePage.fixedWithHeader(
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: PDFViewer2(),
       headerText: "Manuals",
       headerIcon: Icons.library_books_rounded,
-      headerIconBkgColor: const Color(0xfff6f7d9),
-      headerIconColor: const Color(0xff8d8e43),
+      headerIconBkgColor: Color(0xfff6f7d9),
+      headerIconColor: Color(0xff8d8e43),
     );
   }
 }
