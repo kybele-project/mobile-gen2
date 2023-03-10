@@ -28,7 +28,7 @@ class Root extends StatelessWidget {
             title: 'Flutter Demo',
             theme: ThemeData(
               useMaterial3: true,
-              textTheme: GoogleFonts.nunitoSansTextTheme(Theme.of(context).textTheme),
+              fontFamily: 'NunitoSans',
             ),
             home: const Framework(child: HomePage()),
             // routerConfig: _router,
