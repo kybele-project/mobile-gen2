@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kybele_gen2/components/shared_prefs.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
@@ -11,7 +12,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await sharedPrefs.init();
-  runApp(const Root());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(const Root()));
 }
 
 class Root extends StatelessWidget {

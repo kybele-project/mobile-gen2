@@ -17,7 +17,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
 
   static const List<Tab> nrpTabs = <Tab>[
     Tab(text: 'Flow Chart'),
-    Tab(text: 'Tables'),
+    Tab(text: 'ABCs'),
   ];
 
   late TabController _tabController;
@@ -64,7 +64,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/Tables.png'),
+              image: AssetImage('assets/ABCs.png'),
             ),
           ),
         ),

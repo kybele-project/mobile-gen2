@@ -74,6 +74,7 @@ flutter:
     - assets/apgar_grimace.png
     - assets/apgar_activity.png
     - assets/apgar_respiration.png
+    - assets/ABCs.png
   fonts:
     - family: NunitoSans
       fonts:

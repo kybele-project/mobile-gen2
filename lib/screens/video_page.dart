@@ -35,28 +35,12 @@ class TutorialPageState extends State<TutorialPage> {
     controller.dispose();
     super.dispose();
   }
-  Widget body(BuildContext context) => YoutubePlayerBuilder(
-    player: YoutubePlayer(controller: controller),
-    builder: (context,player) => SizedBox(
-        height: MediaQuery.of(context).size.height * .75,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children:[player,]
-        ),
-    ),
-  );
 
   @override
-  Widget build(BuildContext context){
-    return KybelePage.fixedWithHeader(
-      hasHeaderClose: true,
-      hasHeaderIcon: true,
-      hasBottomActionButton: false,
-      bodyWidget: body(context),
-      headerText: widget.videoList.videoTitle!,
-      headerIcon: Icons.ondemand_video_rounded,
-      headerIconBkgColor: const Color(0xfff9e1f5),
-      headerIconColor: const Color(0xff8e4383),
+  Widget build(BuildContext context)=> YoutubePlayerBuilder(
+    player: YoutubePlayer(controller: controller),
+    builder: (context,player) => Scaffold(appBar: AppBar(automaticallyImplyLeading: true,title: Row(children:[Text(widget.videoList.videoTitle!)])), body:Column(
+            children:[player,]
+        ),)
     );
-  }
 }

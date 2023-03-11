@@ -4,6 +4,7 @@ import 'package:kybele_gen2/screens/manuals.dart';
 import 'package:kybele_gen2/screens/forms.dart';
 import 'package:kybele_gen2/screens/videos.dart';
 import 'package:kybele_gen2/screens/nrp_algorithm.dart';
+import 'package:kybele_gen2/screens/tables.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/button.dart';
@@ -109,9 +110,22 @@ class HomePage extends StatelessWidget {
                   'Videos',
                   Framework(child: VideosPages()),
                 ),
+                KybeleColorfulTile(
+                  Color(0xffe1f9f8),
+                  Color(0xff438e89),
+                  Icons.dataset_rounded,
+                  'Tables',
+                  Framework(child: TablesPages()),
+                ),
               ],
             ),
-
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  SizedBox(height: 40)
+              ],
+              ),
+            ),
           ],
         ),
       ),
