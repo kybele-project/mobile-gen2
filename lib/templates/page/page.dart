@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/templates/page/layers/page_layers.dart';
 
 
@@ -163,22 +160,31 @@ class KybelePage extends StatelessWidget {
             TimerBackgroundLayer(
               isDraggable: isDraggable,
             ),
-            ContentLayer(
-                isDraggable: isDraggable,
-                startExpanded: startExpanded,
-                hasHeader: hasHeader,
-                hasHeaderIcon: hasHeaderIcon,
-                hasHeaderClose: hasHeaderClose,
-                headerIcon: headerIcon,
-                headerIconColor: headerIconColor,
-                headerIconBkgColor: headerIconBkgColor,
-                headerText: headerText,
-                bodyWidget: bodyWidget,
+            SafeArea(
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return ContentLayer(
+                    isDraggable: isDraggable,
+                    startExpanded: startExpanded,
+                    hasHeader: hasHeader,
+                    hasHeaderIcon: hasHeaderIcon,
+                    hasHeaderClose: hasHeaderClose,
+                    headerIcon: headerIcon,
+                    headerIconColor: headerIconColor,
+                    headerIconBkgColor: headerIconBkgColor,
+                    headerText: headerText,
+                    bodyWidget: bodyWidget,
+                    heightConstraint: constraints.maxHeight,
+                  );
+                }
+              ),
             ),
-            ActionButtonLayer(
-                hasBottomActionButton: hasBottomActionButton,
-                bottomButtonText: bottomButtonText,
-                bottomButtonMenuWidget: bottomButtonMenuWidget
+            SafeArea(
+              child: ActionButtonLayer(
+                  hasBottomActionButton: hasBottomActionButton,
+                  bottomButtonText: bottomButtonText,
+                  bottomButtonMenuWidget: bottomButtonMenuWidget
+              ),
             ),
           ],
         ),

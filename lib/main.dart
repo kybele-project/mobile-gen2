@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:kybele_gen2/components/shared_prefs.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
-
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await sharedPrefs.init();
+  /*
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const Root()));
+  */
+  runApp(const Root());
 }
 
 class Root extends StatelessWidget {
@@ -22,23 +22,22 @@ class Root extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-            ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
-            ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
-        ],
-        child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              useMaterial3: true,
-              fontFamily: 'NunitoSans',
-            ),
-            home: const Framework(child: HomePage()),
-            // routerConfig: _router,
-          ),
-        );
+      providers: [
+        ChangeNotifierProvider<TimerProvider>(create: (_) => TimerProvider()),
+        ChangeNotifierProvider<RecordProvider>(create: (_) => RecordProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          useMaterial3: true,
+          fontFamily: 'NunitoSans',
+        ),
+        home: const Framework(child: HomePage()),
+        // routerConfig: _router,
+      ),
+    );
   }
 }
-
 
 class Framework extends StatefulWidget {
   final Widget child;
@@ -53,7 +52,6 @@ class Framework extends StatefulWidget {
 }
 
 class _FrameworkState extends State<Framework> {
-
   /*
   int get _selectedIndex => _locationToTabIndex(GoRouter.of(context).location);
 

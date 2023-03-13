@@ -1,9 +1,12 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
-import 'package:kybele_gen2/screens/record.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:kybele_gen2/components/buttons/buttons.dart';
 
 class ContentLayer extends StatefulWidget {
   // Draggable
@@ -22,6 +25,9 @@ class ContentLayer extends StatefulWidget {
   // Body
   final Widget bodyWidget;
 
+  // Height Constraint
+  final double heightConstraint;
+
   const ContentLayer({
     required this.isDraggable,
     required this.startExpanded,
@@ -33,6 +39,7 @@ class ContentLayer extends StatefulWidget {
     required this.headerIconBkgColor,
     required this.headerText,
     required this.bodyWidget,
+    required this.heightConstraint,
     super.key,
   });
 
@@ -59,11 +66,14 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   void generateAnimation() {
+
+    double ratio = min(80/widget.heightConstraint, 0.15);
+
     if (widget.startExpanded) {
       startHeightFactor = 0.5;
-      endHeightFactor = 0.15;
+      endHeightFactor = ratio;
     } else {
-      startHeightFactor = 0.15;
+      startHeightFactor = ratio;
       endHeightFactor = 0.5;
     }
 
@@ -142,7 +152,7 @@ class _ContentLayerState extends State<ContentLayer>
     }
   }
 
-  void startActions(BuildContext context) {
+  void startActions() {
     final timerProvider = Provider.of<TimerProvider>(context, listen: false);
     timerProvider.startTimer();
 
@@ -157,7 +167,7 @@ class _ContentLayerState extends State<ContentLayer>
     recordProvider.addEvent(timerEvent);
   }
 
-  void pauseActions(BuildContext context) {
+  void pauseActions() {
     final timerProvider = Provider.of<TimerProvider>(context, listen: false);
     timerProvider.pauseTimer();
 
@@ -172,7 +182,7 @@ class _ContentLayerState extends State<ContentLayer>
     recordProvider.addEvent(timerEvent);
   }
 
-  void continueActions(BuildContext context) {
+  void continueActions() {
     final timerProvider = Provider.of<TimerProvider>(context, listen: false);
     timerProvider.continueTimer();
 
@@ -187,7 +197,7 @@ class _ContentLayerState extends State<ContentLayer>
     recordProvider.addEvent(timerEvent);
   }
 
-  void resetActions(BuildContext context) {
+  void resetActions() {
     final timerProvider = Provider.of<TimerProvider>(context, listen: false);
     timerProvider.resetTimer();
 
@@ -202,195 +212,67 @@ class _ContentLayerState extends State<ContentLayer>
     recordProvider.addEvent(timerEvent);
   }
 
-  // TODO reduce length of function
   Widget timerInteractionButtons() {
-    if (!widget.isDraggable) {
-      return Container(
-        padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        child: const Text(
-          "VIEW RECORD",
-          style: TextStyle(
-            color: Color(0xff564BAF),
-          ),
-        ),
-      );
-    }
-
-    double paddingWidth;
-    MainAxisAlignment rowAlign;
 
     if (_animationActive) {
-      paddingWidth = 10;
-      rowAlign = MainAxisAlignment.end;
-
       return Consumer<TimerProvider>(builder: (context, provider, widget) {
         if (provider.buttonsStart) {
-          return RawMaterialButton(
-              onPressed: () => startActions(context),
-              elevation: 0,
-              fillColor: const Color(0xff9F97E3),
-              padding: EdgeInsets.all(paddingWidth),
-              shape: const CircleBorder(),
-              child: const Icon(Icons.play_arrow_rounded,
-                  size: 30, color: Colors.white));
+          return TimerSmallButton(
+              actionFunction: startActions,
+              iconData: Icons.play_arrow_rounded
+          );
         } else if (provider.buttonsPause) {
-          return RawMaterialButton(
-              onPressed: () => pauseActions(context),
-              elevation: 0,
-              fillColor: const Color(0xff9F97E3),
-              padding: EdgeInsets.all(paddingWidth),
-              shape: const CircleBorder(),
-              child: const Icon(Icons.pause_rounded,
-                  size: 30, color: Colors.white));
+          return TimerSmallButton(
+              actionFunction: pauseActions,
+              iconData: Icons.pause_rounded,
+          );
         } else {
           return Row(
-            mainAxisAlignment: rowAlign,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              RawMaterialButton(
-                  onPressed: () => continueActions(context),
-                  elevation: 0,
-                  fillColor: const Color(0xff9F97E3),
-                  padding: EdgeInsets.all(paddingWidth),
-                  shape: const CircleBorder(),
-                  child: const Icon(Icons.play_arrow_rounded,
-                      size: 30, color: Colors.white)),
-              SizedBox(width: paddingWidth),
-              RawMaterialButton(
-                  onPressed: () => resetActions(context),
-                  elevation: 0,
-                  fillColor: const Color(0xff9F97E3),
-                  padding: EdgeInsets.all(paddingWidth),
-                  shape: const CircleBorder(),
-                  child: const Icon(Icons.stop_rounded,
-                      size: 30, color: Colors.white)),
+              TimerSmallButton(
+                actionFunction: continueActions,
+                iconData: Icons.play_arrow_rounded
+              ),
+              const SizedBox(width: 30),
+              TimerSmallButton(
+                  actionFunction: resetActions,
+                  iconData: Icons.stop_rounded
+              ),
             ],
           );
         }
       });
     }
 
-    paddingWidth = 20;
-    rowAlign = MainAxisAlignment.center;
-
     return Consumer<TimerProvider>(builder: (context, provider, widget) {
       if (provider.buttonsStart) {
-        return GestureDetector(
-          onTap: () => startActions(context),
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            padding: EdgeInsets.all(paddingWidth),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: const Color(0xff9F97E3)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(Icons.play_arrow_rounded,
-                    size: 30, color: Colors.white),
-                SizedBox(width: 10),
-                Text(
-                  "START",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        return TimerLargeButton(
+            actionFunction: startActions,
+            iconData: Icons.play_arrow_rounded,
+            label: "START"
         );
       } else if (provider.buttonsPause) {
-        return GestureDetector(
-          onTap: () => pauseActions(context),
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.4,
-            padding: EdgeInsets.all(paddingWidth),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50),
-                color: const Color(0xff9F97E3)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Icon(Icons.pause_rounded, size: 30, color: Colors.white),
-                SizedBox(width: 10),
-                Text(
-                  "PAUSE",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
+        return TimerLargeButton(
+            actionFunction: pauseActions,
+            iconData: Icons.pause_rounded,
+            label: "PAUSE"
         );
       } else {
         return Row(
-          mainAxisAlignment: rowAlign,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            GestureDetector(
-              onTap: () => continueActions(context),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                padding: EdgeInsets.all(paddingWidth),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: const Color(0xff9F97E3)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Icon(Icons.play_arrow_rounded,
-                        size: 30, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      "RESUME",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            TimerLargeButton(
+                actionFunction: continueActions,
+                iconData: Icons.play_arrow_rounded,
+                label: "RESUME",
             ),
-            SizedBox(width: paddingWidth),
-            GestureDetector(
-              onTap: () => resetActions(context),
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.4,
-                padding: EdgeInsets.all(paddingWidth),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: const Color(0xff9F97E3)),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.stop_rounded, size: 30, color: Colors.white),
-                    SizedBox(width: 10),
-                    Text(
-                      "STOP",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            TimerLargeButton(
+              actionFunction: resetActions,
+              iconData: Icons.stop_rounded,
+              label: "STOP",
             ),
           ],
         );
@@ -400,8 +282,7 @@ class _ContentLayerState extends State<ContentLayer>
 
   Widget timerDisplay() {
     if (_animationActive) {
-      return SafeArea(
-        child: Container(
+      return Container(
           width: double.maxFinite,
           height: double.maxFinite,
           color: Colors.transparent,
@@ -422,7 +303,6 @@ class _ContentLayerState extends State<ContentLayer>
               timerInteractionButtons(),
             ],
           ),
-        ),
       );
     } else {
       return SingleChildScrollView(
@@ -475,6 +355,7 @@ class _ContentLayerState extends State<ContentLayer>
                   ))
                 : Container(),
             Container(
+              height: 70,
               width: double.maxFinite,
               color: Colors.transparent,
               padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
@@ -556,39 +437,42 @@ class _ContentLayerState extends State<ContentLayer>
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<RecordProvider>(builder: (context, provider, widget) {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          _isDraggable
-              ? GestureDetector(
-                  onTap: onTimerDisplayTap,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.topCenter,
-                    heightFactor: _animation.value,
-                    child: timerDisplay(),
-                  ),
-                )
-              : Container(),
-          _isDraggable
-              ? GestureDetector(
-                  onVerticalDragUpdate: handleVerticalUpdate,
-                  onVerticalDragEnd: handleVerticalEnd,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 1 - _animation.value,
-                    child: contentDisplay(),
-                  ),
-                )
-              : SafeArea(
-                  child: FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 1,
-                    child: contentDisplay(),
-                  ),
-                ),
-        ],
-      );
-    });
+
+    return Consumer<RecordProvider>(
+          builder: (context, provider, widget) {
+            return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      _isDraggable
+                          ? GestureDetector(
+                        onTap: onTimerDisplayTap,
+                        child: FractionallySizedBox(
+                          alignment: Alignment.topCenter,
+                          heightFactor: _animation.value,
+                          child: timerDisplay(),
+                        ),
+                      )
+                          : Container(),
+                      _isDraggable
+                          ? GestureDetector(
+                        onVerticalDragUpdate: handleVerticalUpdate,
+                        onVerticalDragEnd: handleVerticalEnd,
+                        child: FractionallySizedBox(
+                          alignment: Alignment.bottomCenter,
+                          heightFactor: 1 - _animation.value,
+                          child: contentDisplay(),
+                        ),
+                      )
+                          : SafeArea(
+                        child: FractionallySizedBox(
+                          alignment: Alignment.bottomCenter,
+                          heightFactor: 1,
+                          child: contentDisplay(),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+              );
   }
 }

@@ -41,8 +41,10 @@ class LaunchGraphic extends StatelessWidget {
 
   const LaunchGraphic({super.key});
 
+  /*
   final double _scalar = 1;
   final double _gap = 15;
+  */
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +59,7 @@ class LaunchGraphic extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  /*
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -109,6 +112,7 @@ class LaunchGraphic extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: _gap),
+                   */
                   const Text(
                     "No events logged",
                     style: TextStyle(
@@ -124,7 +128,7 @@ class LaunchGraphic extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 70),
+            const SizedBox(height: 80),
           ],
         ),
       ),

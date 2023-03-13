@@ -78,45 +78,45 @@ flutter:
   fonts:
     - family: NunitoSans
       fonts:
-        - asset: fonts/NunitoSans-ExtraLight.ttf
+        - asset: assets/fonts/NunitoSans-ExtraLight.ttf
           style: normal
           weight: 200
-        - asset: fonts/NunitoSans-ExtraLightItalic.ttf
+        - asset: assets/fonts/NunitoSans-ExtraLightItalic.ttf
           style: italic
           weight: 200
-        - asset: fonts/NunitoSans-Light.ttf
+        - asset: assets/fonts/NunitoSans-Light.ttf
           style: normal
           weight: 300
-        - asset: fonts/NunitoSans-LightItalic.ttf
+        - asset: assets/fonts/NunitoSans-LightItalic.ttf
           style: italic
           weight: 300
-        - asset: fonts/NunitoSans-Regular.ttf
+        - asset: assets/fonts/NunitoSans-Regular.ttf
           style: normal
           weight: 400
-        - asset: fonts/NunitoSans-Italic.ttf
+        - asset: assets/fonts/NunitoSans-Italic.ttf
           style: italic
           weight: 400
-        - asset: fonts/NunitoSans-SemiBold.ttf
+        - asset: assets/fonts/NunitoSans-SemiBold.ttf
           style: normal
           weight: 600
-        - asset: fonts/NunitoSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/NunitoSans-SemiBoldItalic.ttf
           style: italic
           weight: 600
-        - asset: fonts/NunitoSans-Bold.ttf
+        - asset: assets/fonts/NunitoSans-Bold.ttf
           style: normal
           weight: 700
-        - asset: fonts/NunitoSans-BoldItalic.ttf
+        - asset: assets/fonts/NunitoSans-BoldItalic.ttf
           style: italic
           weight: 700
-        - asset: fonts/NunitoSans-ExtraBold.ttf
+        - asset: assets/fonts/NunitoSans-ExtraBold.ttf
           style: normal
           weight: 800
-        - asset: fonts/NunitoSans-ExtraBoldItalic.ttf
+        - asset: assets/fonts/NunitoSans-ExtraBoldItalic.ttf
           style: italic
           weight: 800
-        - asset: fonts/NunitoSans-Black.ttf
+        - asset: assets/fonts/NunitoSans-Black.ttf
           style: normal
           weight: 900
-        - asset: fonts/NunitoSans-BlackItalic.ttf
+        - asset: assets/fonts/NunitoSans-BlackItalic.ttf
           style: italic
           weight: 900

@@ -4,7 +4,7 @@ import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 import 'package:provider/provider.dart';
 
-import '../components/button.dart';
+import '../components/buttons/buttons.dart';
 import '../components/timeline.dart';
 import '../providers/kybele_providers.dart';
 

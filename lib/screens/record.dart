@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/timeline.dart';
 import 'package:kybele_gen2/screens/apgar.dart';
 
-import '../components/button.dart';
+import '../components/buttons/buttons.dart';
 import '../main.dart';
 import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';

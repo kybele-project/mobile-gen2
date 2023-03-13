@@ -7,7 +7,7 @@ import 'package:kybele_gen2/screens/nrp_algorithm.dart';
 import 'package:kybele_gen2/screens/tables.dart';
 import 'package:kybele_gen2/templates/page/page.dart';
 
-import '../components/button.dart';
+import '../components/buttons/buttons.dart';
 import '../main.dart';
 import 'oxygen_saturation.dart';
 
@@ -122,7 +122,9 @@ class HomePage extends StatelessWidget {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  SizedBox(height: 40)
+                  SizedBox(height: 20),
+                  Text("Powered by ClinicPal, LLC"),
+                  SizedBox(height: 40),
               ],
               ),
             ),

@@ -10,7 +10,7 @@ class Event {
   late final String time;
   late final String primaryKey;
 
-  Event ({
+  Event({
     required this.category,
     required this.header,
     required this.subHeader,
@@ -20,11 +20,12 @@ class Event {
     DateTime timeNoFormat = DateTime.now();
     date = DateFormat.yMMMMd('en_US').format(timeNoFormat);
     time = DateFormat.Hm().format(timeNoFormat);
-    primaryKey = category + DateFormat('-MM-dd-yy-kk-mm-ss').format(timeNoFormat);
+    primaryKey =
+        category + DateFormat('-MM-dd-yy-kk-mm-ss').format(timeNoFormat);
   }
 
-  Event.fromMap(Map<String, dynamic> data) :
-        category = data['category'],
+  Event.fromMap(Map<String, dynamic> data)
+      : category = data['category'],
         header = data['header'],
         subHeader = data['subHeader'],
         interval = data['interval'],
