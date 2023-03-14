@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../style/colors.dart';
+
 class TimerLargeButton extends StatelessWidget {
 
   final VoidCallback actionFunction;
@@ -22,7 +24,8 @@ class TimerLargeButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: const Color(0xff9F97E3)),
+            color: mainLightPurple,
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,

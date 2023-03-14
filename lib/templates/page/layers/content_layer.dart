@@ -1,6 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';

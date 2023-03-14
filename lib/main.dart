@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/shared_prefs.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
 import 'package:kybele_gen2/screens/home.dart';
+import 'package:kybele_gen2/style/colors.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
 
@@ -75,7 +76,7 @@ class _FrameworkState extends State<Framework> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff7266D7),
+      backgroundColor: mainMediumPurple,
       /*
       bottomNavigationBar: BottomNavigationBar(
         items: [
@@ -85,8 +86,8 @@ class _FrameworkState extends State<Framework> {
         selectedFontSize: 12,
         unselectedFontSize: 12,
         currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff7266D7),
-        backgroundColor: Color(0xffffffff),
+        selectedItemColor: mainMediumPurple,
+        backgroundColor: mainWhite,
         onTap: _onTabClick,
       ),
        */
@@ -202,7 +203,7 @@ class _NavButtonState extends State<NavButton> {
               return Container(
                 width: double.maxFinite,
                 height: double.maxFinite,
-                color: const Color(0xff7266d7),
+                color: const mainMediumPurple,
               );
             }
 
@@ -210,8 +211,8 @@ class _NavButtonState extends State<NavButton> {
               return LinearProgressIndicator(
                 value: provider.fetchProgressBarPosition(),
                 minHeight: double.maxFinite,
-                backgroundColor: const Color(0xff7266D7),
-                color: const Color(0xff564baf),
+                backgroundColor: const mainMediumPurple,
+                color: const mainDarkPurple,
               );
             }
 
@@ -231,7 +232,7 @@ class _NavButtonState extends State<NavButton> {
     final IconData _icon = widget.icon;
 
     if (!widget.isSim && _isPressed) {
-      return Icon(_icon, size: 26, color: const Color(0xff7266D7));
+      return Icon(_icon, size: 26, color: const mainMediumPurple);
     }
 
     if (!widget.isSim && !_isPressed) {
@@ -253,7 +254,7 @@ class _NavButtonState extends State<NavButton> {
               }
 
               if (_isPressed && provider.buttonsStart) {
-                return Icon(_icon, size: 20, color: const Color(0xff564baf));
+                return Icon(_icon, size: 20, color: const mainDarkPurple);
               }
 
               if (!_isPressed && provider.buttonsStart) {
@@ -296,7 +297,7 @@ class _NavButtonState extends State<NavButton> {
           }
 
           if (_isPressed) {
-            return Text(label, style: const TextStyle(color: Color(0xff564baf), fontSize: 12));
+            return Text(label, style: const TextStyle(color: mainDarkPurple, fontSize: 12));
           }
 
           return Text(label, style: TextStyle(color: Colors.grey.shade600, fontSize: 12));

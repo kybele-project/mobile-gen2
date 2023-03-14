@@ -9,6 +9,7 @@ import 'package:kybele_gen2/templates/page/page.dart';
 
 import '../components/buttons/buttons.dart';
 import '../main.dart';
+import '../style/colors.dart';
 import 'oxygen_saturation.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,7 +43,7 @@ class HomePage extends StatelessWidget {
                       GestureDetector(
                         child: Container(
                           decoration: BoxDecoration(
-                            color:  const Color(0xff7266D7),
+                            color:  mainMediumPurple,
                             borderRadius: BorderRadius.circular(10),
                           ),
                             
@@ -61,70 +62,70 @@ class HomePage extends StatelessWidget {
               crossAxisSpacing: 20,
               mainAxisSpacing: 20,
               childAspectRatio: 1,
-              children: const [
-                KybeleAssistantTile
-                  (Color(0xff564BAF),
+              children: [
+                KybeleAssistantTile(
+                    mainDarkPurple,
                     Colors.white,
                     Icons.handshake_rounded,
                     "Simulation"
                 ),
                 KybeleColorfulTile(
-                  Color(0xffffe9cc),
-                  Color(0xff89683e),
+                  algorithmBkgColor,
+                  algorithmIconColor,
                   Icons.account_tree_rounded,
                   'Algorithm',
-                  Framework(child: NRPPages()),
+                  const Framework(child: NRPPages()),
                 ),
                 KybeleColorfulTile(
-                  Color(0xffFFCDCF),
-                  Color(0xff8B3E42),
+                  apgarBkgColor,
+                  apgarIconColor,
                   Icons.calculate_rounded,
                   'APGAR Score',
-                  Framework(child: APGARCalculator2(simVariant: false)),
+                  const Framework(child: APGARCalculator2(simVariant: false)),
                 ),
                 KybeleColorfulTile(
-                  Color(0xfff6f7d9),
-                  Color(0xff8d8e43),
+                  manualsBkgColor,
+                  manualsIconColor,
                   Icons.library_books_rounded,
                   'Educational Material/Manuals',
-                  Framework(child: ManualsPages()),
+                  const Framework(child: ManualsPages()),
                 ),
                 KybeleColorfulTile(
-                  Color(0xffdaf7d9),
-                  Color(0xff458e43),
+                  formsBkgColor,
+                  formsIconColor,
                   Icons.checklist_rtl_rounded,
                   'Forms',
-                  Framework(child: FormsPages()),
+                  const Framework(child: FormsPages()),
                 ),
                 KybeleColorfulTile(
-                  Color(0xffE2EEF9),
-                  Color(0xff436B8F),
+                  oxygenSatBkgColor,
+                  oxygenSatIconColor,
                   Icons.bubble_chart_rounded,
                   'Oxygen Saturation',
-                  Framework(child: OxygenSaturation(simVariant: false)),
+                  const Framework(child: OxygenSaturation(simVariant: false)),
                 ),
                 KybeleColorfulTile(
-                  Color(0xfff9e1f5),
-                  Color(0xff8e4383),
+                  videoBkgColor,
+                  videoIconColor,
                   Icons.ondemand_video_rounded,
                   'Videos',
-                  Framework(child: VideosPages()),
+                  const Framework(child: VideosPages()),
                 ),
                 KybeleColorfulTile(
-                  Color(0xffe1f9f8),
-                  Color(0xff438e89),
+                  tablesBkgColor,
+                  tablesIconColor,
                   Icons.dataset_rounded,
                   'Tables',
-                  Framework(child: TablesPages()),
+                  const Framework(child: TablesPages()),
                 ),
               ],
             ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  SizedBox(height: 20),
-                  Text("Powered by ClinicPal, LLC"),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 20),
+                  const Text("Powered by ClinicPal, LLC"),
+                  const SizedBox(height: 40),
               ],
               ),
             ),

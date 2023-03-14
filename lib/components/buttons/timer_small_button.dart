@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class TimerSmallButton extends StatelessWidget {
+import '../../style/colors.dart';
 
+class TimerSmallButton extends StatelessWidget {
   final VoidCallback actionFunction;
   final IconData iconData;
 
@@ -18,14 +19,12 @@ class TimerSmallButton extends StatelessWidget {
       child: Container(
         height: 40,
         width: 40,
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          color: Color(0xff9F97E3),
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          color: mainLightPurple,
         ),
-        child: Icon(iconData,
-            size: 30, color: Colors.white),
+        child: Icon(iconData, size: 30, color: Colors.white),
       ),
     );
   }
-
 }

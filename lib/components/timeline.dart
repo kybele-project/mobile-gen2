@@ -5,6 +5,7 @@ import 'package:kybele_gen2/components/launch_graphic.dart';
 import 'package:provider/provider.dart' show Consumer, Provider;
 
 import '../providers/record_provider.dart';
+import '../style/colors.dart';
 
 
 NumberFormat timeFormat = NumberFormat("00");
@@ -245,16 +246,16 @@ class TimelineEntryWrapper extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+                                  border: Border.all(width: 2, color: mainLightPurple)
                               ),
                               width: MediaQuery.of(context).size.width - 40,
                               height: 60,
-                              child: const Center(
+                              child: Center(
                                 child:
                                 Text(
                                   'Back',
                                   style: TextStyle(
-                                    color: Color(0xff9F97E3),
+                                    color: mainLightPurple,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -289,8 +290,8 @@ class TimelineEntryWrapper extends StatelessWidget {
     switch(category) {
       case "APGAR": {
         Widget apgarEntry = StandardEntry(
-            const Color(0xffFFCDCF),
-            const Color(0xff8B3E42),
+            apgarBkgColor,
+            apgarIconColor,
             Icons.calculate_rounded,
             header,
             subHeader,
@@ -303,8 +304,8 @@ class TimelineEntryWrapper extends StatelessWidget {
 
       case "OxygenSaturation": {
         Widget oxygenEntry = StandardEntry(
-            const Color(0xffE2EEF9),
-            const Color(0xff436B8F),
+            oxygenSatBkgColor,
+            oxygenSatIconColor,
             Icons.bubble_chart_rounded,
             header,
             subHeader,
@@ -317,8 +318,8 @@ class TimelineEntryWrapper extends StatelessWidget {
 
       case "Timer": {
         Widget timerEntry = TimerEntry(
-          const Color(0xff9F97E3),
-          const Color(0xffffffff),
+          mainLightPurple,
+          mainWhite,
           Icons.timer_rounded,
           header,
           time,
@@ -326,8 +327,8 @@ class TimelineEntryWrapper extends StatelessWidget {
         );
 
         Widget timerMenuEntry = TimerEntry(
-          const Color(0xff9F97E3),
-          const Color(0xffffffff),
+          mainLightPurple,
+          mainWhite,
           Icons.timer_rounded,
           header,
           time,
@@ -339,8 +340,8 @@ class TimelineEntryWrapper extends StatelessWidget {
 
       case "Simulation": {
         Widget timerEntry = TimerEntry(
-          const Color(0xff7266D7),
-          const Color(0xffffffff),
+          mainMediumPurple,
+          mainWhite,
           Icons.timer_rounded,
           header,
           time,
@@ -348,8 +349,8 @@ class TimelineEntryWrapper extends StatelessWidget {
         );
 
         Widget timerMenuEntry = TimerEntry(
-          const Color(0xff7266D7),
-          const Color(0xffffffff),
+          mainMediumPurple,
+          mainWhite,
           Icons.timer_rounded,
           header,
           time,

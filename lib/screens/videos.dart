@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/screens/video_page.dart';
+import '../style/colors.dart';
 import '../templates/page/page.dart';
 import '../databases/modules.dart';
 
@@ -55,8 +56,8 @@ class VideosPages extends StatelessWidget {
       bodyWidget: body(),
       headerText: "Videos",
       headerIcon: Icons.ondemand_video_rounded,
-      headerIconBkgColor: const Color(0xfff9e1f5),
-      headerIconColor: const Color(0xff8e4383),
+      headerIconBkgColor: videoBkgColor,
+      headerIconColor: videoIconColor,
     );
   }
 }

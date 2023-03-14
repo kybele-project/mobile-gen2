@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-
 class IconBox extends StatelessWidget {
-
   final IconData icon;
   final Color iconColor;
   final Color iconBkgColor;
@@ -36,9 +34,7 @@ class IconBox extends StatelessWidget {
   }
 }
 
-
 class LaunchGraphic extends StatelessWidget {
-
   const LaunchGraphic({super.key});
 
   /*
@@ -58,28 +54,28 @@ class LaunchGraphic extends StatelessWidget {
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: const [
                   /*
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       IconBox(
-                        iconBkgColor: const Color(0xffFFCDCF),
-                        iconColor: const Color(0xff8B3E42),
+                        iconBkgColor: const apgarBkgColor,
+                        iconColor: const apgarBkgColor,
                         icon: Icons.calculate_rounded,
                         scalar: _scalar,
                       ),
                       SizedBox(width: _gap),
                       IconBox(
-                        iconBkgColor: const Color(0xffE2EEF9),
-                        iconColor: const Color(0xff436B8F),
+                        iconBkgColor: const oxygenSatBkgColor,
+                        iconColor: const oxygenSatIconColor,
                         icon: Icons.bubble_chart_rounded,
                         scalar: _scalar,
                       ),
                       SizedBox(width: _gap),
                       IconBox(
-                        iconBkgColor: const Color(0xff9F97E3),
-                        iconColor: const Color(0xffffffff),
+                        iconBkgColor: const mainLightPurple,
+                        iconColor: const mainWhite,
                         icon: Icons.timer_rounded,
                         scalar: _scalar,
                       ),
@@ -113,13 +109,13 @@ class LaunchGraphic extends StatelessWidget {
                   ),
                   SizedBox(height: _gap),
                    */
-                  const Text(
+                  Text(
                     "No events logged",
                     style: TextStyle(
                       fontSize: 18,
                     ),
                   ),
-                  const Text(
+                  Text(
                     "Start timer, log events, or browse resources",
                     style: TextStyle(
                       fontSize: 14,

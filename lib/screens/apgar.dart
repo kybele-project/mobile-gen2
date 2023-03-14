@@ -9,6 +9,7 @@ import '../components/timeline.dart';
 import '../databases/record_database.dart';
 import '../models/event.dart';
 import '../components/customtoggleswitch.dart';
+import '../style/colors.dart';
 import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';
 
@@ -65,8 +66,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
         bodyWidget: body(context),
         headerText: "APGAR Score [SIM]",
         headerIcon: Icons.calculate_rounded,
-        headerIconBkgColor: const Color(0xffFFCDCF),
-        headerIconColor: const Color(0xff8B3E42),
+        headerIconBkgColor: apgarBkgColor,
+        headerIconColor: apgarIconColor,
         bottomButtonText: "Log APGAR score",
         bottomButtonMenuWidget: APGARMenu(
           header: 'APGAR Score: $_scoreAPGAR',
@@ -89,8 +90,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
         bodyWidget: body(context),
         headerText: "APGAR Score",
         headerIcon: Icons.calculate_rounded,
-        headerIconBkgColor: const Color(0xffFFCDCF),
-        headerIconColor: const Color(0xff8B3E42),
+        headerIconBkgColor: apgarBkgColor,
+        headerIconColor: apgarIconColor,
       );
     }
   }
@@ -113,8 +114,8 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           StandardEntry(
-            const Color(0xffFFCDCF),
-            const Color(0xff8B3E42),
+            apgarBkgColor,
+            apgarIconColor,
             Icons.calculate_rounded,
             'APGAR Score: $_scoreAPGAR',
             'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
@@ -161,16 +162,15 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+                  border: Border.all(width: 2, color: mainLightPurple)
               ),
               width: MediaQuery.of(context).size.width - 40,
               height: 60,
-              child: const Center(
-                child:
-                Text(
+              child: Center(
+                child: Text(
                   'Back',
                   style: TextStyle(
-                    color: Color(0xff9F97E3),
+                    color: mainLightPurple,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -324,7 +324,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: const Color(0xffffffff),
+                          inactiveBgColor: mainWhite,
                           onToggle: (index) {
                             setState(() {
                               _varA1 = index!;
@@ -404,7 +404,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: const Color(0xffffffff),
+                          inactiveBgColor: mainWhite,
                           onToggle: (index) {
                             setState(() {
                               _varP = index!;
@@ -484,7 +484,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: const Color(0xffffffff),
+                          inactiveBgColor: mainWhite,
                           onToggle: (index) {
                             setState(() {
                               _varG = index!;
@@ -564,7 +564,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: const Color(0xffffffff),
+                          inactiveBgColor: mainWhite,
                           onToggle: (index) {
                             setState(() {
                               _varA2 = index!;
@@ -644,7 +644,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                             [Color.fromARGB(255, 227, 208, 122)],
                             [Color.fromARGB(255, 110, 205, 101)],
                           ],
-                          inactiveBgColor: const Color(0xffffffff),
+                          inactiveBgColor: mainWhite,
                           onToggle: (index) {
                             setState(() {
                               _varR = index!;
@@ -731,8 +731,8 @@ class _APGARMenuState extends State<APGARMenu> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           StandardEntry(
-            const Color(0xffFFCDCF),
-            const Color(0xff8B3E42),
+            apgarBkgColor,
+            apgarIconColor,
             Icons.calculate_rounded,
             widget.header,
             widget.subHeader,
@@ -800,16 +800,16 @@ class _APGARMenuState extends State<APGARMenu> {
             child: Container(
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(width: 2, color: const Color(0xff9F97E3))
+                  border: Border.all(width: 2, color: mainLightPurple)
               ),
               width: MediaQuery.of(context).size.width - 40,
               height: 60,
-              child: const Center(
+              child: Center(
                 child:
                 Text(
                   'Back',
                   style: TextStyle(
-                    color: Color(0xff9F97E3),
+                    color: mainLightPurple,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),

@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
+import '../style/colors.dart';
 import '../templates/page/page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextTheme menuText = GoogleFonts.ptSansTextTheme();
 
 class NRPCodedDiagram extends StatefulWidget {
-
-  const NRPCodedDiagram({ super.key });
+  const NRPCodedDiagram({super.key});
 
   @override
   State<NRPCodedDiagram> createState() => _NRPCodedDiagramState();
 }
 
-
-class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProviderStateMixin {
-
+class _NRPCodedDiagramState extends State<NRPCodedDiagram>
+    with SingleTickerProviderStateMixin {
   static const List<Tab> nrpTabs = <Tab>[
     Tab(text: 'Flow Chart'),
     Tab(text: 'ABCs'),
@@ -33,7 +32,6 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
   void _setActiveTabIndex() {
     _activeTabIndex = _tabController.index;
   }
-
 
   @override
   void dispose() {
@@ -74,7 +72,6 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
 
   @override
   Widget build(BuildContext context) {
-
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) {
         setState(() {
@@ -83,54 +80,54 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram> with SingleTickerProv
       }
     });
 
-    return 
-        Expanded(child:Column(
+    return Expanded(
+        child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
+          width: double.maxFinite,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  bottom: BorderSide(
+                color: Color(0xffeaeaea),
+                width: 1,
+              ))),
+          child: Column(
             children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
-                width: double.maxFinite,
-                decoration: const BoxDecoration(
-                    color: Colors.white,
-                    border: Border(
-                        bottom: BorderSide(
-                      color: Color(0xffeaeaea),
-                      width: 1,
-                    ))),
-                child: Column(
-                    children: [
-                      TabBar(
-                        controller: _tabController,
-                        labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        unselectedLabelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        labelColor: Colors.black,
-                        unselectedLabelColor: Colors.grey[600],
-                        tabs: nrpTabs,
-                      ),
-                    ],
-                  ),
+              TabBar(
+                controller: _tabController,
+                labelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                unselectedLabelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey[600],
+                tabs: nrpTabs,
               ),
-              tabBodies[_activeTabIndex],
             ],
-          ));
+          ),
+        ),
+        tabBodies[_activeTabIndex],
+      ],
+    ));
   }
 }
 
-
 class NRPPages extends StatelessWidget {
-
   const NRPPages({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const KybelePage.fixedWithHeader(
+    return KybelePage.fixedWithHeader(
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: NRPCodedDiagram(),
       headerText: "Algorithm",
       headerIcon: Icons.account_tree_rounded,
-      headerIconBkgColor: Color(0xffffe9cc),
-      headerIconColor: Color(0xff89683e),
+      headerIconBkgColor: algorithmBkgColor,
+      headerIconColor: algorithmIconColor,
     );
   }
 }

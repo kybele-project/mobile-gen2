@@ -23,5 +23,8 @@ Color manualsIconColor = const Color(0xff8d8e43);
 Color oxygenSatBkgColor = const Color(0xffE2EEF9);
 Color oxygenSatIconColor = const Color(0xff436B8F);
 
+Color tablesBkgColor = const Color(0xffe1f9f8);
+Color tablesIconColor = const Color(0xff438e89);
+
 Color videoBkgColor = const Color(0xfff9e1f5);
 Color videoIconColor = const Color(0xff8e4383);
