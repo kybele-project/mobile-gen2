@@ -424,7 +424,7 @@ class ToggleSwitchState extends State<ToggleSwitch>
                                         ? Text(
                                             widget.labels?[index ~/ 2] ?? '',
                                             style: TextStyle(
-                                              fontSize: 16,
+                                              fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color:
                                                   colorTextList[(index ~/ 2)],
@@ -435,7 +435,7 @@ class ToggleSwitchState extends State<ToggleSwitch>
                                           )
                                         : Text(
                                             widget.labels?[index ~/ 2] ?? '',
-                                            style: TextStyle(fontSize: 16),
+                                            style: TextStyle(fontSize: 12),
                                             textAlign: TextAlign.center,
                                             overflow: TextOverflow.ellipsis,
                                             maxLines: 3,

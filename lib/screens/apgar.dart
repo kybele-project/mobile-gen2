@@ -699,100 +699,102 @@ class _APGARMenuState extends State<APGARMenu> {
     );
 
     return SingleChildScrollView(
-        child: Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          StandardEntry(
-            apgarBkgColor,
-            apgarIconColor,
-            apgarIcon,
-            widget.header,
-            widget.subHeader,
-            "${_minuteIntervalList[_minuteInterval]} min",
-            2,
-            DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              OxygenSaturationButton(
-                label: _minuteIntervalList[0],
-                minuteIndex: 0,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
-              OxygenSaturationButton(
-                label: _minuteIntervalList[1],
-                minuteIndex: 1,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
-              OxygenSaturationButton(
-                label: _minuteIntervalList[2],
-                minuteIndex: 2,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              OxygenSaturationButton(
-                label: _minuteIntervalList[3],
-                minuteIndex: 3,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
-              OxygenSaturationButton(
-                label: _minuteIntervalList[4],
-                minuteIndex: 4,
-                currMinuteIndex: _minuteInterval,
-                updateFunction: updateMinuteInterval,
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width * .25),
-            ],
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {
-              recordProvider.addEvent(oxygenEvent);
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-            child: const KybeleSolidButton("Log APGAR score"),
-          ),
-          const SizedBox(height: 20),
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(30)),
-                  border: Border.all(width: 2, color: mainLightPurple)),
-              width: MediaQuery.of(context).size.width - 40,
-              height: 60,
-              child: Center(
-                child: Text(
-                  'Back',
-                  style: TextStyle(
-                    color: mainLightPurple,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            StandardEntry(
+              apgarBkgColor,
+              apgarIconColor,
+              apgarIcon,
+              widget.header,
+              widget.subHeader,
+              "${_minuteIntervalList[_minuteInterval]} min",
+              2,
+              DateFormat.Hm()
+                  .format(DateTime.now()), // TODO sync with real time
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[0],
+                  minuteIndex: 0,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[1],
+                  minuteIndex: 1,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[2],
+                  minuteIndex: 2,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[3],
+                  minuteIndex: 3,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                OxygenSaturationButton(
+                  label: _minuteIntervalList[4],
+                  minuteIndex: 4,
+                  currMinuteIndex: _minuteInterval,
+                  updateFunction: updateMinuteInterval,
+                ),
+                SizedBox(width: MediaQuery.of(context).size.width * .25),
+              ],
+            ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                recordProvider.addEvent(oxygenEvent);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: const KybeleSolidButton("Log APGAR score"),
+            ),
+            const SizedBox(height: 20),
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(30)),
+                    border: Border.all(width: 2, color: mainLightPurple)),
+                width: MediaQuery.of(context).size.width - 40,
+                height: 60,
+                child: Center(
+                  child: Text(
+                    'Back',
+                    style: TextStyle(
+                      color: mainLightPurple,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-        ],
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
-    ), );
+    );
   }
 }
