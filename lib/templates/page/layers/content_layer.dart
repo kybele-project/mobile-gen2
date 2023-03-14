@@ -24,8 +24,9 @@ class ContentLayer extends StatefulWidget {
   // Body
   final Widget bodyWidget;
 
-  // Height Constraint
+  // Constraints
   final double heightConstraint;
+  final Orientation orientation;
 
   const ContentLayer({
     required this.isDraggable,
@@ -39,6 +40,7 @@ class ContentLayer extends StatefulWidget {
     required this.headerText,
     required this.bodyWidget,
     required this.heightConstraint,
+    required this.orientation,
     super.key,
   });
 
@@ -56,6 +58,8 @@ class _ContentLayerState extends State<ContentLayer>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  bool _draggableOk = true;
+
   bool get _isDraggable => widget.isDraggable;
 
   @override
@@ -65,15 +69,28 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   void generateAnimation() {
-    double ratio = min(80 / widget.heightConstraint, 0.15);
 
-    if (widget.startExpanded) {
-      startHeightFactor = 0.5;
-      endHeightFactor = ratio;
-    } else {
-      startHeightFactor = ratio;
-      endHeightFactor = 0.5;
+    if (widget.orientation == Orientation.portrait) {
+      _draggableOk = true;
+      double ratio = min(80 / widget.heightConstraint, 0.15);
+
+      if (widget.startExpanded) {
+        startHeightFactor = 0.5;
+        endHeightFactor = ratio;
+      }
+      else {
+        startHeightFactor = ratio;
+        endHeightFactor = 0.5;
+      }
+
     }
+
+    else {
+      _draggableOk = false;
+      startHeightFactor = (80 / widget.heightConstraint);
+      endHeightFactor = (80 / widget.heightConstraint);
+    }
+
 
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 100));
@@ -84,7 +101,12 @@ class _ContentLayerState extends State<ContentLayer>
     ).animate(_controller)
       ..addListener(() => setState(() {}));
 
-    _animationActive = widget.startExpanded ? false : true;
+    if (_draggableOk) {
+      _animationActive = (widget.startExpanded ? false : true);
+    }
+    else {
+      _animationActive = true;
+    }
   }
 
   @override
@@ -94,31 +116,33 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   onTimerDisplayTap() {
-    if (widget.startExpanded) {
-      setState(() {
-        if (_animationActive) {
-          _controller.reverse();
-        } else {
-          _controller.forward();
-        }
+    if (_draggableOk) {
+      if (widget.startExpanded) {
+        setState(() {
+          if (_animationActive) {
+            _controller.reverse();
+          } else {
+            _controller.forward();
+          }
 
-        _animationActive = !_animationActive;
-      });
-    } else {
-      setState(() {
-        if (_animationActive) {
-          _controller.forward();
-        } else {
-          _controller.reverse();
-        }
+          _animationActive = !_animationActive;
+        });
+      } else {
+        setState(() {
+          if (_animationActive) {
+            _controller.forward();
+          } else {
+            _controller.reverse();
+          }
 
-        _animationActive = !_animationActive;
-      });
+          _animationActive = !_animationActive;
+        });
+      }
     }
   }
 
   handleVerticalUpdate(DragUpdateDetails updateDetails) {
-    if (widget.isDraggable) {
+    if (widget.isDraggable && _draggableOk) {
       double screenHeight = MediaQuery.of(context).size.height;
       double fractionDragged = updateDetails.primaryDelta! / screenHeight;
 
@@ -141,7 +165,7 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   handleVerticalEnd(DragEndDetails endDetails) {
-    if (widget.isDraggable) {
+    if (widget.isDraggable && _draggableOk) {
       if (_controller.value >= 0.5) {
         _controller.forward();
       } else {
@@ -326,7 +350,7 @@ class _ContentLayerState extends State<ContentLayer>
         color: Colors.white,
         child: Stack(
           children: [
-            widget.isDraggable
+            (widget.isDraggable && _draggableOk)
                 ? Center(
                     child: Container(
                     width: MediaQuery.of(context).size.width * .1,
@@ -370,10 +394,9 @@ class _ContentLayerState extends State<ContentLayer>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          AutoSizeText(
+                          Text(
                             widget.headerText!,
                             style: contentHeaderTextStyle,
-                            group: contentHeaderTextGroup,
                           ),
                         ],
                       ),
@@ -398,7 +421,7 @@ class _ContentLayerState extends State<ContentLayer>
 
   Widget contentDisplay() {
     return ClipRRect(
-      borderRadius: widget.isDraggable
+      borderRadius: (widget.isDraggable && _draggableOk)
           ? const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
@@ -420,38 +443,45 @@ class _ContentLayerState extends State<ContentLayer>
   @override
   Widget build(BuildContext context) {
     return Consumer<RecordProvider>(builder: (context, provider, widget) {
-      return Stack(
-        fit: StackFit.expand,
-        children: [
-          _isDraggable
-              ? GestureDetector(
-                  onTap: onTimerDisplayTap,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.topCenter,
-                    heightFactor: _animation.value,
-                    child: timerDisplay(),
-                  ),
-                )
-              : Container(),
-          _isDraggable
-              ? GestureDetector(
-                  onVerticalDragUpdate: handleVerticalUpdate,
-                  onVerticalDragEnd: handleVerticalEnd,
-                  child: FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 1 - _animation.value,
-                    child: contentDisplay(),
-                  ),
-                )
-              : SafeArea(
-                  child: FractionallySizedBox(
-                    alignment: Alignment.bottomCenter,
-                    heightFactor: 1,
-                    child: contentDisplay(),
-                  ),
+      return OrientationBuilder(
+        builder: (BuildContext context, Orientation orientation) {
+          _draggableOk = (orientation == Orientation.portrait);
+
+          return Stack(
+            fit: StackFit.expand,
+            children: [
+              _isDraggable
+                  ? GestureDetector(
+                onTap: onTimerDisplayTap,
+                child: FractionallySizedBox(
+                  alignment: Alignment.topCenter,
+                  heightFactor: _draggableOk ? _animation.value : 0.15,
+                  child: timerDisplay(),
                 ),
-        ],
+              )
+                  : Container(),
+              _isDraggable
+                  ? GestureDetector(
+                onVerticalDragUpdate: handleVerticalUpdate,
+                onVerticalDragEnd: handleVerticalEnd,
+                child: FractionallySizedBox(
+                  alignment: Alignment.bottomCenter,
+                  heightFactor: _draggableOk ? 1 - _animation.value : 0.85,
+                  child: contentDisplay(),
+                ),
+              )
+                  : SafeArea(
+                child: FractionallySizedBox(
+                  alignment: Alignment.bottomCenter,
+                  heightFactor: 1,
+                  child: contentDisplay(),
+                ),
+              ),
+            ],
+          );
+        }
       );
-    });
+    }
+    );
   }
 }

@@ -26,37 +26,39 @@ class RecordPages extends StatelessWidget {
   }
 
   Widget buttonMenu(context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          const Text('Log event',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold)),
-          const SizedBox(height: 20),
-          KybeleColorfulButton(
-              apgarBkgColor,
-              apgarBkgColor,
-              apgarIcon,
-              'APGAR Score',
-              const Framework(child: APGARCalculator2(simVariant: true))),
-          const SizedBox(height: 20),
-          KybeleColorfulButton(
-              oxygenSatBkgColor,
-              oxygenSatIconColor,
-              oxySatIcon,
-              'Oxygen Saturation',
-              const Framework(child: OxygenSaturation(simVariant: true))),
-          const SizedBox(height: 20),
-          GestureDetector(
-              onTap: () => {Navigator.pop(context)},
-              child: const KybeleOutlineButton('Cancel')),
-          const SizedBox(height: 20),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Text('Log event',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold)),
+            const SizedBox(height: 20),
+            KybeleColorfulButton(
+                apgarBkgColor,
+                apgarIconColor,
+                apgarIcon,
+                'APGAR Score',
+                const Framework(child: APGARCalculator2(simVariant: true))),
+            const SizedBox(height: 20),
+            KybeleColorfulButton(
+                oxygenSatBkgColor,
+                oxygenSatIconColor,
+                oxySatIcon,
+                'Oxygen Saturation',
+                const Framework(child: OxygenSaturation(simVariant: true))),
+            const SizedBox(height: 20),
+            GestureDetector(
+                onTap: () => {Navigator.pop(context)},
+                child: const KybeleOutlineButton('Cancel')),
+            const SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }

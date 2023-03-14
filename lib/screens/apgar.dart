@@ -698,7 +698,8 @@ class _APGARMenuState extends State<APGARMenu> {
       status: 2,
     );
 
-    return Padding(
+    return SingleChildScrollView(
+        child: Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -773,7 +774,7 @@ class _APGARMenuState extends State<APGARMenu> {
             },
             child: Container(
               decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(30)),
                   border: Border.all(width: 2, color: mainLightPurple)),
               width: MediaQuery.of(context).size.width - 40,
               height: 60,
@@ -792,6 +793,6 @@ class _APGARMenuState extends State<APGARMenu> {
           const SizedBox(height: 20),
         ],
       ),
-    );
+    ), );
   }
 }

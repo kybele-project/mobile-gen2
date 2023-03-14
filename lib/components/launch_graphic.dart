@@ -46,87 +46,22 @@ class LaunchGraphic extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const NeverScrollableScrollPhysics(),
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: (MediaQuery.of(context).size.height - 80) * 0.5 - 80,
-        child: Column(
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  /*
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconBox(
-                        iconBkgColor: const apgarBkgColor,
-                        iconColor: const apgarBkgColor,
-                        icon: apgarIcon,
-                        scalar: _scalar,
-                      ),
-                      SizedBox(width: _gap),
-                      IconBox(
-                        iconBkgColor: const oxygenSatBkgColor,
-                        iconColor: const oxygenSatIconColor,
-                        icon: oxySatIcon,
-                        scalar: _scalar,
-                      ),
-                      SizedBox(width: _gap),
-                      IconBox(
-                        iconBkgColor: const mainLightPurple,
-                        iconColor: const mainWhite,
-                        icon: Icons.timer_rounded,
-                        scalar: _scalar,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: _gap),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconBox(
-                        iconBkgColor: Colors.green.shade400,
-                        iconColor: Colors.white,
-                        icon: Icons.check_rounded,
-                        scalar: _scalar,
-                      ),
-                      SizedBox(width: _gap),
-                      IconBox(
-                        iconBkgColor: Colors.red.shade400,
-                        iconColor: Colors.white,
-                        icon: Icons.priority_high_rounded,
-                        scalar: _scalar,
-                      ),
-                      SizedBox(width: _gap),
-                      IconBox(
-                        iconBkgColor: const Color(0xffdddddd),
-                        iconColor: const Color(0xff555555),
-                        icon: recordIcon,
-                        scalar: _scalar,
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: _gap),
-                   */
-                  Text(
-                    "No events logged",
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  ),
-                  Text(
-                    "Start timer, log events, or browse resources",
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
+      child: Column(
+        children: const [
+          SizedBox(height: 20),
+          Text(
+            "No events logged",
+            style: TextStyle(
+              fontSize: 18,
             ),
-            const SizedBox(height: 80),
-          ],
-        ),
+          ),
+          Text(
+            "Start timer, log events, or browse resources",
+            style: TextStyle(
+              fontSize: 14,
+            ),
+          ),
+        ],
       ),
     );
   }

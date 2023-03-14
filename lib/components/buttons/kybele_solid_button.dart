@@ -4,7 +4,6 @@ import '../../style/colors.dart';
 
 class KybeleSolidButton extends StatelessWidget {
   final String header;
-
   const KybeleSolidButton(this.header, {super.key});
 
   @override

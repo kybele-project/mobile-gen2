@@ -15,7 +15,7 @@ class KybeleOutlineButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(30)),
           border: Border.all(width: 2, color: mainLightPurple)
       ),
       width: MediaQuery.of(context).size.width - 40,

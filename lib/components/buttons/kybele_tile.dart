@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
-import '../../style/text.dart';
+import 'package:kybele_gen2/style/style.dart';
 
 class KybeleTile extends StatelessWidget {
 
@@ -42,11 +42,10 @@ class KybeleTile extends StatelessWidget {
           children: [
             Icon(iconData, size: 60, color: labelColor),
             const SizedBox(height: 20),
-            AutoSizeText(
+            Text(
               header,
               style: homeLabelTextStyle.merge(TextStyle(color: labelColor)),
               textAlign: TextAlign.center,
-              group: homeLabelTextGroup,
             ),
           ],
         ),

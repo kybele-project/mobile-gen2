@@ -442,7 +442,7 @@ class _TimelineState extends State<Timeline> {
                   },
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(Radius.circular(10)),
+                      borderRadius: const BorderRadius.all(Radius.circular(30)),
                       border: Border.all(width: 2, color: Colors.red),
                     ),
                     margin: const EdgeInsets.symmetric(

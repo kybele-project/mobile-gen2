@@ -161,20 +161,25 @@ class KybelePage extends StatelessWidget {
               isDraggable: isDraggable,
             ),
             SafeArea(
-              child: LayoutBuilder(
-                builder: (BuildContext context, BoxConstraints constraints) {
-                  return ContentLayer(
-                    isDraggable: isDraggable,
-                    startExpanded: startExpanded,
-                    hasHeader: hasHeader,
-                    hasHeaderIcon: hasHeaderIcon,
-                    hasHeaderClose: hasHeaderClose,
-                    headerIcon: headerIcon,
-                    headerIconColor: headerIconColor,
-                    headerIconBkgColor: headerIconBkgColor,
-                    headerText: headerText,
-                    bodyWidget: bodyWidget,
-                    heightConstraint: constraints.maxHeight,
+              child: OrientationBuilder(
+                builder: (BuildContext context, Orientation orientation) {
+                  return LayoutBuilder(
+                      builder: (BuildContext context, BoxConstraints constraints) {
+                        return ContentLayer(
+                          isDraggable: isDraggable,
+                          startExpanded: startExpanded,
+                          hasHeader: hasHeader,
+                          hasHeaderIcon: hasHeaderIcon,
+                          hasHeaderClose: hasHeaderClose,
+                          headerIcon: headerIcon,
+                          headerIconColor: headerIconColor,
+                          headerIconBkgColor: headerIconBkgColor,
+                          headerText: headerText,
+                          bodyWidget: bodyWidget,
+                          heightConstraint: constraints.maxHeight,
+                          orientation: orientation,
+                        );
+                      }
                   );
                 }
               ),

@@ -112,7 +112,7 @@ class ManualsPages extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: const PDFViewer2(),
-      headerText: "Manuals",
+      headerText: "Educational Manuals",
       headerIcon: manualsIcon,
       headerIconBkgColor: manualsBkgColor,
       headerIconColor: manualsIconColor,
