@@ -80,7 +80,7 @@ class _FrameworkState extends State<Framework> {
       /*
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.handshake_rounded, size: 28), label: "Simulation"),
+          BottomNavigationBarItem(icon: Icon(simulationIcon, size: 28), label: "Simulation"),
           BottomNavigationBarItem(icon: Icon(Icons.home_repair_service_rounded, size: 28), label: "Resources"),
         ],
         selectedFontSize: 12,
@@ -393,7 +393,7 @@ class _BottomNavBar2State extends State<BottomNavBar2> {
         children: [
           NavButton(
             label: 'Assistant',
-            icon: Icons.handshake_rounded,
+            icon: simulationIcon,
             index: 0,
             selectedIndex: _selectedIndex,
             isSim: true,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter/services.dart';
-import '../style/colors.dart';
+import '../style/style.dart';
 import '../templates/page/page.dart';
 
 class Document {
@@ -112,9 +112,9 @@ class FormsPages extends StatelessWidget {
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
-      bodyWidget: PDFViewer(),
+      bodyWidget: const PDFViewer(),
       headerText: "Forms",
-      headerIcon: Icons.checklist_rtl_rounded,
+      headerIcon: formsIcon,
       headerIconBkgColor: formsBkgColor,
       headerIconColor: formsIconColor,
     );

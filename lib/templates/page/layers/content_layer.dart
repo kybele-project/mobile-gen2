@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/kybele_providers.dart';
+import 'package:kybele_gen2/style/style.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:kybele_gen2/components/buttons/buttons.dart';
@@ -64,8 +65,7 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   void generateAnimation() {
-
-    double ratio = min(80/widget.heightConstraint, 0.15);
+    double ratio = min(80 / widget.heightConstraint, 0.15);
 
     if (widget.startExpanded) {
       startHeightFactor = 0.5;
@@ -211,69 +211,55 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   Widget timerInteractionButtons() {
-
-    if (_animationActive) {
-      return Consumer<TimerProvider>(builder: (context, provider, widget) {
-        if (provider.buttonsStart) {
-          return TimerSmallButton(
-              actionFunction: startActions,
-              iconData: Icons.play_arrow_rounded
-          );
-        } else if (provider.buttonsPause) {
-          return TimerSmallButton(
-              actionFunction: pauseActions,
-              iconData: Icons.pause_rounded,
-          );
-        } else {
+    return Consumer<TimerProvider>(builder: (context, provider, widget) {
+      if (provider.buttonsStart) {
+        return _animationActive
+            ? TimerSmallButton(actionFunction: startActions, iconData: playIcon)
+            : TimerLargeButton(
+                actionFunction: startActions,
+                iconData: playIcon,
+                label: "START");
+      } else if (provider.buttonsPause) {
+        return _animationActive
+            ? TimerSmallButton(
+                actionFunction: pauseActions,
+                iconData: pauseIcon,
+              )
+            : TimerLargeButton(
+                actionFunction: pauseActions,
+                iconData: pauseIcon,
+                label: "PAUSE");
+      } else {
+        if (_animationActive) {
           return Row(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               TimerSmallButton(
-                actionFunction: continueActions,
-                iconData: Icons.play_arrow_rounded
-              ),
+                  actionFunction: continueActions, iconData: playIcon),
               const SizedBox(width: 30),
               TimerSmallButton(
-                  actionFunction: resetActions,
-                  iconData: Icons.stop_rounded
+                  actionFunction: resetActions, iconData: stopIcon),
+            ],
+          );
+        } else {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              TimerLargeButton(
+                actionFunction: continueActions,
+                iconData: playIcon,
+                label: "RESUME",
+              ),
+              TimerLargeButton(
+                actionFunction: resetActions,
+                iconData: stopIcon,
+                label: "STOP",
               ),
             ],
           );
         }
-      });
-    }
-
-    return Consumer<TimerProvider>(builder: (context, provider, widget) {
-      if (provider.buttonsStart) {
-        return TimerLargeButton(
-            actionFunction: startActions,
-            iconData: Icons.play_arrow_rounded,
-            label: "START"
-        );
-      } else if (provider.buttonsPause) {
-        return TimerLargeButton(
-            actionFunction: pauseActions,
-            iconData: Icons.pause_rounded,
-            label: "PAUSE"
-        );
-      } else {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TimerLargeButton(
-                actionFunction: continueActions,
-                iconData: Icons.play_arrow_rounded,
-                label: "RESUME",
-            ),
-            TimerLargeButton(
-              actionFunction: resetActions,
-              iconData: Icons.stop_rounded,
-              label: "STOP",
-            ),
-          ],
-        );
       }
     });
   }
@@ -281,26 +267,26 @@ class _ContentLayerState extends State<ContentLayer>
   Widget timerDisplay() {
     if (_animationActive) {
       return Container(
-          width: double.maxFinite,
-          height: double.maxFinite,
-          color: Colors.transparent,
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Consumer<TimerProvider>(builder: (context, provider, widget) {
-                return Text(
-                  provider.fetchTime(),
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                );
-              }),
-              timerInteractionButtons(),
-            ],
-          ),
+        width: double.maxFinite,
+        height: double.maxFinite,
+        color: Colors.transparent,
+        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Consumer<TimerProvider>(builder: (context, provider, widget) {
+              return Text(
+                provider.fetchTime(),
+                style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              );
+            }),
+            timerInteractionButtons(),
+          ],
+        ),
       );
     } else {
       return SingleChildScrollView(
@@ -384,12 +370,10 @@ class _ContentLayerState extends State<ContentLayer>
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          AutoSizeText(
                             widget.headerText!,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24,
-                            ),
+                            style: contentHeaderTextStyle,
+                            group: contentHeaderTextGroup,
                           ),
                         ],
                       ),
@@ -435,42 +419,39 @@ class _ContentLayerState extends State<ContentLayer>
 
   @override
   Widget build(BuildContext context) {
-
-    return Consumer<RecordProvider>(
-          builder: (context, provider, widget) {
-            return Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      _isDraggable
-                          ? GestureDetector(
-                        onTap: onTimerDisplayTap,
-                        child: FractionallySizedBox(
-                          alignment: Alignment.topCenter,
-                          heightFactor: _animation.value,
-                          child: timerDisplay(),
-                        ),
-                      )
-                          : Container(),
-                      _isDraggable
-                          ? GestureDetector(
-                        onVerticalDragUpdate: handleVerticalUpdate,
-                        onVerticalDragEnd: handleVerticalEnd,
-                        child: FractionallySizedBox(
-                          alignment: Alignment.bottomCenter,
-                          heightFactor: 1 - _animation.value,
-                          child: contentDisplay(),
-                        ),
-                      )
-                          : SafeArea(
-                        child: FractionallySizedBox(
-                          alignment: Alignment.bottomCenter,
-                          heightFactor: 1,
-                          child: contentDisplay(),
-                        ),
-                      ),
-                    ],
-                  );
-                }
-              );
+    return Consumer<RecordProvider>(builder: (context, provider, widget) {
+      return Stack(
+        fit: StackFit.expand,
+        children: [
+          _isDraggable
+              ? GestureDetector(
+                  onTap: onTimerDisplayTap,
+                  child: FractionallySizedBox(
+                    alignment: Alignment.topCenter,
+                    heightFactor: _animation.value,
+                    child: timerDisplay(),
+                  ),
+                )
+              : Container(),
+          _isDraggable
+              ? GestureDetector(
+                  onVerticalDragUpdate: handleVerticalUpdate,
+                  onVerticalDragEnd: handleVerticalEnd,
+                  child: FractionallySizedBox(
+                    alignment: Alignment.bottomCenter,
+                    heightFactor: 1 - _animation.value,
+                    child: contentDisplay(),
+                  ),
+                )
+              : SafeArea(
+                  child: FractionallySizedBox(
+                    alignment: Alignment.bottomCenter,
+                    heightFactor: 1,
+                    child: contentDisplay(),
+                  ),
+                ),
+        ],
+      );
+    });
   }
 }

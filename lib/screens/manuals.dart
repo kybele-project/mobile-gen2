@@ -3,6 +3,7 @@ import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter/services.dart';
 import '../style/colors.dart';
+import '../style/style.dart';
 import '../templates/page/page.dart';
 
 class Document2 {
@@ -110,9 +111,9 @@ class ManualsPages extends StatelessWidget {
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
-      bodyWidget: PDFViewer2(),
+      bodyWidget: const PDFViewer2(),
       headerText: "Manuals",
-      headerIcon: Icons.library_books_rounded,
+      headerIcon: manualsIcon,
       headerIconBkgColor: manualsBkgColor,
       headerIconColor: manualsIconColor,
     );

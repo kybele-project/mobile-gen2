@@ -62,14 +62,14 @@ class LaunchGraphic extends StatelessWidget {
                       IconBox(
                         iconBkgColor: const apgarBkgColor,
                         iconColor: const apgarBkgColor,
-                        icon: Icons.calculate_rounded,
+                        icon: apgarIcon,
                         scalar: _scalar,
                       ),
                       SizedBox(width: _gap),
                       IconBox(
                         iconBkgColor: const oxygenSatBkgColor,
                         iconColor: const oxygenSatIconColor,
-                        icon: Icons.bubble_chart_rounded,
+                        icon: oxySatIcon,
                         scalar: _scalar,
                       ),
                       SizedBox(width: _gap),
@@ -102,7 +102,7 @@ class LaunchGraphic extends StatelessWidget {
                       IconBox(
                         iconBkgColor: const Color(0xffdddddd),
                         iconColor: const Color(0xff555555),
-                        icon: Icons.list_alt_rounded,
+                        icon: recordIcon,
                         scalar: _scalar,
                       ),
                     ],

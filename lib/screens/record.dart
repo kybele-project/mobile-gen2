@@ -5,6 +5,7 @@ import 'package:kybele_gen2/screens/apgar.dart';
 import '../components/buttons/buttons.dart';
 import '../main.dart';
 import '../style/colors.dart';
+import '../style/style.dart';
 import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';
 
@@ -40,14 +41,14 @@ class RecordPages extends StatelessWidget {
           KybeleColorfulButton(
               apgarBkgColor,
               apgarBkgColor,
-              Icons.calculate_rounded,
+              apgarIcon,
               'APGAR Score',
               const Framework(child: APGARCalculator2(simVariant: true))),
           const SizedBox(height: 20),
           KybeleColorfulButton(
               oxygenSatBkgColor,
               oxygenSatIconColor,
-              Icons.bubble_chart_rounded,
+              oxySatIcon,
               'Oxygen Saturation',
               const Framework(child: OxygenSaturation(simVariant: true))),
           const SizedBox(height: 20),
@@ -69,7 +70,7 @@ class RecordPages extends StatelessWidget {
       hasBottomActionButton: true,
       bodyWidget: body(),
       headerText: "Record",
-      headerIcon: Icons.list_alt_rounded,
+      headerIcon: recordIcon,
       headerIconBkgColor: const Color(0xffdddddd),
       headerIconColor: const Color(0xff555555),
       bottomButtonText: "Log event",

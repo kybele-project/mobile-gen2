@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../style/colors.dart';
+import '../style/icons.dart';
 import '../templates/page/page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -123,9 +124,9 @@ class NRPPages extends StatelessWidget {
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
-      bodyWidget: NRPCodedDiagram(),
+      bodyWidget: const NRPCodedDiagram(),
       headerText: "Algorithm",
-      headerIcon: Icons.account_tree_rounded,
+      headerIcon: algorithmIcon,
       headerIconBkgColor: algorithmBkgColor,
       headerIconColor: algorithmIconColor,
     );

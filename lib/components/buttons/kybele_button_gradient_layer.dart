@@ -4,7 +4,7 @@ class KybeleButtonGradientLayer extends StatelessWidget {
 
   const KybeleButtonGradientLayer(
       {super.key}
-      );
+  );
 
   @override
   Widget build(BuildContext context) {

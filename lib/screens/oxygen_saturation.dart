@@ -8,6 +8,7 @@ import '../components/buttons/buttons.dart';
 import '../components/timeline.dart';
 import '../providers/kybele_providers.dart';
 import '../style/colors.dart';
+import '../style/style.dart';
 
 class OxygenSaturation extends StatefulWidget {
   final bool simVariant;
@@ -83,7 +84,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
         hasHeaderIcon: true,
         headerIconBkgColor: oxygenSatBkgColor,
         headerIconColor: oxygenSatIconColor,
-        headerIcon: Icons.bubble_chart_rounded,
+        headerIcon: oxySatIcon,
         hasHeaderClose: true,
         hasBottomActionButton: true,
         bottomButtonText: "Log oxygen saturation",
@@ -101,7 +102,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
         hasHeaderIcon: true,
         headerIconBkgColor: oxygenSatBkgColor,
         headerIconColor: oxygenSatIconColor,
-        headerIcon: Icons.bubble_chart_rounded,
+        headerIcon: oxySatIcon,
         hasHeaderClose: true,
         hasBottomActionButton: false,
         headerText: "Oxygen Saturation",
@@ -492,7 +493,7 @@ class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
           StandardEntry(
             oxygenSatBkgColor,
             oxygenSatIconColor,
-            Icons.bubble_chart_rounded,
+            oxySatIcon,
             widget.header,
             widget.subHeader,
             "${_minuteIntervalList[_minuteInterval]} min",

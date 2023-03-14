@@ -1,20 +1,23 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
-import '../../screens/record.dart';
+import '../../style/text.dart';
 
-class KybeleAssistantTile extends StatelessWidget {
+class KybeleTile extends StatelessWidget {
 
   final Color bkgColor;
   final Color labelColor;
-  final IconData icon;
+  final IconData iconData;
   final String header;
+  final Widget page;
 
-  const KybeleAssistantTile(
-      this.bkgColor,
-      this.labelColor,
-      this.icon,
-      this.header,
-      {super.key}
-      );
+  const KybeleTile({
+    super.key,
+    required this.bkgColor,
+    required this.labelColor,
+    required this.iconData,
+    required this.header,
+    required this.page,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +25,9 @@ class KybeleAssistantTile extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           CupertinoPageRoute(
-            builder: (context) => const RecordPages(),
+            builder: (context) => page,
           ),
         );
-        // context.go('/simulator');
       },
       child: Container(
         width: double.maxFinite,
@@ -38,16 +40,13 @@ class KybeleAssistantTile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 60, color: labelColor),
+            Icon(iconData, size: 60, color: labelColor),
             const SizedBox(height: 20),
-            Text(
+            AutoSizeText(
               header,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-                color: labelColor,
-              ),
+              style: homeLabelTextStyle.merge(TextStyle(color: labelColor)),
               textAlign: TextAlign.center,
+              group: homeLabelTextGroup,
             ),
           ],
         ),

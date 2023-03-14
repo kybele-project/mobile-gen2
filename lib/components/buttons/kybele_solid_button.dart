@@ -12,7 +12,7 @@ class KybeleSolidButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           color: mainDarkPurple,
-          borderRadius: const BorderRadius.all(Radius.circular(10))),
+          borderRadius: const BorderRadius.all(Radius.circular(30))),
       width: MediaQuery.of(context).size.width - 40,
       height: 60,
       child: Center(
