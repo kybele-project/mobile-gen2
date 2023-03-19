@@ -1,26 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:printing/printing.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart';
 import '../style/style.dart';
 import '../templates/page/page.dart';
+import 'package:share_plus/share_plus.dart';
+import 'dart:io';
 
 class Document {
   String? docTitle;
   String? docPath;
   int? pageNum;
   String? docDate;
+  String? fileName;
   Document(
     this.docTitle,
     this.docPath,
     this.pageNum,
     this.docDate,
+    this.fileName,
   );
   static List<Document> docList = [
     Document("NRP Checklist", "assets/NRPQuickEquipmentChecklist.pdf", 1,
-        "13-07-2022"),
+        "13-07-2022", "NRPQuickEquipmentChecklist.pdf"),
     Document("A4 NRP Checklist", "assets/A4 - NRP Checklist 27Oct2022.pdf", 2,
-        "27-10-2022"),
+        "27-10-2022", "A4 - NRP Checklist 27Oct2022.pdf"),
   ];
 }
 
@@ -37,7 +42,11 @@ class _RenderScreenState extends State<RenderScreen> {
   void _printExistingPdf() async {
     // import 'package:flutter/services.dart';
     final pdf = await rootBundle.load(widget.doc.docPath!);
-    await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
+    final list = pdf.buffer.asUint8List();
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/${widget.doc.fileName}').create();
+    file.writeAsBytesSync(list);
+    Share.shareFiles([file.path]);
   }
 
   @override
@@ -54,7 +63,7 @@ class _RenderScreenState extends State<RenderScreen> {
                 child: const Padding(
                   padding: EdgeInsets.only(right: 20),
                   child: Icon(
-                    Icons.print,
+                    Icons.share_rounded,
                     size: 26.0,
                   ),
                 ))

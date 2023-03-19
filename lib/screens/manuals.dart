@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:printing/printing.dart';
 import 'package:flutter/services.dart';
 import '../style/colors.dart';
 import '../style/style.dart';
 import '../templates/page/page.dart';
+import 'package:share_plus/share_plus.dart';
+import 'dart:io';
 
 class Document2 {
   String? docTitle;
   String? docPath;
   int? pageNum;
   String? docDate;
+  String? fileName;
 
-  Document2(this.docTitle, this.docPath, this.pageNum, this.docDate);
+  Document2(this.docTitle, this.docPath, this.pageNum, this.docDate, this.fileName);
 
   static List<Document2> docList = [
     Document2("T-Piece Resuscitator Device",
-        "assets/T-Piece resuscitator for lamination.pdf", 4, ""),
+        "assets/T-Piece resuscitator for lamination.pdf", 4, "", "T-Piece resuscitator for lamination.pdf"),
     Document2("Warmilu Thermal Gel Autoclave Instructions",
-        "assets/Warmilu_thermal gel autoclave instructions.pdf", 1, ""),
+        "assets/Warmilu_thermal gel autoclave instructions.pdf", 1,"", "Warmilu_thermal gel autoclave instructions.pdf"),
   ];
 }
 
@@ -35,9 +39,12 @@ class _RenderScreenState extends State<RenderScreen> {
   void _printExistingPdf() async {
     // import 'package:flutter/services.dart';
     final pdf = await rootBundle.load(widget.doc.docPath!);
-    await Printing.layoutPdf(onLayout: (_) => pdf.buffer.asUint8List());
+    final list = pdf.buffer.asUint8List();
+    final tempDir = await getTemporaryDirectory();
+    final file = await File('${tempDir.path}/${widget.doc.fileName}').create();
+    file.writeAsBytesSync(list);
+    Share.shareFiles([file.path]);
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

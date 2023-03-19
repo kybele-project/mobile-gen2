@@ -5,11 +5,12 @@ import 'package:kybele_gen2/screens/home.dart';
 import 'package:kybele_gen2/style/colors.dart';
 import 'package:provider/provider.dart';
 import 'dart:core';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  await sharedPrefs.init();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+  //await sharedPrefs.init();
   /*
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) => runApp(const Root()));

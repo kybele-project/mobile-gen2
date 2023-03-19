@@ -15,8 +15,8 @@ class NRPCodedDiagram extends StatefulWidget {
 class _NRPCodedDiagramState extends State<NRPCodedDiagram>
       with SingleTickerProviderStateMixin {
   static const List<Tab> nrpTabs = <Tab>[
-    Tab(text: 'Target O2'),
-    Tab(text: 'Misc.'),
+    Tab(text: 'Corrective Steps'),
+    Tab(text: 'Target Oxygen'),
   ];
 
   late TabController _tabController;
@@ -48,7 +48,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/Target_O2.png'),
+              image: AssetImage('assets/Tables.png'),
             ),
           ),
         ),
@@ -62,7 +62,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/Tables.png'),
+              image: AssetImage('assets/Target_O2.png'),
             ),
           ),
         ),
