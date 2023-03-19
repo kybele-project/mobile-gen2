@@ -44,7 +44,7 @@ class KybeleTile extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               header,
-              style: homeLabelTextStyle.merge(TextStyle(color: labelColor)),
+              style: homeLabelTextStyle.merge(TextStyle(color: labelColor, fontSize: 18)),
               textAlign: TextAlign.center,
             ),
           ],

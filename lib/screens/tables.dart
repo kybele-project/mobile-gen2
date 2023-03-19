@@ -13,10 +13,48 @@ class NRPCodedDiagram extends StatefulWidget {
 }
 
 class _NRPCodedDiagramState extends State<NRPCodedDiagram>
-    with SingleTickerProviderStateMixin {
+      with SingleTickerProviderStateMixin {
+  static const List<Tab> nrpTabs = <Tab>[
+    Tab(text: 'Target O2'),
+    Tab(text: 'Misc.'),
+  ];
+
+  late TabController _tabController;
+  late int _activeTabIndex = 0;
+
   @override
-  Widget build(BuildContext context) {
-    return Expanded(
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: nrpTabs.length);
+    _tabController.addListener(_setActiveTabIndex);
+  }
+
+  void _setActiveTabIndex() {
+    _activeTabIndex = _tabController.index;
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  final List<Widget> tabBodies = [
+    Expanded(
+      child: InteractiveViewer(
+        minScale: 0.1,
+        maxScale: 2.8,
+        child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/Target_O2.png'),
+            ),
+          ),
+        ),
+      ),
+    ),
+    Expanded(
       child: InteractiveViewer(
         minScale: 0.1,
         maxScale: 2.8,
@@ -29,9 +67,53 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
           ),
         ),
       ),
-    );
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) {
+        setState(() {
+          _activeTabIndex = _tabController.index;
+        });
+      }
+    });
+
+    return Expanded(
+        child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
+          width: double.maxFinite,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  bottom: BorderSide(
+                color: Color(0xffeaeaea),
+                width: 1,
+              ))),
+          child: Column(
+            children: [
+              TabBar(
+                controller: _tabController,
+                labelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                unselectedLabelStyle:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey[600],
+                tabs: nrpTabs,
+              ),
+            ],
+          ),
+        ),
+        tabBodies[_activeTabIndex],
+      ],
+    ));
   }
 }
+
 
 class TablesPages extends StatelessWidget {
   const TablesPages({super.key});

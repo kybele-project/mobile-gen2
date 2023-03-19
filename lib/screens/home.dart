@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                               alignment: Alignment.center,
                               child: Image.asset(
                                 'assets/kybele_purple.png',
-                                height: 40,
+                                height: 45,
                                 fit: BoxFit.fitHeight,
                               ),
                             ),
@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                                 child: const Text("NRP MODULE",
                                   style: TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 14,
                                     color: Colors.white,
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -79,6 +79,13 @@ class HomePage extends StatelessWidget {
                       page: const Framework(child: RecordPages()),
                     ),
                     KybeleTile(
+                      bkgColor: apgarBkgColor,
+                      labelColor: apgarIconColor,
+                      iconData: apgarIcon,
+                      header: 'APGAR Score',
+                      page: const Framework(child: APGARCalculator2(simVariant: false)),
+                    ),
+                    KybeleTile(
                       bkgColor: algorithmBkgColor,
                       labelColor: algorithmIconColor,
                       iconData: algorithmIcon,
@@ -86,11 +93,11 @@ class HomePage extends StatelessWidget {
                       page: const Framework(child: NRPPages()),
                     ),
                     KybeleTile(
-                      bkgColor: apgarBkgColor,
-                      labelColor: apgarIconColor,
-                      iconData: apgarIcon,
-                      header: 'APGAR Score',
-                      page: const Framework(child: APGARCalculator2(simVariant: false)),
+                      bkgColor: tablesBkgColor,
+                      labelColor: tablesIconColor,
+                      iconData: tablesIcon,
+                      header: 'NRP Tables',
+                      page: const Framework(child: TablesPages()),
                     ),
                     KybeleTile(
                       bkgColor: manualsBkgColor,
@@ -107,26 +114,13 @@ class HomePage extends StatelessWidget {
                       page: const Framework(child: FormsPages()),
                     ),
                     KybeleTile(
-                      bkgColor: oxygenSatBkgColor,
-                      labelColor: oxygenSatIconColor,
-                      iconData: oxySatIcon,
-                      header: 'Oxygen Saturation',
-                      page: const Framework(child: OxygenSaturation(simVariant: false)),
-                    ),
-                    KybeleTile(
                       bkgColor: videoBkgColor,
                       labelColor: videoIconColor,
                       iconData: videosIcon,
                       header: 'Videos',
                       page: const Framework(child: VideosPages()),
                     ),
-                    KybeleTile(
-                      bkgColor: tablesBkgColor,
-                      labelColor: tablesIconColor,
-                      iconData: tablesIcon,
-                      header: 'NRP Tables',
-                      page: const Framework(child: TablesPages()),
-                    ),
+                    
                   ],
                 ),
                 SliverList(

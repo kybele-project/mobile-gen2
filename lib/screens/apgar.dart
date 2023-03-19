@@ -251,7 +251,6 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                 children: [
                   // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
                   Container(
-                    color: Colors.grey[50],
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(20, 15, 20, 85),
                       child: Column(
