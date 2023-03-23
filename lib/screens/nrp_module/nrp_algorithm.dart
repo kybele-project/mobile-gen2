@@ -45,7 +45,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/NRP FlowChart.png'),
+              image: AssetImage('assets/nrp/NRP FlowChart.png'),
             ),
           ),
         ),
