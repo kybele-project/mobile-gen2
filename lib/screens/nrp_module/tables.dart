@@ -45,7 +45,7 @@ class _NRPTableDiagramState extends State<NRPTable>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/nrp/Tables.png'),
+              image: AssetImage('assets/Tables.png'),
             ),
           ),
         ),
@@ -59,7 +59,7 @@ class _NRPTableDiagramState extends State<NRPTable>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/nrp/Target_O2.png'),
+              image: AssetImage('assets/Target_O2.png'),
             ),
           ),
         ),
@@ -121,7 +121,7 @@ class TablesPages extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: const NRPTable(),
-      headerText: "Tables",
+      headerText: "NRP Tables",
       headerIcon: tablesIcon,
       headerIconBkgColor: tablesBkgColor,
       headerIconColor: tablesIconColor,

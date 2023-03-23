@@ -43,7 +43,7 @@ class KPdfPageState extends State<KPdfPage> {
 
     // Write to temporary file
     final tempDir = await getTemporaryDirectory();
-    final String filename = (widget.document.path).split('/')[2];
+    final String filename = (widget.document.path).split('/')[1];
     final File file = await File('${tempDir.path}/$filename').create();
     file.writeAsBytes(pdfByteList);
 

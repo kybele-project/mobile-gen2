@@ -265,7 +265,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Image.asset('assets/nrp/apgar_blue.png', height: 100),
+                        Image.asset('assets/apgar_blue.png', height: 100),
                         const SizedBox(height: 10),
                         Container(
                           width: double.maxFinite,
@@ -337,7 +337,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Image.asset('assets/nrp/apgar_pulse.png', height: 100),
+                        Image.asset('assets/apgar_pulse.png', height: 100),
                         const SizedBox(height: 10),
                         Container(
                           width: double.maxFinite,
@@ -409,8 +409,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Image.asset('assets/nrp/apgar_grimace.png',
-                            height: 100),
+                        Image.asset('assets/apgar_grimace.png', height: 100),
                         const SizedBox(height: 10),
                         Container(
                           width: double.maxFinite,
@@ -482,8 +481,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Image.asset('assets/nrp/apgar_activity.png',
-                            height: 100),
+                        Image.asset('assets/apgar_activity.png', height: 100),
                         const SizedBox(height: 10),
                         Container(
                           width: double.maxFinite,
@@ -555,7 +553,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
                           ],
                         ),
                         const SizedBox(height: 5),
-                        Image.asset('assets/nrp/apgar_respiration.png',
+                        Image.asset('assets/apgar_respiration.png',
                             height: 100),
                         const SizedBox(height: 10),
                         Container(

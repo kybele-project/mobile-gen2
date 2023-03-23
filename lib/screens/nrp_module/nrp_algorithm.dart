@@ -45,7 +45,7 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
           decoration: const BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.fill,
-              image: AssetImage('assets/nrp/NRP FlowChart.png'),
+              image: AssetImage('assets/NRP FlowChart.png'),
             ),
           ),
         ),
@@ -121,7 +121,7 @@ class NRPPages extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: const NRPCodedDiagram(),
-      headerText: "Algorithm",
+      headerText: "NRP Algorithm",
       headerIcon: algorithmIcon,
       headerIconBkgColor: algorithmBkgColor,
       headerIconColor: algorithmIconColor,
