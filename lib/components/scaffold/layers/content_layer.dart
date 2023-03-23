@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/buttons/buttons.dart'
-  show KLargeButton, KSmallButton;
+    show KLargeButton, KSmallButton;
 import 'package:kybele_gen2/models/event.dart';
 import 'package:kybele_gen2/providers/providers.dart';
 import 'package:kybele_gen2/style/style.dart';
@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 
 class ContentLayer extends StatefulWidget {
-
   // Draggable
   final bool isDraggable;
   final bool startExpanded;
@@ -52,7 +51,6 @@ class ContentLayer extends StatefulWidget {
 
 class _ContentLayerState extends State<ContentLayer>
     with SingleTickerProviderStateMixin {
-
   // height animation vars
   late double startHeightFactor;
   late double endHeightFactor;
@@ -72,7 +70,6 @@ class _ContentLayerState extends State<ContentLayer>
   }
 
   void generateAnimation() {
-
     if (widget.orientation == Orientation.portrait) {
       _draggableOk = true;
       double ratio = min(80 / widget.heightConstraint, 0.15);
@@ -80,14 +77,11 @@ class _ContentLayerState extends State<ContentLayer>
       if (widget.startExpanded) {
         startHeightFactor = 0.5;
         endHeightFactor = ratio;
-      }
-      else {
+      } else {
         startHeightFactor = ratio;
         endHeightFactor = 0.5;
       }
-    }
-
-    else {
+    } else {
       _draggableOk = false;
       startHeightFactor = (80 / widget.heightConstraint);
       endHeightFactor = (80 / widget.heightConstraint);
@@ -104,8 +98,7 @@ class _ContentLayerState extends State<ContentLayer>
 
     if (_draggableOk) {
       _animationActive = (widget.startExpanded ? false : true);
-    }
-    else {
+    } else {
       _animationActive = true;
     }
   }
@@ -308,8 +301,7 @@ class _ContentLayerState extends State<ContentLayer>
           ],
         ),
       );
-    }
-    else {
+    } else {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -388,30 +380,30 @@ class _ContentLayerState extends State<ContentLayer>
                       ),
                       const SizedBox(width: 15),
                       Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AutoSizeText(
-                              widget.headerText!,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                              overflow: TextOverflow.fade,
-                              maxLines: 1,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AutoSizeText(
+                            widget.headerText!,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
                             ),
-                          ],
-                        ),
+                            overflow: TextOverflow.fade,
+                            maxLines: 1,
+                          ),
+                        ],
+                      ),
                     ],
                   ),
                   widget.hasHeaderClose
-                        ? GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Icon(Icons.close_rounded),
-                          )
-                        : Container(),
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Icon(Icons.close_rounded),
+                        )
+                      : Container(),
                 ],
               ),
             ),
@@ -446,44 +438,42 @@ class _ContentLayerState extends State<ContentLayer>
   Widget build(BuildContext context) {
     return Consumer<RecordProvider>(builder: (context, provider, widget) {
       return OrientationBuilder(
-        builder: (BuildContext context, Orientation orientation) {
-          _draggableOk = (orientation == Orientation.portrait);
+          builder: (BuildContext context, Orientation orientation) {
+        _draggableOk = (orientation == Orientation.portrait);
 
-          return Stack(
-            fit: StackFit.expand,
-            children: [
-              _isDraggable
-                  ? GestureDetector(
-                onTap: onTimerDisplayTap,
-                child: FractionallySizedBox(
-                  alignment: Alignment.topCenter,
-                  heightFactor: _draggableOk ? _animation.value : 0.15,
-                  child: timerDisplay(),
-                ),
-              )
-                  : Container(),
-              _isDraggable
-                  ? GestureDetector(
-                onVerticalDragUpdate: handleVerticalUpdate,
-                onVerticalDragEnd: handleVerticalEnd,
-                child: FractionallySizedBox(
-                  alignment: Alignment.bottomCenter,
-                  heightFactor: _draggableOk ? 1 - _animation.value : 0.85,
-                  child: contentDisplay(),
-                ),
-              )
-                  : SafeArea(
-                child: FractionallySizedBox(
-                  alignment: Alignment.bottomCenter,
-                  heightFactor: 1,
-                  child: contentDisplay(),
-                ),
-              ),
-            ],
-          );
-        }
-      );
-    }
-    );
+        return Stack(
+          fit: StackFit.expand,
+          children: [
+            _isDraggable
+                ? GestureDetector(
+                    onTap: onTimerDisplayTap,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.topCenter,
+                      heightFactor: _draggableOk ? _animation.value : 0.15,
+                      child: timerDisplay(),
+                    ),
+                  )
+                : Container(),
+            _isDraggable
+                ? GestureDetector(
+                    onVerticalDragUpdate: handleVerticalUpdate,
+                    onVerticalDragEnd: handleVerticalEnd,
+                    child: FractionallySizedBox(
+                      alignment: Alignment.bottomCenter,
+                      heightFactor: _draggableOk ? 1 - _animation.value : 0.85,
+                      child: contentDisplay(),
+                    ),
+                  )
+                : SafeArea(
+                    child: FractionallySizedBox(
+                      alignment: Alignment.bottomCenter,
+                      heightFactor: 1,
+                      child: contentDisplay(),
+                    ),
+                  ),
+          ],
+        );
+      });
+    });
   }
 }

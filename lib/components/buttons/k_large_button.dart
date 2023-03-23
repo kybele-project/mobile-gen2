@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../style/colors.dart';
-
 class KLargeButton extends StatelessWidget {
-
   final VoidCallback actionFunction;
   final IconData iconData;
   final String label;
@@ -25,8 +22,8 @@ class KLargeButton extends StatelessWidget {
         height: 60,
         width: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: color,
+          borderRadius: BorderRadius.circular(30),
+          color: color,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -47,5 +44,4 @@ class KLargeButton extends StatelessWidget {
       ),
     );
   }
-
 }

@@ -12,7 +12,6 @@ import 'package:kybele_gen2/style/style.dart';
 
 import 'oxygen_saturation.dart';
 
-
 class APGARCalculator2 extends StatefulWidget {
   final bool simVariant;
 
@@ -78,8 +77,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
           r: _varR,
         ),
       );
-    }
-    else {
+    } else {
       return KScaffold.draggableWithHeader(
         startExpanded: false,
         hasBottomActionButton: false,
@@ -119,7 +117,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
             'A: $_varA1, P: $_varP, G: $_varG, A: $_varA2, R: $_varR',
             _dropdownValue,
             0,
-            DateFormat.Hm().format(DateTime.now()), // TODO sync with real time
+            DateFormat.Hm().format(DateTime.now()),
           ),
           const SizedBox(height: 20),
           DropdownButton<String>(
@@ -250,393 +248,371 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
               child: Column(
                 children: [
                   // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
-                  Container(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 15, 20, 85),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Appearance",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 15, 20, 85),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Appearance",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Image.asset('assets/apgar_blue.png', height: 100),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color(0xccbbbbbb),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          Image.asset('assets/apgar_blue.png', height: 100),
-                          const SizedBox(height: 10),
-                          Container(
-                            width: double.maxFinite,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xccbbbbbb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5),
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double toggleWidth = (constraints.maxWidth - 2) / 3;
+                            return ToggleSwitch(
+                              dividerColor: Colors.grey,
+                              customWidths: [
+                                toggleWidth,
+                                toggleWidth,
+                                toggleWidth
                               ],
-                            ),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double toggleWidth =
-                                  (constraints.maxWidth - 2) / 3;
-                              return ToggleSwitch(
-                                dividerColor: Colors.grey,
-                                customWidths: [
-                                  toggleWidth,
-                                  toggleWidth,
-                                  toggleWidth
-                                ],
-                                cornerRadius: 10,
-                                initialLabelIndex: _varA1,
-                                totalSwitches: 3,
-                                inactiveFgColor: const Color(0xccbbbbbb),
-                                labels: const [
-                                  'Blue all over',
-                                  'Blue only at\nextremities',
-                                  'No blue\ncoloration'
-                                ],
-                                customTextStyles: const [
-                                  TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ],
-                                activeBgColors: const [
-                                  [Color.fromARGB(255, 184, 89, 89)],
-                                  [Color.fromARGB(255, 227, 208, 122)],
-                                  [Color.fromARGB(255, 110, 205, 101)],
-                                ],
-                                inactiveBgColor: mainWhite,
-                                onToggle: (index) {
-                                  setState(() {
-                                    _varA1 = index!;
-                                    _scoreAPGAR =
-                                        _varA1 + _varP + _varG + _varA2 + _varR;
-                                  });
-                                },
-                                radiusStyle: true,
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Pulse",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              cornerRadius: 10,
+                              initialLabelIndex: _varA1,
+                              totalSwitches: 3,
+                              inactiveFgColor: const Color(0xccbbbbbb),
+                              labels: const [
+                                'Blue all over',
+                                'Blue only at\nextremities',
+                                'No blue\ncoloration'
+                              ],
+                              customTextStyles: const [
+                                TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ],
+                              activeBgColors: const [
+                                [Color.fromARGB(255, 184, 89, 89)],
+                                [Color.fromARGB(255, 227, 208, 122)],
+                                [Color.fromARGB(255, 110, 205, 101)],
+                              ],
+                              inactiveBgColor: mainWhite,
+                              onToggle: (index) {
+                                setState(() {
+                                  _varA1 = index!;
+                                  _scoreAPGAR =
+                                      _varA1 + _varP + _varG + _varA2 + _varR;
+                                });
+                              },
+                              radiusStyle: true,
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Pulse",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Image.asset('assets/apgar_pulse.png', height: 100),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color(0xccbbbbbb),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          Image.asset('assets/apgar_pulse.png', height: 100),
-                          const SizedBox(height: 10),
-                          Container(
-                            width: double.maxFinite,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xccbbbbbb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5),
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double toggleWidth = (constraints.maxWidth - 2) / 3;
+                            return ToggleSwitch(
+                              dividerColor: Colors.grey,
+                              customWidths: [
+                                toggleWidth,
+                                toggleWidth,
+                                toggleWidth
                               ],
-                            ),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double toggleWidth =
-                                  (constraints.maxWidth - 2) / 3;
-                              return ToggleSwitch(
-                                dividerColor: Colors.grey,
-                                customWidths: [
-                                  toggleWidth,
-                                  toggleWidth,
-                                  toggleWidth
-                                ],
-                                cornerRadius: 10,
-                                initialLabelIndex: _varP,
-                                totalSwitches: 3,
-                                inactiveFgColor: const Color(0xccbbbbbb),
-                                labels: const [
-                                  'No pulse',
-                                  '<100 beats per minute',
-                                  '>100 beats per minute'
-                                ],
-                                customTextStyles: const [
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ],
-                                activeBgColors: const [
-                                  [Color.fromARGB(255, 184, 89, 89)],
-                                  [Color.fromARGB(255, 227, 208, 122)],
-                                  [Color.fromARGB(255, 110, 205, 101)],
-                                ],
-                                inactiveBgColor: mainWhite,
-                                onToggle: (index) {
-                                  setState(() {
-                                    _varP = index!;
-                                    _scoreAPGAR =
-                                        _varA1 + _varP + _varG + _varA2 + _varR;
-                                  });
-                                },
-                                radiusStyle: true,
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Grimace when stimulated",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              cornerRadius: 10,
+                              initialLabelIndex: _varP,
+                              totalSwitches: 3,
+                              inactiveFgColor: const Color(0xccbbbbbb),
+                              labels: const [
+                                'No pulse',
+                                '<100 beats per minute',
+                                '>100 beats per minute'
+                              ],
+                              customTextStyles: const [
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ],
+                              activeBgColors: const [
+                                [Color.fromARGB(255, 184, 89, 89)],
+                                [Color.fromARGB(255, 227, 208, 122)],
+                                [Color.fromARGB(255, 110, 205, 101)],
+                              ],
+                              inactiveBgColor: mainWhite,
+                              onToggle: (index) {
+                                setState(() {
+                                  _varP = index!;
+                                  _scoreAPGAR =
+                                      _varA1 + _varP + _varG + _varA2 + _varR;
+                                });
+                              },
+                              radiusStyle: true,
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Grimace when stimulated",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Image.asset('assets/apgar_grimace.png', height: 100),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color(0xccbbbbbb),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          Image.asset('assets/apgar_grimace.png', height: 100),
-                          const SizedBox(height: 10),
-                          Container(
-                            width: double.maxFinite,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xccbbbbbb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5),
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double toggleWidth = (constraints.maxWidth - 2) / 3;
+                            return ToggleSwitch(
+                              dividerColor: Colors.grey,
+                              customWidths: [
+                                toggleWidth,
+                                toggleWidth,
+                                toggleWidth
                               ],
-                            ),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double toggleWidth =
-                                  (constraints.maxWidth - 2) / 3;
-                              return ToggleSwitch(
-                                dividerColor: Colors.grey,
-                                customWidths: [
-                                  toggleWidth,
-                                  toggleWidth,
-                                  toggleWidth
-                                ],
-                                cornerRadius: 10,
-                                initialLabelIndex: _varG,
-                                totalSwitches: 3,
-                                inactiveFgColor: const Color(0xccbbbbbb),
-                                labels: const [
-                                  'No response',
-                                  'Grimace or feeble cry',
-                                  'Sneezing, coughing, or pulling away'
-                                ],
-                                customTextStyles: const [
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ],
-                                activeBgColors: const [
-                                  [Color.fromARGB(255, 184, 89, 89)],
-                                  [Color.fromARGB(255, 227, 208, 122)],
-                                  [Color.fromARGB(255, 110, 205, 101)],
-                                ],
-                                inactiveBgColor: mainWhite,
-                                onToggle: (index) {
-                                  setState(() {
-                                    _varG = index!;
-                                    _scoreAPGAR =
-                                        _varA1 + _varP + _varG + _varA2 + _varR;
-                                  });
-                                },
-                                radiusStyle: true,
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Activity",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              cornerRadius: 10,
+                              initialLabelIndex: _varG,
+                              totalSwitches: 3,
+                              inactiveFgColor: const Color(0xccbbbbbb),
+                              labels: const [
+                                'No response',
+                                'Grimace or feeble cry',
+                                'Sneezing, coughing, or pulling away'
+                              ],
+                              customTextStyles: const [
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ],
+                              activeBgColors: const [
+                                [Color.fromARGB(255, 184, 89, 89)],
+                                [Color.fromARGB(255, 227, 208, 122)],
+                                [Color.fromARGB(255, 110, 205, 101)],
+                              ],
+                              inactiveBgColor: mainWhite,
+                              onToggle: (index) {
+                                setState(() {
+                                  _varG = index!;
+                                  _scoreAPGAR =
+                                      _varA1 + _varP + _varG + _varA2 + _varR;
+                                });
+                              },
+                              radiusStyle: true,
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Activity",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Image.asset('assets/apgar_activity.png', height: 100),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color(0xccbbbbbb),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          Image.asset('assets/apgar_activity.png', height: 100),
-                          const SizedBox(height: 10),
-                          Container(
-                            width: double.maxFinite,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xccbbbbbb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5),
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double toggleWidth = (constraints.maxWidth - 2) / 3;
+                            return ToggleSwitch(
+                              dividerColor: Colors.grey,
+                              customWidths: [
+                                toggleWidth,
+                                toggleWidth,
+                                toggleWidth
                               ],
-                            ),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double toggleWidth =
-                                  (constraints.maxWidth - 2) / 3;
-                              return ToggleSwitch(
-                                dividerColor: Colors.grey,
-                                customWidths: [
-                                  toggleWidth,
-                                  toggleWidth,
-                                  toggleWidth
-                                ],
-                                cornerRadius: 10,
-                                initialLabelIndex: _varA2,
-                                totalSwitches: 3,
-                                inactiveFgColor: const Color(0xccbbbbbb),
-                                labels: const [
-                                  'No movement',
-                                  'Some movement',
-                                  'Active movement'
-                                ],
-                                customTextStyles: const [
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ],
-                                activeBgColors: const [
-                                  [Color.fromARGB(255, 184, 89, 89)],
-                                  [Color.fromARGB(255, 227, 208, 122)],
-                                  [Color.fromARGB(255, 110, 205, 101)],
-                                ],
-                                inactiveBgColor: mainWhite,
-                                onToggle: (index) {
-                                  setState(() {
-                                    _varA2 = index!;
-                                    _scoreAPGAR =
-                                        _varA1 + _varP + _varG + _varA2 + _varR;
-                                  });
-                                },
-                                radiusStyle: true,
-                              );
-                            }),
-                          ),
-                          const SizedBox(height: 15),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text(
-                                "Respirations",
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              cornerRadius: 10,
+                              initialLabelIndex: _varA2,
+                              totalSwitches: 3,
+                              inactiveFgColor: const Color(0xccbbbbbb),
+                              labels: const [
+                                'No movement',
+                                'Some movement',
+                                'Active movement'
+                              ],
+                              customTextStyles: const [
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ],
+                              activeBgColors: const [
+                                [Color.fromARGB(255, 184, 89, 89)],
+                                [Color.fromARGB(255, 227, 208, 122)],
+                                [Color.fromARGB(255, 110, 205, 101)],
+                              ],
+                              inactiveBgColor: mainWhite,
+                              onToggle: (index) {
+                                setState(() {
+                                  _varA2 = index!;
+                                  _scoreAPGAR =
+                                      _varA1 + _varP + _varG + _varA2 + _varR;
+                                });
+                              },
+                              radiusStyle: true,
+                            );
+                          }),
+                        ),
+                        const SizedBox(height: 15),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Text(
+                              "Respirations",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
                               ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 5),
+                        Image.asset('assets/apgar_respiration.png',
+                            height: 100),
+                        const SizedBox(height: 10),
+                        Container(
+                          width: double.maxFinite,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Color(0xccbbbbbb),
+                                  offset: Offset(0, 3),
+                                  blurRadius: 5),
                             ],
                           ),
-                          const SizedBox(height: 5),
-                          Image.asset('assets/apgar_respiration.png',
-                              height: 100),
-                          const SizedBox(height: 10),
-                          Container(
-                            width: double.maxFinite,
-                            height: 80,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xccbbbbbb),
-                                    offset: Offset(0, 3),
-                                    blurRadius: 5),
+                          child: LayoutBuilder(builder: (BuildContext context,
+                              BoxConstraints constraints) {
+                            double toggleWidth = (constraints.maxWidth - 2) / 3;
+                            return ToggleSwitch(
+                              dividerColor: Colors.grey,
+                              customWidths: [
+                                toggleWidth,
+                                toggleWidth,
+                                toggleWidth
                               ],
-                            ),
-                            child: LayoutBuilder(builder: (BuildContext context,
-                                BoxConstraints constraints) {
-                              double toggleWidth =
-                                  (constraints.maxWidth - 2) / 3;
-                              return ToggleSwitch(
-                                dividerColor: Colors.grey,
-                                customWidths: [
-                                  toggleWidth,
-                                  toggleWidth,
-                                  toggleWidth
-                                ],
-                                cornerRadius: 10,
-                                initialLabelIndex: _varR,
-                                totalSwitches: 3,
-                                inactiveFgColor: const Color(0xccbbbbbb),
-                                labels: const [
-                                  'No breathing',
-                                  'Weak, slow, or irregular breathing',
-                                  'Strong cry'
-                                ],
-                                customTextStyles: const [
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                  TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold),
-                                ],
-                                activeBgColors: const [
-                                  [Color.fromARGB(255, 184, 89, 89)],
-                                  [Color.fromARGB(255, 227, 208, 122)],
-                                  [Color.fromARGB(255, 110, 205, 101)],
-                                ],
-                                inactiveBgColor: mainWhite,
-                                onToggle: (index) {
-                                  setState(() {
-                                    _varR = index!;
-                                    _scoreAPGAR =
-                                        _varA1 + _varP + _varG + _varA2 + _varR;
-                                  });
-                                },
-                                radiusStyle: true,
-                              );
-                            }),
-                          ),
-                        ],
-                      ),
+                              cornerRadius: 10,
+                              initialLabelIndex: _varR,
+                              totalSwitches: 3,
+                              inactiveFgColor: const Color(0xccbbbbbb),
+                              labels: const [
+                                'No breathing',
+                                'Weak, slow, or irregular breathing',
+                                'Strong cry'
+                              ],
+                              customTextStyles: const [
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                                TextStyle(
+                                    fontSize: 12, fontWeight: FontWeight.bold),
+                              ],
+                              activeBgColors: const [
+                                [Color.fromARGB(255, 184, 89, 89)],
+                                [Color.fromARGB(255, 227, 208, 122)],
+                                [Color.fromARGB(255, 110, 205, 101)],
+                              ],
+                              inactiveBgColor: mainWhite,
+                              onToggle: (index) {
+                                setState(() {
+                                  _varR = index!;
+                                  _scoreAPGAR =
+                                      _varA1 + _varP + _varG + _varA2 + _varR;
+                                });
+                              },
+                              radiusStyle: true,
+                            );
+                          }),
+                        ),
+                      ],
                     ),
                   ),
                 ],

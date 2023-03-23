@@ -14,7 +14,15 @@ enum TimerStatus {
 
 // TIMER STAGE INFORMATION
 // Location of stage boundaries in seconds (0, 1, 2, 3, 4, 5, 10, 15 min)
-List<num> timerLocations = [0, 60, 120, 180, 240, 300, 600]; // Leaving off 900 seconds for now
+List<num> timerLocations = [
+  0,
+  60,
+  120,
+  180,
+  240,
+  300,
+  600
+]; // Leaving off 900 seconds for now
 List<num> timerLocations2 = [0, 60, 300];
 
 // nextStageLocation = timerLocation[index] + timerGap[index]

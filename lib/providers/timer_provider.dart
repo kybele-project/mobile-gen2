@@ -7,7 +7,6 @@ import 'package:vibration/vibration.dart';
 import 'package:kybele_gen2/metadata/metadata.dart';
 
 class TimerProvider with ChangeNotifier {
-
   late Timer _stopwatch;
 
   late bool _reset;
@@ -40,18 +39,18 @@ class TimerProvider with ChangeNotifier {
       _milliseconds += diff;
 
       _timerIndex = 0;
-      num nextCheckpoint = (timerLocations2[_timerIndex] +
-          timerGaps2[_timerIndex]) * 1000;
+      num nextCheckpoint =
+          (timerLocations2[_timerIndex] + timerGaps2[_timerIndex]) * 1000;
 
-      while ((_timerIndex < (timerLocations2.length - 1)) && (_milliseconds >= nextCheckpoint)) {
-
+      while ((_timerIndex < (timerLocations2.length - 1)) &&
+          (_milliseconds >= nextCheckpoint)) {
         _timerIndex += 1;
-        nextCheckpoint = (timerLocations2[_timerIndex] + timerGaps2[_timerIndex]) * 1000;
+        nextCheckpoint =
+            (timerLocations2[_timerIndex] + timerGaps2[_timerIndex]) * 1000;
       }
 
       timerActive();
-    }
-    else {
+    } else {
       _timerIndex = sharedPrefs.initInt(currTimerIndexKey, 0);
     }
   }
@@ -62,16 +61,14 @@ class TimerProvider with ChangeNotifier {
   bool get buttonsPause => ((_reset == false) && (_active == true));
   bool get buttonsContinueReset => ((_reset = false) && (_active == false));
 
-
   String fetchTime() {
-    int totalSeconds = (_milliseconds/1000).floor();
+    int totalSeconds = (_milliseconds / 1000).floor();
     int minutes = (totalSeconds / 60).floor();
     int seconds = totalSeconds % 60;
     return "${timerNumberFormat.format(minutes)}:${timerNumberFormat.format(seconds)}";
   }
 
   void setSharedPrefs() {
-
     sharedPrefs.changeBool(resetStatusKey, _reset);
     sharedPrefs.changeBool(activeStatusKey, _active);
     sharedPrefs.changeBool(resumedStatusKey, _resumed);
@@ -82,7 +79,7 @@ class TimerProvider with ChangeNotifier {
     sharedPrefs.changeInt(currTimeKey, DateTime.now().millisecondsSinceEpoch);
   }
 
-  Timer timerActive()  {
+  Timer timerActive() {
     return Timer.periodic(const Duration(milliseconds: 40), (timer) {
       _milliseconds += 40;
       setSharedPrefs();
@@ -134,8 +131,6 @@ class TimerProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
-
   void notificationSound(String audioString) {
     Vibration.vibrate(pattern: [0, 200, 200, 200, 200, 200]);
     FlutterRingtonePlayer.play(fromAsset: audioString);
@@ -143,8 +138,8 @@ class TimerProvider with ChangeNotifier {
 
   void updateMessageStatus() {
     if (_timerIndex < timerLocations2.length) {
-      num nextCheckpoint = (timerLocations2[_timerIndex] +
-          timerGaps2[_timerIndex]) * 1000;
+      num nextCheckpoint =
+          (timerLocations2[_timerIndex] + timerGaps2[_timerIndex]) * 1000;
 
       if (_milliseconds >= nextCheckpoint) {
         _timerIndex += 1;
@@ -177,5 +172,4 @@ class TimerProvider with ChangeNotifier {
 
     return currPos / end;
   }
-
 }

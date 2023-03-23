@@ -2,20 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/buttons/buttons.dart'
     show KWideButtonGradientLayer, KWideSolidButton;
 
-
 class ActionButtonLayer extends StatelessWidget {
   final bool hasBottomActionButton;
   final String? bottomButtonText;
   final Widget? bottomButtonMenuWidget;
   final Orientation orientation;
 
-  const ActionButtonLayer({
-    required this.hasBottomActionButton,
-    required this.bottomButtonText,
-    required this.bottomButtonMenuWidget,
-    required this.orientation,
-    super.key
-  });
+  const ActionButtonLayer(
+      {required this.hasBottomActionButton,
+      required this.bottomButtonText,
+      required this.bottomButtonMenuWidget,
+      required this.orientation,
+      super.key});
 
   @override
   Widget build(BuildContext context) {

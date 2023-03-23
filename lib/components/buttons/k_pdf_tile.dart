@@ -8,9 +8,7 @@ import 'package:kybele_gen2/models/models.dart';
 import 'package:flutter/services.dart';
 import 'package:pdfx/pdfx.dart';
 
-
 class KPdfTile extends StatelessWidget {
-
   final Document document;
   final IconData icon;
   final Color bkgColor;
@@ -25,7 +23,6 @@ class KPdfTile extends StatelessWidget {
   });
 
   Future<Uint8List> loadPdfImageBytes(BuildContext context) async {
-
     // Get default asset bundle to use to access files
     final AssetBundle assetBundle = DefaultAssetBundle.of(context);
 
@@ -35,19 +32,21 @@ class KPdfTile extends StatelessWidget {
     // Convert byte data into pdfx PdfDocument
     final ByteBuffer pdfByteBuffer = pdfByteData.buffer;
     PdfDocument doc = await PdfDocument.openData(
-      pdfByteBuffer.asUint8List(pdfByteData.offsetInBytes, pdfByteData.lengthInBytes),
+      pdfByteBuffer.asUint8List(
+          pdfByteData.offsetInBytes, pdfByteData.lengthInBytes),
     );
 
     // Get formatted image bytes from PdfDocument
     final page = await doc.getPage(1);
-    final Uint8List pageImageMemBytes = (await page.render(width: 850, height: 1100))!.bytes;
+    final Uint8List pageImageMemBytes =
+        (await page.render(width: 850, height: 1100))!.bytes;
     return pageImageMemBytes;
   }
 
   Widget imageThumbnail(BuildContext context) {
     return Center(
       child: AspectRatio(
-        aspectRatio: 4/3,
+        aspectRatio: 4 / 3,
         child: Container(
           color: Colors.white,
           child: FutureBuilder<Uint8List>(
@@ -55,22 +54,22 @@ class KPdfTile extends StatelessWidget {
               builder: (context, AsyncSnapshot<Uint8List> image) {
                 return image.hasData
                     ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                      fit: BoxFit.fitWidth,
-                      alignment: FractionalOffset.topCenter,
-                      image: MemoryImage(image.data!),
-                    ),
-                  ),
-                ) : Container(
-                    decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    );
-              }
-          ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          image: DecorationImage(
+                            fit: BoxFit.fitWidth,
+                            alignment: FractionalOffset.topCenter,
+                            image: MemoryImage(image.data!),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      );
+              }),
         ),
       ),
     );
@@ -81,14 +80,14 @@ class KPdfTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-            CupertinoPageRoute(builder: (context) =>
-                KPdfPage(
-                  document: document,
-                  icon: icon,
-                  iconColor: iconColor,
-                  bkgColor: bkgColor,
-                ),
+          CupertinoPageRoute(
+            builder: (context) => KPdfPage(
+              document: document,
+              icon: icon,
+              iconColor: iconColor,
+              bkgColor: bkgColor,
             ),
+          ),
         );
       },
       child: Container(

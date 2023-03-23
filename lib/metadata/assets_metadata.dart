@@ -4,13 +4,15 @@ List<Video> videoList = [
   Video(
     title: "Full Term Newborn",
     thumbnailPath: "assets/Fullterm_thumbnail.jpg",
-    videoPath: "https://www.youtube.com/watch?v=jwnkRmzsiEg&feature=youtu.be&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
+    videoPath:
+        "https://www.youtube.com/watch?v=jwnkRmzsiEg&feature=youtu.be&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
     videoLength: 8,
   ),
   Video(
     title: "Preterm Newborn",
     thumbnailPath: "assets/Preterm_thumbnail.jpg",
-    videoPath: "https://www.youtube.com/watch?v=uuP-TmIBIfk&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
+    videoPath:
+        "https://www.youtube.com/watch?v=uuP-TmIBIfk&ab_channel=NeonatalResuscitationProgramGhanaGHS_Kybele",
     videoLength: 8,
   ),
 ];

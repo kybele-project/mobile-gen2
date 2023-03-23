@@ -12,7 +12,6 @@ import 'record.dart';
 import 'tables.dart';
 import 'videos.dart';
 
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -48,8 +47,10 @@ class HomePage extends StatelessWidget {
                                   color: mainMediumPurple,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
-                                padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: const Text("NRP MODULE",
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                                child: const Text(
+                                  "NRP MODULE",
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.white,
@@ -82,7 +83,8 @@ class HomePage extends StatelessWidget {
                       labelColor: apgarIconColor,
                       iconData: apgarIcon,
                       header: 'APGAR Score',
-                      page: const Framework(child: APGARCalculator2(simVariant: false)),
+                      page: const Framework(
+                          child: APGARCalculator2(simVariant: false)),
                     ),
                     KTile(
                       bkgColor: algorithmBkgColor,
@@ -119,15 +121,18 @@ class HomePage extends StatelessWidget {
                       header: 'Videos',
                       page: const Framework(child: Videos()),
                     ),
-
                   ],
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
                       const SizedBox(height: 20),
-                      const Text("Powered by ClinicPal, LLC", style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
-                      Text("Made with ❤️ in the USA", style: TextStyle(fontSize: 14, color: Colors.grey.shade600)),
+                      const Text("Powered by ClinicPal, LLC",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400)),
+                      Text("Made with ❤️ in the USA",
+                          style: TextStyle(
+                              fontSize: 14, color: Colors.grey.shade600)),
                       const SizedBox(height: 40),
                     ],
                   ),

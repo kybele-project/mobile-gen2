@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/scaffold/layers/layers.dart';
 
 class KScaffold extends StatelessWidget {
-
   // Options
   final bool isDraggable;
   final bool startExpanded;
@@ -155,48 +154,46 @@ class KScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: OrientationBuilder(
-        builder: (context, orientation) {
-          return Stack(
-            children: [
-              TimerBackgroundLayer(
-                isDraggable: isDraggable,
+      child: OrientationBuilder(builder: (context, orientation) {
+        return Stack(
+          children: [
+            TimerBackgroundLayer(
+              isDraggable: isDraggable,
+              orientation: orientation,
+            ),
+            SafeArea(
+              bottom: false,
+              child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return ContentLayer(
+                    isDraggable: isDraggable,
+                    startExpanded: startExpanded,
+                    hasHeader: hasHeader,
+                    hasHeaderIcon: hasHeaderIcon,
+                    hasHeaderClose: hasHeaderClose,
+                    headerIcon: headerIcon,
+                    headerIconColor: headerIconColor,
+                    headerIconBkgColor: headerIconBkgColor,
+                    headerText: headerText,
+                    bodyWidget: bodyWidget,
+                    heightConstraint: constraints.maxHeight,
+                    orientation: orientation,
+                  );
+                },
+              ),
+            ),
+            SafeArea(
+              bottom: false,
+              child: ActionButtonLayer(
+                hasBottomActionButton: hasBottomActionButton,
+                bottomButtonText: bottomButtonText,
+                bottomButtonMenuWidget: bottomButtonMenuWidget,
                 orientation: orientation,
               ),
-              SafeArea(
-                bottom: false,
-                child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                    return ContentLayer(
-                      isDraggable: isDraggable,
-                      startExpanded: startExpanded,
-                      hasHeader: hasHeader,
-                      hasHeaderIcon: hasHeaderIcon,
-                      hasHeaderClose: hasHeaderClose,
-                      headerIcon: headerIcon,
-                      headerIconColor: headerIconColor,
-                      headerIconBkgColor: headerIconBkgColor,
-                      headerText: headerText,
-                      bodyWidget: bodyWidget,
-                      heightConstraint: constraints.maxHeight,
-                      orientation: orientation,
-                    );
-                  },
-                ),
-              ),
-              SafeArea(
-                bottom: false,
-                child: ActionButtonLayer(
-                  hasBottomActionButton: hasBottomActionButton,
-                  bottomButtonText: bottomButtonText,
-                  bottomButtonMenuWidget: bottomButtonMenuWidget,
-                  orientation: orientation,
-                ),
-              ),
-            ],
-          );
-        }
-      ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

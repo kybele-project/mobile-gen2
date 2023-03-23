@@ -7,13 +7,13 @@ import 'package:sqflite/sqflite.dart';
 import '../models/event.dart';
 
 class RecordDatabase {
-
   static Database? _recordDatabase;
   static const eventsTable = 'events';
 
-  Future<Database> get database async => _recordDatabase ??= await initDatabase();
+  Future<Database> get database async =>
+      _recordDatabase ??= await initDatabase();
 
-  Future<Database> initDatabase() async{
+  Future<Database> initDatabase() async {
     io.Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, 'record.db');
     var db = await openDatabase(path, version: 1, onCreate: _onCreate);
@@ -21,8 +21,7 @@ class RecordDatabase {
   }
 
   _onCreate(Database db, int version) async {
-    await db.execute(
-        """
+    await db.execute("""
         CREATE TABLE $eventsTable(
             category TEXT NOT NULL,
             header TEXT NOT NULL,
@@ -33,14 +32,15 @@ class RecordDatabase {
             status INT NOT NULL,
             primaryKey TEXT PRIMARY KEY
         )
-        """
-    );
+        """);
   }
 
   Future<void> insertEvent(Event event) async {
     var dbClient = await database;
 
-    await dbClient.insert(eventsTable, event.toMap(),
+    await dbClient.insert(
+      eventsTable,
+      event.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -61,7 +61,8 @@ class RecordDatabase {
 
   Future<List<Event>> getEventList() async {
     var dbClient = await database;
-    final List<Map<String, Object?>> queryResult = await dbClient.query(eventsTable);
+    final List<Map<String, Object?>> queryResult =
+        await dbClient.query(eventsTable);
     return queryResult.map((result) => Event.fromMap(result)).toList();
   }
 }

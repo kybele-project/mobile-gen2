@@ -14,7 +14,6 @@ import 'package:share_plus/share_plus.dart' show Share, XFile;
 import 'package:pdfx/pdfx.dart';
 
 class KPdfPage extends StatefulWidget {
-
   final Document document;
   final IconData icon;
   final Color bkgColor;
@@ -33,7 +32,6 @@ class KPdfPage extends StatefulWidget {
 }
 
 class KPdfPageState extends State<KPdfPage> {
-
   void shareFile() async {
     // Access document byte data using default asset bundle
     final ByteData pdfByteData = await rootBundle.load(widget.document.path);
@@ -68,7 +66,6 @@ class KPdfPageState extends State<KPdfPage> {
           PdfViewPinch(
             controller: pdfController,
           ),
-          // TODO: Redo button to eliminate word SHARE
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 20, 20),
             child: KLargeButton(
@@ -85,7 +82,6 @@ class KPdfPageState extends State<KPdfPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return KScaffold.fixedWithHeader(
       hasHeaderIcon: true,
       hasHeaderClose: true,

@@ -4,9 +4,7 @@ import 'package:kybele_gen2/components/body/body.dart' show KPdfGrid;
 import 'package:kybele_gen2/metadata/metadata.dart' show formsList;
 import 'package:kybele_gen2/style/style.dart';
 
-
 class Forms extends StatelessWidget {
-
   const Forms({super.key});
 
   @override

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/scaffold/scaffold.dart';
 import 'package:kybele_gen2/style/style.dart';
 
-
 class NRPTable extends StatefulWidget {
   const NRPTable({super.key});
 
@@ -80,38 +79,37 @@ class _NRPTableDiagramState extends State<NRPTable>
 
     return Expanded(
         child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
-              width: double.maxFinite,
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                      bottom: BorderSide(
-                        color: Color(0xffeaeaea),
-                        width: 1,
-                      ))),
-              child: Column(
-                children: [
-                  TabBar(
-                    controller: _tabController,
-                    labelStyle:
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
+          width: double.maxFinite,
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              border: Border(
+                  bottom: BorderSide(
+                color: Color(0xffeaeaea),
+                width: 1,
+              ))),
+          child: Column(
+            children: [
+              TabBar(
+                controller: _tabController,
+                labelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    unselectedLabelStyle:
+                unselectedLabelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.grey[600],
-                    tabs: nrpTabs,
-                  ),
-                ],
+                labelColor: Colors.black,
+                unselectedLabelColor: Colors.grey[600],
+                tabs: nrpTabs,
               ),
-            ),
-            tabBodies[_activeTabIndex],
-          ],
-        ));
+            ],
+          ),
+        ),
+        tabBodies[_activeTabIndex],
+      ],
+    ));
   }
 }
-
 
 class TablesPages extends StatelessWidget {
   const TablesPages({super.key});

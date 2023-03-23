@@ -1,5 +1,4 @@
 class Document {
-
   final String title;
   final String path;
   final int length;
@@ -9,5 +8,4 @@ class Document {
     required this.path,
     required this.length,
   });
-
 }

@@ -5,9 +5,9 @@ class Video {
   final int videoLength;
 
   Video({
-      required this.title,
-      required this.thumbnailPath,
-      required this.videoPath,
-      required this.videoLength,
+    required this.title,
+    required this.thumbnailPath,
+    required this.videoPath,
+    required this.videoLength,
   });
 }

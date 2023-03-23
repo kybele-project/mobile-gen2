@@ -1,21 +1,19 @@
 import 'package:flutter/cupertino.dart';
 
 class KColorfulButton extends StatelessWidget {
-
   final Color bkgColor;
   final Color labelColor;
   final IconData icon;
   final String header;
   final Widget page;
 
-  const KColorfulButton({
-    required this.bkgColor,
-    required this.labelColor,
-    required this.icon,
-    required this.header,
-    required this.page,
-    super.key
-  });
+  const KColorfulButton(
+      {required this.bkgColor,
+      required this.labelColor,
+      required this.icon,
+      required this.header,
+      required this.page,
+      super.key});
 
   @override
   Widget build(BuildContext context) {

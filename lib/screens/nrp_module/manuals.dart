@@ -4,11 +4,8 @@ import 'package:kybele_gen2/components/body/body.dart' show KPdfGrid;
 import 'package:kybele_gen2/metadata/metadata.dart' show manualsList;
 import 'package:kybele_gen2/style/style.dart';
 
-
 class Manuals extends StatelessWidget {
-  const Manuals({
-    super.key
-  });
+  const Manuals({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +14,10 @@ class Manuals extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: KPdfGrid(
-          documentList: manualsList,
-          icon: manualsIcon,
-          bkgColor: manualsBkgColor,
-          iconColor: manualsIconColor,
+        documentList: manualsList,
+        icon: manualsIcon,
+        bkgColor: manualsBkgColor,
+        iconColor: manualsIconColor,
       ),
       headerText: "Educational Manuals",
       headerIcon: manualsIcon,

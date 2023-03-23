@@ -4,7 +4,6 @@ import 'package:kybele_gen2/metadata/assets_metadata.dart';
 import 'package:kybele_gen2/screens/nrp_module/video_page.dart';
 import 'package:kybele_gen2/style/style.dart';
 
-
 class Videos extends StatelessWidget {
   const Videos({super.key});
 

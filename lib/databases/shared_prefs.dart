@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefs {
-
   late SharedPreferences _sharedPrefs;
 
   init() async {
@@ -9,11 +8,15 @@ class SharedPrefs {
   }
 
   initBool(key, defaultBool) {
-    return _sharedPrefs.containsKey(key) ? _sharedPrefs.getBool(key)! : defaultBool;
+    return _sharedPrefs.containsKey(key)
+        ? _sharedPrefs.getBool(key)!
+        : defaultBool;
   }
 
   initInt(key, defaultInt) {
-    return _sharedPrefs.containsKey(key) ? _sharedPrefs.getInt(key)! : defaultInt;
+    return _sharedPrefs.containsKey(key)
+        ? _sharedPrefs.getInt(key)!
+        : defaultInt;
   }
 
   changeBool(key, value) {

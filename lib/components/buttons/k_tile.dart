@@ -1,9 +1,7 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kybele_gen2/style/style.dart';
 
 class KTile extends StatelessWidget {
-
   final Color bkgColor;
   final Color labelColor;
   final IconData iconData;
@@ -44,7 +42,8 @@ class KTile extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               header,
-              style: homeLabelTextStyle.merge(TextStyle(color: labelColor, fontSize: 14)),
+              style: homeLabelTextStyle
+                  .merge(TextStyle(color: labelColor, fontSize: 14)),
               textAlign: TextAlign.center,
             ),
           ],

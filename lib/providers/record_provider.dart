@@ -4,7 +4,6 @@ import '../databases/record_database.dart';
 import '../models/event.dart';
 
 class RecordProvider with ChangeNotifier {
-
   RecordDatabase db = RecordDatabase();
   List<Event> events = [];
 

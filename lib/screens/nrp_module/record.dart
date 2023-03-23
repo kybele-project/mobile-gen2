@@ -8,9 +8,6 @@ import 'package:kybele_gen2/style/style.dart';
 
 import 'oxygen_saturation.dart';
 
-
-
-
 class RecordPages extends StatelessWidget {
   const RecordPages({super.key});
 
@@ -46,14 +43,16 @@ class RecordPages extends StatelessWidget {
                 labelColor: apgarIconColor,
                 icon: apgarIcon,
                 header: 'APGAR Score',
-                page: const Framework(child: APGARCalculator2(simVariant: true))),
+                page:
+                    const Framework(child: APGARCalculator2(simVariant: true))),
             const SizedBox(height: 20),
             KColorfulButton(
                 bkgColor: oxygenSatBkgColor,
                 labelColor: oxygenSatIconColor,
                 icon: oxySatIcon,
                 header: 'Oxygen Saturation',
-                page: const Framework(child: OxygenSaturation(simVariant: true))),
+                page:
+                    const Framework(child: OxygenSaturation(simVariant: true))),
             const SizedBox(height: 20),
             GestureDetector(
                 onTap: () => {Navigator.pop(context)},
