@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 
 import '../../style/colors.dart';
 
-class TimerLargeButton extends StatelessWidget {
+class KLargeButton extends StatelessWidget {
 
   final VoidCallback actionFunction;
   final IconData iconData;
   final String label;
+  final Color color;
 
-  const TimerLargeButton({
+  const KLargeButton({
     super.key,
     required this.actionFunction,
     required this.iconData,
     required this.label,
+    this.color = const Color(0xff9F97E3), // mainLightPurple
   });
 
   @override
@@ -24,7 +26,7 @@ class TimerLargeButton extends StatelessWidget {
         width: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
-            color: mainLightPurple,
+            color: color,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

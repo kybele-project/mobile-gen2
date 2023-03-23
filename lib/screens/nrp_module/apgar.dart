@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:kybele_gen2/providers/kybele_providers.dart';
-
+import 'package:kybele_gen2/components/buttons/buttons.dart';
+import 'package:kybele_gen2/components/customtoggleswitch.dart';
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
+import 'package:kybele_gen2/components/timeline.dart';
+import 'package:kybele_gen2/databases/databases.dart';
+import 'package:kybele_gen2/models/models.dart';
+import 'package:kybele_gen2/providers/providers.dart';
 import 'package:provider/provider.dart';
+import 'package:kybele_gen2/style/style.dart';
 
-import '../components/buttons/buttons.dart';
-import '../components/timeline.dart';
-import '../databases/record_database.dart';
-import '../models/event.dart';
-import '../components/customtoggleswitch.dart';
-import '../style/colors.dart';
-import '../style/style.dart';
-import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';
+
 
 class APGARCalculator2 extends StatefulWidget {
   final bool simVariant;
@@ -57,7 +56,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
   @override
   Widget build(BuildContext context) {
     if (widget.simVariant) {
-      return KybelePage.draggableWithHeader(
+      return KScaffold.draggableWithHeader(
         startExpanded: false,
         hasBottomActionButton: true,
         hasHeaderIcon: true,
@@ -79,8 +78,9 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
           r: _varR,
         ),
       );
-    } else {
-      return KybelePage.draggableWithHeader(
+    }
+    else {
+      return KScaffold.draggableWithHeader(
         startExpanded: false,
         hasBottomActionButton: false,
         hasHeaderIcon: true,
@@ -150,7 +150,7 @@ class _APGARCalculatorState2 extends State<APGARCalculator2> {
               recordProvider.addEvent(apgarEvent);
               Navigator.pop(context);
             },
-            child: const KybeleSolidButton("Log APGAR score"),
+            child: const KWideSolidButton(label: "Log APGAR score"),
           ),
           const SizedBox(height: 20),
           GestureDetector(
@@ -765,7 +765,7 @@ class _APGARMenuState extends State<APGARMenu> {
                 Navigator.pop(context);
                 Navigator.pop(context);
               },
-              child: const KybeleSolidButton("Log APGAR score"),
+              child: const KWideSolidButton(label: "Log APGAR score"),
             ),
             const SizedBox(height: 20),
             GestureDetector(

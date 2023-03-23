@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/templates/page/layers/page_layers.dart';
+import 'package:kybele_gen2/components/scaffold/layers/layers.dart';
 
-class KybelePage extends StatelessWidget {
+class KScaffold extends StatelessWidget {
+
   // Options
   final bool isDraggable;
   final bool startExpanded;
@@ -22,7 +23,7 @@ class KybelePage extends StatelessWidget {
   final Widget? bottomButtonMenuWidget;
 
   // Big Constructor
-  const KybelePage({
+  const KScaffold({
     required this.isDraggable,
     required this.hasHeader,
     required this.hasHeaderIcon,
@@ -55,7 +56,7 @@ class KybelePage extends StatelessWidget {
                 ((hasBottomActionButton == false)),
             "Bottom action button activated but not all associated parameters defined");
 
-  const KybelePage.fixedWithHeader({
+  const KScaffold.fixedWithHeader({
     required hasHeaderIcon,
     required hasHeaderClose,
     required hasBottomActionButton,
@@ -83,7 +84,7 @@ class KybelePage extends StatelessWidget {
           key: key,
         );
 
-  const KybelePage.draggableWithHeader({
+  const KScaffold.draggableWithHeader({
     required hasHeaderIcon,
     required hasHeaderClose,
     required hasBottomActionButton,
@@ -113,7 +114,7 @@ class KybelePage extends StatelessWidget {
           key: key,
         );
 
-  const KybelePage.fixedNoHeader({
+  const KScaffold.fixedNoHeader({
     required hasBottomActionButton,
     required bodyWidget,
     bottomButtonText,
@@ -131,7 +132,7 @@ class KybelePage extends StatelessWidget {
           key: key,
         );
 
-  const KybelePage.draggableNoHeader({
+  const KScaffold.draggableNoHeader({
     required startExpanded,
     required hasBottomActionButton,
     required bodyWidget,
@@ -154,49 +155,47 @@ class KybelePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-        children: [
-          OrientationBuilder(builder: (context, orientation) {
-            return TimerBackgroundLayer(
-              isDraggable: isDraggable,
-              orientation: orientation,
-            );
-          }),
-          SafeArea(
-            bottom: false,
-            child: OrientationBuilder(
-                builder: (BuildContext context, Orientation orientation) {
-              return LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                return ContentLayer(
-                  isDraggable: isDraggable,
-                  startExpanded: startExpanded,
-                  hasHeader: hasHeader,
-                  hasHeaderIcon: hasHeaderIcon,
-                  hasHeaderClose: hasHeaderClose,
-                  headerIcon: headerIcon,
-                  headerIconColor: headerIconColor,
-                  headerIconBkgColor: headerIconBkgColor,
-                  headerText: headerText,
-                  bodyWidget: bodyWidget,
-                  heightConstraint: constraints.maxHeight,
-                  orientation: orientation,
-                );
-              });
-            }),
-          ),
-          OrientationBuilder(builder: ((context, orientation) {
-            return SafeArea(
-              bottom: false,
-              child: ActionButtonLayer(
-                hasBottomActionButton: hasBottomActionButton,
-                bottomButtonText: bottomButtonText,
-                bottomButtonMenuWidget: bottomButtonMenuWidget,
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          return Stack(
+            children: [
+              TimerBackgroundLayer(
+                isDraggable: isDraggable,
                 orientation: orientation,
               ),
-            );
-          })),
-        ],
+              SafeArea(
+                bottom: false,
+                child: LayoutBuilder(
+                  builder: (BuildContext context, BoxConstraints constraints) {
+                    return ContentLayer(
+                      isDraggable: isDraggable,
+                      startExpanded: startExpanded,
+                      hasHeader: hasHeader,
+                      hasHeaderIcon: hasHeaderIcon,
+                      hasHeaderClose: hasHeaderClose,
+                      headerIcon: headerIcon,
+                      headerIconColor: headerIconColor,
+                      headerIconBkgColor: headerIconBkgColor,
+                      headerText: headerText,
+                      bodyWidget: bodyWidget,
+                      heightConstraint: constraints.maxHeight,
+                      orientation: orientation,
+                    );
+                  },
+                ),
+              ),
+              SafeArea(
+                bottom: false,
+                child: ActionButtonLayer(
+                  hasBottomActionButton: hasBottomActionButton,
+                  bottomButtonText: bottomButtonText,
+                  bottomButtonMenuWidget: bottomButtonMenuWidget,
+                  orientation: orientation,
+                ),
+              ),
+            ],
+          );
+        }
       ),
     );
   }

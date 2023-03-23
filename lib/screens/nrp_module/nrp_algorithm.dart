@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import '../style/colors.dart';
-import '../style/icons.dart';
-import '../templates/page/page.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-TextTheme menuText = GoogleFonts.ptSansTextTheme();
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
+import 'package:kybele_gen2/style/style.dart';
 
 class NRPCodedDiagram extends StatefulWidget {
   const NRPCodedDiagram({super.key});
@@ -120,7 +116,7 @@ class NRPPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.fixedWithHeader(
+    return KScaffold.fixedWithHeader(
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,

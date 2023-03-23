@@ -1,13 +1,15 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/components/buttons/buttons.dart'
+  show KLargeButton, KSmallButton;
 import 'package:kybele_gen2/models/event.dart';
-import 'package:kybele_gen2/providers/kybele_providers.dart';
+import 'package:kybele_gen2/providers/providers.dart';
 import 'package:kybele_gen2/style/style.dart';
 import 'package:provider/provider.dart';
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:kybele_gen2/components/buttons/buttons.dart';
 
 class ContentLayer extends StatefulWidget {
+
   // Draggable
   final bool isDraggable;
   final bool startExpanded;
@@ -50,6 +52,7 @@ class ContentLayer extends StatefulWidget {
 
 class _ContentLayerState extends State<ContentLayer>
     with SingleTickerProviderStateMixin {
+
   // height animation vars
   late double startHeightFactor;
   late double endHeightFactor;
@@ -82,7 +85,6 @@ class _ContentLayerState extends State<ContentLayer>
         startHeightFactor = ratio;
         endHeightFactor = 0.5;
       }
-
     }
 
     else {
@@ -90,7 +92,6 @@ class _ContentLayerState extends State<ContentLayer>
       startHeightFactor = (80 / widget.heightConstraint);
       endHeightFactor = (80 / widget.heightConstraint);
     }
-
 
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 100));
@@ -238,18 +239,15 @@ class _ContentLayerState extends State<ContentLayer>
     return Consumer<TimerProvider>(builder: (context, provider, widget) {
       if (provider.buttonsStart) {
         return _animationActive
-            ? TimerSmallButton(actionFunction: startActions, iconData: playIcon)
-            : TimerLargeButton(
+            ? KSmallButton(actionFunction: startActions, iconData: playIcon)
+            : KLargeButton(
                 actionFunction: startActions,
                 iconData: playIcon,
                 label: "START");
       } else if (provider.buttonsPause) {
         return _animationActive
-            ? TimerSmallButton(
-                actionFunction: pauseActions,
-                iconData: pauseIcon,
-              )
-            : TimerLargeButton(
+            ? KSmallButton(actionFunction: pauseActions, iconData: pauseIcon)
+            : KLargeButton(
                 actionFunction: pauseActions,
                 iconData: pauseIcon,
                 label: "PAUSE");
@@ -259,11 +257,9 @@ class _ContentLayerState extends State<ContentLayer>
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TimerSmallButton(
-                  actionFunction: continueActions, iconData: playIcon),
+              KSmallButton(actionFunction: continueActions, iconData: playIcon),
               const SizedBox(width: 30),
-              TimerSmallButton(
-                  actionFunction: resetActions, iconData: stopIcon),
+              KSmallButton(actionFunction: resetActions, iconData: stopIcon),
             ],
           );
         } else {
@@ -271,12 +267,12 @@ class _ContentLayerState extends State<ContentLayer>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              TimerLargeButton(
+              KLargeButton(
                 actionFunction: continueActions,
                 iconData: playIcon,
                 label: "RESUME",
               ),
-              TimerLargeButton(
+              KLargeButton(
                 actionFunction: resetActions,
                 iconData: stopIcon,
                 label: "STOP",
@@ -312,7 +308,8 @@ class _ContentLayerState extends State<ContentLayer>
           ],
         ),
       );
-    } else {
+    }
+    else {
       return SingleChildScrollView(
         physics: const NeverScrollableScrollPhysics(),
         child: Container(
@@ -391,25 +388,30 @@ class _ContentLayerState extends State<ContentLayer>
                       ),
                       const SizedBox(width: 15),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.headerText!,
-                            style: contentHeaderTextStyle,
-                          ),
-                        ],
-                      ),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AutoSizeText(
+                              widget.headerText!,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
+                              overflow: TextOverflow.fade,
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                   widget.hasHeaderClose
-                      ? GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.close_rounded),
-                        )
-                      : Container(),
+                        ? GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Icon(Icons.close_rounded),
+                          )
+                        : Container(),
                 ],
               ),
             ),

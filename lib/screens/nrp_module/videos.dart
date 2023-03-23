@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:kybele_gen2/screens/video_page.dart';
-import '../style/colors.dart';
-import '../style/style.dart';
-import '../templates/page/page.dart';
-import '../databases/modules.dart';
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
+import 'package:kybele_gen2/metadata/assets_metadata.dart';
+import 'package:kybele_gen2/screens/nrp_module/video_page.dart';
+import 'package:kybele_gen2/style/style.dart';
 
-class VideosPages extends StatelessWidget {
-  const VideosPages({super.key});
+
+class Videos extends StatelessWidget {
+  const Videos({super.key});
 
   Widget body() {
     return Expanded(
@@ -25,7 +25,7 @@ class VideosPages extends StatelessWidget {
                   ctx,
                   MaterialPageRoute(
                       builder: (context) => TutorialPage(
-                            Video.videoList[index],
+                            videoList[index],
                             index,
                           )),
                 );
@@ -33,12 +33,12 @@ class VideosPages extends StatelessWidget {
               child: Column(children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Image.asset(Video.videoList[index].thumbnailPath!),
+                  child: Image.asset(videoList[index].thumbnailPath),
                 ),
                 SizedBox(
                     width: 225,
                     child: Text(
-                      Video.videoList[index].videoTitle!,
+                      videoList[index].title,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w100),
                       textAlign: TextAlign.left,
@@ -46,7 +46,7 @@ class VideosPages extends StatelessWidget {
                 SizedBox(
                     width: 225,
                     child: Text(
-                      "${Video.videoList[index].videoLength} mins",
+                      "${videoList[index].videoLength} mins",
                       style: const TextStyle(
                           fontSize: 12, fontWeight: FontWeight.w100),
                       textAlign: TextAlign.left,
@@ -59,7 +59,7 @@ class VideosPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.fixedWithHeader(
+    return KScaffold.fixedWithHeader(
       hasHeaderIcon: true,
       hasHeaderClose: true,
       hasBottomActionButton: false,

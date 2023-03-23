@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import '../style/style.dart';
-import '../templates/page/page.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
+import 'package:kybele_gen2/style/style.dart';
 
-TextTheme menuText = GoogleFonts.ptSansTextTheme();
 
-class NRPCodedDiagram extends StatefulWidget {
-  const NRPCodedDiagram({super.key});
+class NRPTable extends StatefulWidget {
+  const NRPTable({super.key});
 
   @override
-  State<NRPCodedDiagram> createState() => _NRPCodedDiagramState();
+  State<NRPTable> createState() => _NRPTableDiagramState();
 }
 
-class _NRPCodedDiagramState extends State<NRPCodedDiagram>
-      with SingleTickerProviderStateMixin {
+class _NRPTableDiagramState extends State<NRPTable>
+    with SingleTickerProviderStateMixin {
   static const List<Tab> nrpTabs = <Tab>[
-    Tab(text: 'Corrective Steps'),
+    Tab(text: 'Ventilation'),
     Tab(text: 'Target Oxygen'),
   ];
 
@@ -82,35 +80,35 @@ class _NRPCodedDiagramState extends State<NRPCodedDiagram>
 
     return Expanded(
         child: Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
-          width: double.maxFinite,
-          decoration: const BoxDecoration(
-              color: Colors.white,
-              border: Border(
-                  bottom: BorderSide(
-                color: Color(0xffeaeaea),
-                width: 1,
-              ))),
-          child: Column(
-            children: [
-              TabBar(
-                controller: _tabController,
-                labelStyle:
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(0, 0, 00, 0),
+              width: double.maxFinite,
+              decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                      bottom: BorderSide(
+                        color: Color(0xffeaeaea),
+                        width: 1,
+                      ))),
+              child: Column(
+                children: [
+                  TabBar(
+                    controller: _tabController,
+                    labelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                unselectedLabelStyle:
+                    unselectedLabelStyle:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                labelColor: Colors.black,
-                unselectedLabelColor: Colors.grey[600],
-                tabs: nrpTabs,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey[600],
+                    tabs: nrpTabs,
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
-        tabBodies[_activeTabIndex],
-      ],
-    ));
+            ),
+            tabBodies[_activeTabIndex],
+          ],
+        ));
   }
 }
 
@@ -120,11 +118,11 @@ class TablesPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.fixedWithHeader(
+    return KScaffold.fixedWithHeader(
       hasHeaderClose: true,
       hasHeaderIcon: true,
       hasBottomActionButton: false,
-      bodyWidget: const NRPCodedDiagram(),
+      bodyWidget: const NRPTable(),
       headerText: "Tables",
       headerIcon: tablesIcon,
       headerIconBkgColor: tablesBkgColor,

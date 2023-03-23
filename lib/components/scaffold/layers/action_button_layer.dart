@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/components/buttons/buttons.dart'
+    show KWideButtonGradientLayer, KWideSolidButton;
 
-import '../../../components/buttons/buttons.dart';
 
 class ActionButtonLayer extends StatelessWidget {
   final bool hasBottomActionButton;
@@ -8,12 +9,13 @@ class ActionButtonLayer extends StatelessWidget {
   final Widget? bottomButtonMenuWidget;
   final Orientation orientation;
 
-  const ActionButtonLayer(
-      {required this.hasBottomActionButton,
-      required this.bottomButtonText,
-      required this.bottomButtonMenuWidget,
-      required this.orientation,
-      super.key});
+  const ActionButtonLayer({
+    required this.hasBottomActionButton,
+    required this.bottomButtonText,
+    required this.bottomButtonMenuWidget,
+    required this.orientation,
+    super.key
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class ActionButtonLayer extends StatelessWidget {
       return Stack(
         alignment: Alignment.center,
         children: [
-          const KybeleButtonGradientLayer(),
+          const KWideButtonGradientLayer(),
           Positioned(
             bottom: 20,
             child: GestureDetector(
@@ -39,7 +41,7 @@ class ActionButtonLayer extends StatelessWidget {
                       return bottomButtonMenuWidget!;
                     });
               },
-              child: KybeleSolidButton(bottomButtonText!),
+              child: KWideSolidButton(label: bottomButtonText!),
             ),
           ),
         ],
