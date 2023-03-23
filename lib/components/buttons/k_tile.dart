@@ -44,7 +44,7 @@ class KTile extends StatelessWidget {
             const SizedBox(height: 20),
             Text(
               header,
-              style: homeLabelTextStyle.merge(TextStyle(color: labelColor, fontSize: 18)),
+              style: homeLabelTextStyle.merge(TextStyle(color: labelColor, fontSize: 14)),
               textAlign: TextAlign.center,
             ),
           ],
