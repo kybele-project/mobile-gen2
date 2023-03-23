@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:kybele_gen2/style/style.dart';
 
-class KybeleTile extends StatelessWidget {
+class KTile extends StatelessWidget {
 
   final Color bkgColor;
   final Color labelColor;
@@ -10,7 +10,7 @@ class KybeleTile extends StatelessWidget {
   final String header;
   final Widget page;
 
-  const KybeleTile({
+  const KTile({
     super.key,
     required this.bkgColor,
     required this.labelColor,

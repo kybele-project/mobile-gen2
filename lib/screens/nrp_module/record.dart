@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:kybele_gen2/components/buttons/buttons.dart';
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
 import 'package:kybele_gen2/components/timeline.dart';
-import 'package:kybele_gen2/screens/apgar.dart';
+import 'package:kybele_gen2/main.dart';
+import 'package:kybele_gen2/screens/nrp_module/apgar.dart';
+import 'package:kybele_gen2/style/style.dart';
 
-import '../components/buttons/buttons.dart';
-import '../main.dart';
-import '../style/colors.dart';
-import '../style/style.dart';
-import '../templates/page/page.dart';
 import 'oxygen_saturation.dart';
+
+
+
 
 class RecordPages extends StatelessWidget {
   const RecordPages({super.key});
@@ -39,23 +41,23 @@ class RecordPages extends StatelessWidget {
                     fontSize: 22,
                     fontWeight: FontWeight.bold)),
             const SizedBox(height: 20),
-            KybeleColorfulButton(
-                apgarBkgColor,
-                apgarIconColor,
-                apgarIcon,
-                'APGAR Score',
-                const Framework(child: APGARCalculator2(simVariant: true))),
+            KColorfulButton(
+                bkgColor: apgarBkgColor,
+                labelColor: apgarIconColor,
+                icon: apgarIcon,
+                header: 'APGAR Score',
+                page: const Framework(child: APGARCalculator2(simVariant: true))),
             const SizedBox(height: 20),
-            KybeleColorfulButton(
-                oxygenSatBkgColor,
-                oxygenSatIconColor,
-                oxySatIcon,
-                'Oxygen Saturation',
-                const Framework(child: OxygenSaturation(simVariant: true))),
+            KColorfulButton(
+                bkgColor: oxygenSatBkgColor,
+                labelColor: oxygenSatIconColor,
+                icon: oxySatIcon,
+                header: 'Oxygen Saturation',
+                page: const Framework(child: OxygenSaturation(simVariant: true))),
             const SizedBox(height: 20),
             GestureDetector(
                 onTap: () => {Navigator.pop(context)},
-                child: const KybeleOutlineButton('Cancel')),
+                child: const KWideOutlineButton(header: 'Cancel')),
             const SizedBox(height: 20),
           ],
         ),
@@ -65,7 +67,7 @@ class RecordPages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KybelePage.draggableWithHeader(
+    return KScaffold.draggableWithHeader(
       startExpanded: true,
       hasHeaderIcon: true,
       hasHeaderClose: true,

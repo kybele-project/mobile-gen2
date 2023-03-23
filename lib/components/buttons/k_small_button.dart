@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../../style/colors.dart';
 
-class TimerSmallButton extends StatelessWidget {
+class KSmallButton extends StatelessWidget {
   final VoidCallback actionFunction;
   final IconData iconData;
 
-  const TimerSmallButton({
+  const KSmallButton({
     super.key,
     required this.actionFunction,
     required this.iconData,

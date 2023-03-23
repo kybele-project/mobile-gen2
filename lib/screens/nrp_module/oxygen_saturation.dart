@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:kybele_gen2/components/buttons/buttons.dart' show KWideSolidButton;
+import 'package:kybele_gen2/components/scaffold/scaffold.dart';
+import 'package:kybele_gen2/components/timeline.dart';
 import 'package:kybele_gen2/models/event.dart';
-import 'package:kybele_gen2/templates/page/page.dart';
+import 'package:kybele_gen2/providers/providers.dart';
+import 'package:kybele_gen2/style/style.dart';
 import 'package:provider/provider.dart';
 
-import '../components/buttons/buttons.dart';
-import '../components/timeline.dart';
-import '../providers/kybele_providers.dart';
-import '../style/colors.dart';
-import '../style/style.dart';
 
 class OxygenSaturation extends StatefulWidget {
   final bool simVariant;
@@ -79,7 +78,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
   @override
   Widget build(BuildContext context) {
     if (widget.simVariant) {
-      return KybelePage.draggableWithHeader(
+      return KScaffold.draggableWithHeader(
         startExpanded: false,
         hasHeaderIcon: true,
         headerIconBkgColor: oxygenSatBkgColor,
@@ -97,7 +96,7 @@ class _OxygenSaturationState extends State<OxygenSaturation> {
         bodyWidget: body(context),
       );
     } else {
-      return KybelePage.draggableWithHeader(
+      return KScaffold.draggableWithHeader(
         startExpanded: false,
         hasHeaderIcon: true,
         headerIconBkgColor: oxygenSatBkgColor,
@@ -551,7 +550,7 @@ class _OxygenSaturationMenuState extends State<OxygenSaturationMenu> {
               Navigator.pop(context);
               Navigator.pop(context);
             },
-            child: const KybeleSolidButton("Log oxygen saturation"),
+            child: const KWideSolidButton(label: "Log oxygen saturation"),
           ),
           const SizedBox(height: 20),
           GestureDetector(

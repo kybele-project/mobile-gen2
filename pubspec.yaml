@@ -13,27 +13,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.0
-  google_fonts: ^3.0.1
-  wave: ^0.2.2
-  url_launcher: ^6.1.6
   youtube_player_flutter: ^8.1.0
   path_provider: ^2.0.10
   sqflite: ^2.0.2+1
-  badges: ^2.0.2
   provider: ^6.0.3
-  fl_chart: ^0.55.2
-  animations: ^2.0.7
-  toggle_switch: ^2.0.1
   path: ^1.8.2
+  pdfx: ^2.3.0
   vibration: ^1.7.6
-  stop_watch_timer: ^2.0.0
-  rxdart: ^0.27.7
-  circular_countdown_timer: ^0.2.3
   flutter_ringtone_player: ^3.2.0
-  syncfusion_flutter_pdfviewer: ^20.4.38
-  printing: ^5.9.3
   intl: ^0.17.0
-  chewie: ^1.3.6
   go_router: ^6.0.2
   auto_size_text: ^3.0.0
   shared_preferences: ^2.0.18
@@ -47,36 +35,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/kybele_logo_no_bg.png
-    - assets/NRP FlowChart.png
-    - assets/kybele_purple.png
-    - assets/timer_audio/timer1.wav
-    - assets/timer_audio/timer2.wav
-    - assets/timer_audio/timer3.wav
-    - assets/timer_audio/timer4.wav
-    - assets/timer_audio/timer5.wav
-    - assets/timer_audio/timer10.wav
-    - assets/timer_audio/timer15.wav
-    - assets/timer_audio/timerPaused.wav
-    - assets/timer_audio/timerResumed.wav
-    - assets/timer_audio/timerStarted.wav
-    - assets/timer_audio/timerStopped.wav
-    - assets/NRPQuickEquipmentChecklist.pdf
-    - assets/T-Piece resuscitator for lamination.pdf
-    - assets/Warmilu_thermal gel autoclave instructions.pdf
-    - assets/A4 - NRP Checklist 27Oct2022.pdf
-    - assets/test_thumbnail.jpg
-    - assets/Tables.png
-    - assets/Fullterm_thumbnail.jpg
-    - assets/Preterm_thumbnail.jpg
-    - assets/CroppedFlow.jpg
-    - assets/apgar_blue.png
-    - assets/apgar_pulse.png
-    - assets/apgar_grimace.png
-    - assets/apgar_activity.png
-    - assets/apgar_respiration.png
-    - assets/ABCs.png
-    - assets/Target_O2.png
+    - assets/
   fonts:
     - family: NunitoSans
       fonts:

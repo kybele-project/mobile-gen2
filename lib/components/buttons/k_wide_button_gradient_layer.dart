@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-class KybeleButtonGradientLayer extends StatelessWidget {
+class KWideButtonGradientLayer extends StatelessWidget {
 
-  const KybeleButtonGradientLayer(
-      {super.key}
-  );
+  const KWideButtonGradientLayer({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,10 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
-import 'package:kybele_gen2/components/shared_prefs.dart';
+import 'package:kybele_gen2/databases/shared_prefs.dart';
 import 'package:vibration/vibration.dart';
-
-import '../databases/timer_metadata.dart';
+import 'package:kybele_gen2/metadata/metadata.dart';
 
 class TimerProvider with ChangeNotifier {
 
