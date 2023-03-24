@@ -5,8 +5,8 @@ import 'package:kybele_gen2/main.dart';
 import 'package:kybele_gen2/style/style.dart';
 
 import 'apgar.dart';
-import 'forms.dart';
-import 'manuals.dart';
+import 'nrp_forms.dart';
+import 'nrp_manuals.dart';
 import 'nrp_algorithm.dart';
 import 'record.dart';
 import 'tables.dart';
@@ -105,14 +105,14 @@ class HomePage extends StatelessWidget {
                       labelColor: manualsIconColor,
                       iconData: manualsIcon,
                       header: 'Educational Manuals',
-                      page: const Framework(child: Manuals()),
+                      page: const Framework(child: NRPManuals()),
                     ),
                     KTile(
                       bkgColor: formsBkgColor,
                       labelColor: formsIconColor,
                       iconData: formsIcon,
                       header: 'Forms',
-                      page: const Framework(child: Forms()),
+                      page: const Framework(child: NRPForms()),
                     ),
                     KTile(
                       bkgColor: videoBkgColor,

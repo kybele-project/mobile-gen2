@@ -24,7 +24,7 @@ class Videos extends StatelessWidget {
                   ctx,
                   MaterialPageRoute(
                       builder: (context) => TutorialPage(
-                            videoList[index],
+                            nrpVideoList[index],
                             index,
                           )),
                 );
@@ -32,12 +32,12 @@ class Videos extends StatelessWidget {
               child: Column(children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(4.0),
-                  child: Image.asset(videoList[index].thumbnailPath),
+                  child: Image.asset(nrpVideoList[index].thumbnailPath),
                 ),
                 SizedBox(
                     width: 225,
                     child: Text(
-                      videoList[index].title,
+                      nrpVideoList[index].title,
                       style: const TextStyle(
                           fontSize: 16, fontWeight: FontWeight.w100),
                       textAlign: TextAlign.left,
@@ -45,7 +45,7 @@ class Videos extends StatelessWidget {
                 SizedBox(
                     width: 225,
                     child: Text(
-                      "${videoList[index].videoLength} mins",
+                      "${nrpVideoList[index].videoLength} mins",
                       style: const TextStyle(
                           fontSize: 12, fontWeight: FontWeight.w100),
                       textAlign: TextAlign.left,

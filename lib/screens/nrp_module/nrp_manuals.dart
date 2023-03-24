@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/components/scaffold/scaffold.dart';
 import 'package:kybele_gen2/components/body/body.dart' show KPdfGrid;
-import 'package:kybele_gen2/metadata/metadata.dart' show formsList;
+import 'package:kybele_gen2/metadata/metadata.dart' show nrpManualsList;
 import 'package:kybele_gen2/style/style.dart';
 
-class Forms extends StatelessWidget {
-  const Forms({super.key});
+class NRPManuals extends StatelessWidget {
+  const NRPManuals({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +14,15 @@ class Forms extends StatelessWidget {
       hasHeaderIcon: true,
       hasBottomActionButton: false,
       bodyWidget: KPdfGrid(
-        documentList: formsList,
-        icon: formsIcon,
-        bkgColor: formsBkgColor,
-        iconColor: formsIconColor,
+        documentList: nrpManualsList,
+        icon: manualsIcon,
+        bkgColor: manualsBkgColor,
+        iconColor: manualsIconColor,
       ),
-      headerText: "Forms",
-      headerIcon: formsIcon,
-      headerIconBkgColor: formsBkgColor,
-      headerIconColor: formsIconColor,
+      headerText: "Educational Manuals",
+      headerIcon: manualsIcon,
+      headerIconBkgColor: manualsBkgColor,
+      headerIconColor: manualsIconColor,
     );
   }
 }
