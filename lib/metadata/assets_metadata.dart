@@ -45,12 +45,12 @@ List<Document> nrpManualsList = [
 
 List<Document> pncFormsList = [
   Document(
-    title: "Fenton M Growth Chart",
+    title: "Fenton M Growth",
     path: "assets/GC-B-fenton2013gr.pdf",
     length: 1,
   ),
   Document(
-    title: "Fenton F Growth Chart",
+    title: "Fenton F Growth",
     path: "assets/GC-G-fenton20_girls.pdf",
     length: 1,
   ),
@@ -65,8 +65,8 @@ List<Document> pncFormsList = [
     length: 2,
   ),
   Document(
-    title: "Newborn Examination Form",
-    path: "assets/NEWBORN_EXAMINATION_FORM_GHS MEBCI_plus-2.pdf",
+    title: "Newborn Exam Form",
+    path: "assets/NEWBORN_EXAMINATION_FORM_GHS_MEBCI_plus-2.pdf",
     length: 1,
   ),
   Document(
@@ -75,7 +75,7 @@ List<Document> pncFormsList = [
     length: 2,
   ),
   Document(
-    title: "Sign-In Sheet Template",
+    title: "Sign-In Sheet",
     path: "assets/TEMPLATE-Sign-In_Sheet_1JUL2022-SignInSheettoPRINT.pdf",
     length: 1,
   ),
@@ -83,12 +83,12 @@ List<Document> pncFormsList = [
 
 List<Document> pncManualsList = [
   Document(
-    title: "Jaundice Phototherapy",
+    title: "Jaundice Photo...",
     path: "assets/Phototherapy_guidelines_for_jaundice.pdf",
     length: 1,
   ),
   Document(
-    title: "Postnatal Care Overview",
+    title: "PNC Overview",
     path: "assets/PostnatalCareoverview.pdf",
     length: 7,
   ),
@@ -96,12 +96,12 @@ List<Document> pncManualsList = [
 
 List<Document> dartFormsList = [
   Document(
-    title: "Fenton M Growth Chart",
+    title: "Fenton M Growth",
     path: "assets/GC-B-fenton2013gr.pdf",
     length: 1,
   ),
   Document(
-    title: "Fenton F Growth Chart",
+    title: "Fenton F Growth",
     path: "assets/GC-G-fenton20_girls.pdf",
     length: 1,
   ),
@@ -111,8 +111,8 @@ List<Document> dartFormsList = [
     length: 2,
   ),
   Document(
-    title: "Newborn Examination Form",
-    path: "assets/NEWBORN_EXAMINATION_FORM_GHS MEBCI_plus-2.pdf",
+    title: "Newborn Exam Form",
+    path: "assets/NEWBORN_EXAMINATION_FORM_GHS_MEBCI_plus-2.pdf",
     length: 1,
   ),
   Document(
@@ -121,16 +121,15 @@ List<Document> dartFormsList = [
     length: 2,
   ),
   Document(
-    title: "Jaundice Phototherapy",
+    title: "Jaundice Photo...",
     path: "assets/Phototherapy_guidelines_for_jaundice.pdf",
     length: 1,
   ),
   Document(
-    title: "Sign-In Sheet Template",
+    title: "Sign-In Sheet",
     path: "assets/TEMPLATE-Sign-In_Sheet_1JUL2022-SignInSheettoPRINT.pdf",
     length: 1,
   ),
-
 ];
 
 List<Document> dartManualsList = [
@@ -140,7 +139,7 @@ List<Document> dartManualsList = [
     length: 1,
   ),
   Document(
-    title: "DART Team Overview",
+    title: "DART Overview",
     path: "assets/DART-team-overview-Kybele.pdf",
     length: 6,
   ),
