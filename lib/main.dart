@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kybele_gen2/databases/shared_prefs.dart';
 import 'package:kybele_gen2/providers/providers.dart';
+import 'package:kybele_gen2/screens/module_home.dart';
 import 'package:kybele_gen2/screens/nrp_module/nrp_home.dart';
 import 'package:kybele_gen2/style/colors.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ class Root extends StatelessWidget {
           useMaterial3: true,
           fontFamily: 'NunitoSans',
         ),
-        home: const Framework(child: HomePage()),
+        home: const Framework(child: ModuleHome()),
         // routerConfig: _router,
       ),
     );

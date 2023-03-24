@@ -21,42 +21,7 @@ class DartHome extends StatelessWidget {
                 SliverList(
                   delegate: SliverChildListDelegate(
                     [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                'assets/kybele_purple.png',
-                                height: 45,
-                                fit: BoxFit.fitHeight,
-                              ),
-                            ),
-                            GestureDetector(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: mainMediumPurple,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                padding:
-                                    const EdgeInsets.fromLTRB(30, 10, 30, 10),
-                                child: const Text(
-                                  "DART MODULE",
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -82,20 +47,6 @@ class DartHome extends StatelessWidget {
                     ),
                   ],
                 ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      const SizedBox(height: 20),
-                      const Text("Powered by ClinicPal, LLC",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400)),
-                      Text("Made with ❤️ in the USA",
-                          style: TextStyle(
-                              fontSize: 14, color: Colors.grey.shade600)),
-                      const SizedBox(height: 40),
-                    ],
-                  ),
-                ),
               ],
             );
           },
@@ -106,8 +57,14 @@ class DartHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return KScaffold.fixedNoHeader(
+    return KScaffold.fixedWithHeader(
+      hasHeaderIcon: true,
+      headerIcon: Icons.backpack_rounded,
+      headerIconColor: Colors.white,
+      headerIconBkgColor: mainMediumPurple,
+      hasHeaderClose: true,
       hasBottomActionButton: false,
+      headerText: "DART Module",
       bodyWidget: body(context),
     );
   }

@@ -45,52 +45,108 @@ List<Document> nrpManualsList = [
 
 List<Document> pncFormsList = [
   Document(
-    title: "NRP Checklist",
-    path: "assets/NRPQuickEquipmentChecklist.pdf",
+    title: "Fenton M Growth Chart",
+    path: "assets/GC-B-fenton2013gr.pdf",
     length: 1,
   ),
   Document(
-    title: "A4 NRP Checklist",
-    path: "assets/A4-NRP_Checklist_27Oct2022.pdf",
+    title: "Fenton F Growth Chart",
+    path: "assets/GC-G-fenton20_girls.pdf",
+    length: 1,
+  ),
+  Document(
+    title: "Newborn Guide",
+    path: "assets/NewbornAssessmentGuide6Jul2022.pdf",
     length: 2,
+  ),
+  Document(
+    title: "Newborn Discharge",
+    path: "assets/Newborn-Discharge-Instructions-26Aug2022.pdf",
+    length: 2,
+  ),
+  Document(
+    title: "Newborn Examination Form",
+    path: "assets/NEWBORN_EXAMINATION_FORM_GHS MEBCI_plus-2.pdf",
+    length: 1,
+  ),
+  Document(
+    title: "NEWS Chart",
+    path: "assets/NEWS_Chart_in_PDF-16Aug2022_A4_Version.pdf",
+    length: 2,
+  ),
+  Document(
+    title: "Sign-In Sheet Template",
+    path: "assets/TEMPLATE-Sign-In_Sheet_1JUL2022-SignInSheettoPRINT.pdf",
+    length: 1,
   ),
 ];
 
 List<Document> pncManualsList = [
   Document(
-    title: "T-Piece Resuscitator",
-    path: "assets/T-Piece_resuscitator_for_lamination.pdf",
-    length: 4,
+    title: "Jaundice Phototherapy",
+    path: "assets/Phototherapy_guidelines_for_jaundice.pdf",
+    length: 1,
   ),
   Document(
-    title: "Warmilu Thermal Gel",
-    path: "assets/Warmilu_thermal_gel_autoclave_instructions.pdf",
-    length: 1,
+    title: "Postnatal Care Overview",
+    path: "assets/PostnatalCareoverview.pdf",
+    length: 7,
   ),
 ];
 
 List<Document> dartFormsList = [
   Document(
-    title: "NRP Checklist",
-    path: "assets/NRPQuickEquipmentChecklist.pdf",
+    title: "Fenton M Growth Chart",
+    path: "assets/GC-B-fenton2013gr.pdf",
     length: 1,
   ),
   Document(
-    title: "A4 NRP Checklist",
-    path: "assets/A4-NRP_Checklist_27Oct2022.pdf",
+    title: "Fenton F Growth Chart",
+    path: "assets/GC-G-fenton20_girls.pdf",
+    length: 1,
+  ),
+  Document(
+    title: "Newborn Discharge",
+    path: "assets/Newborn-Discharge-Instructions-26Aug2022.pdf",
     length: 2,
   ),
+  Document(
+    title: "Newborn Examination Form",
+    path: "assets/NEWBORN_EXAMINATION_FORM_GHS MEBCI_plus-2.pdf",
+    length: 1,
+  ),
+  Document(
+    title: "NEWS Chart",
+    path: "assets/NEWS_Chart_in_PDF-16Aug2022_A4_Version.pdf",
+    length: 2,
+  ),
+  Document(
+    title: "Jaundice Phototherapy",
+    path: "assets/Phototherapy_guidelines_for_jaundice.pdf",
+    length: 1,
+  ),
+  Document(
+    title: "Sign-In Sheet Template",
+    path: "assets/TEMPLATE-Sign-In_Sheet_1JUL2022-SignInSheettoPRINT.pdf",
+    length: 1,
+  ),
+
 ];
 
 List<Document> dartManualsList = [
   Document(
-    title: "T-Piece Resuscitator",
-    path: "assets/T-Piece_resuscitator_for_lamination.pdf",
-    length: 4,
+    title: "Ballard Scoring",
+    path: "assets/Ballard-scoring.pdf",
+    length: 1,
   ),
   Document(
-    title: "Warmilu Thermal Gel",
-    path: "assets/Warmilu_thermal_gel_autoclave_instructions.pdf",
-    length: 1,
+    title: "DART Team Overview",
+    path: "assets/DART-team-overview-Kybele.pdf",
+    length: 6,
+  ),
+  Document(
+    title: "Newborn Guide",
+    path: "assets/NewbornAssessmentGuide6Jul2022.pdf",
+    length: 2,
   ),
 ];

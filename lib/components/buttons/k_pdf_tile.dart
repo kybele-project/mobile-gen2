@@ -55,7 +55,7 @@ class KPdfTile extends StatelessWidget {
                 return image.hasData
                     ? Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(5),
                           image: DecorationImage(
                             fit: BoxFit.fitWidth,
                             alignment: FractionalOffset.topCenter,
@@ -66,7 +66,7 @@ class KPdfTile extends StatelessWidget {
                     : Container(
                         decoration: BoxDecoration(
                           color: Colors.transparent,
-                          borderRadius: BorderRadius.circular(20),
+                          borderRadius: BorderRadius.circular(5),
                         ),
                       );
               }),

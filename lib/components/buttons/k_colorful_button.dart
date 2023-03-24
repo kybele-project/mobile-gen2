@@ -6,20 +6,23 @@ class KColorfulButton extends StatelessWidget {
   final IconData icon;
   final String header;
   final Widget page;
+  final bool inPopUp;
 
-  const KColorfulButton(
-      {required this.bkgColor,
-      required this.labelColor,
-      required this.icon,
-      required this.header,
-      required this.page,
-      super.key});
+  const KColorfulButton({
+    required this.bkgColor,
+    required this.labelColor,
+    required this.icon,
+    required this.header,
+    required this.page,
+    this.inPopUp = true,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pop(context);
+        if (inPopUp) {Navigator.pop(context);}
         Navigator.of(context).push(
           CupertinoPageRoute(
             builder: (context) => page,
