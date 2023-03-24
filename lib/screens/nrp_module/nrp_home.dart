@@ -88,6 +88,13 @@ class NRPHome extends StatelessWidget {
                     ),
                   ],
                 ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      const SizedBox(height: 20),
+                    ],
+                  ),
+                ),
               ],
             );
           },
